@@ -16,7 +16,6 @@
     <title>Pijava</title>
 
 
-
     <!-- Bootstrap core CSS --> <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- Bootstrap theme --> <!-- 부가적인 테마 -->
