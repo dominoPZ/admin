@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>JQueryProject</display-name>
+  
+  
+  <!--    이어진 구간  -->
+    <!-- 컨텍스트 초기화 파라미터 등록 -->
+  <context-param>
+  	<param-name>TOMCAT_JNDI_ROOT</param-name>
+  	<param-value>java:comp/env</param-value>
+  </context-param>
+  
+    <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>logins</servlet-name>
+  	<servlet-class>controller.Login</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>logins</servlet-name>
+  	<url-pattern>/login.pz</url-pattern>
+  </servlet-mapping>  
+  
+    <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>index</servlet-name>
+  	<servlet-class>controller.Index</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>index</servlet-name>
+  	<url-pattern>/Index.do</url-pattern>
+  </servlet-mapping>  
+  
+      <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>mgrp</servlet-name>
+  	<servlet-class>controller.MgrPage</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>mgrp</servlet-name>
+  	<url-pattern>/MgrPage.pz</url-pattern>
+  </servlet-mapping>  
+  
+  
+      <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>StoreInsert</servlet-name>
+  	<servlet-class>controller.StoreInsertController</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>StoreInsert</servlet-name>
+  	<url-pattern>/StoreInsertController.do</url-pattern>
+  </servlet-mapping>  
+  
+      <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>StoreDelete</servlet-name>
+  	<servlet-class>controller.StoreDelete</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>StoreDelete</servlet-name>
+  	<url-pattern>/StoreDelete.pz</url-pattern>
+  </servlet-mapping>  
+  
+  
+  
+  
+     <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>Store</servlet-name>
+  	<servlet-class>controller.Store</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>Store</servlet-name>
+  	<url-pattern>/StoreInsert.do</url-pattern>
+  </servlet-mapping> 
+  
+  
+  <!--    이어진 구간  -->
+  
+      <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>StoreIn</servlet-name>
+  	<servlet-class>controller.StoreIn</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>StoreIn</servlet-name>
+  	<url-pattern>/StoreInsertIn.do</url-pattern>
+  </servlet-mapping> 
+  
+  
+        <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>MgrUpdate</servlet-name>
+  	<servlet-class>controller.MgrUpdate</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>MgrUpdate</servlet-name>
+  	<url-pattern>/MgrPageUp.pz</url-pattern>
+  </servlet-mapping> 
+  
+  
+        <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>SalList</servlet-name>
+  	<servlet-class>controller.SalList</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>SalList</servlet-name>
+  	<url-pattern>/SalList.pz</url-pattern>
+  </servlet-mapping> 
+  
+          <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>StoreUpdate</servlet-name>
+  	<servlet-class>controller.StoreUpdate</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>StoreUpdate</servlet-name>
+  	<url-pattern>/StoreUpdate.pz</url-pattern>
+  </servlet-mapping>
+  
+  
+
+            <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>MgrPageView</servlet-name>
+  	<servlet-class>controller.MgrPageView</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>MgrPageView</servlet-name>
+  	<url-pattern>  /MgrPageView.pz</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+   <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>StoreSer</servlet-name>
+  	<servlet-class>controller.StoreSer</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>StoreSer</servlet-name>
+  	<url-pattern>/StoreSer.pz</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+   <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>StoreEDT</servlet-name>
+  	<servlet-class>controller.StoreEDT</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>StoreEDT</servlet-name>
+  	<url-pattern>/StoreEDT.pz</url-pattern>
+  </servlet-mapping>  
+  
+  
+   <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>StoreEdit</servlet-name>
+  	<servlet-class>controller.StoreEdit</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>StoreEdit</servlet-name>
+  	<url-pattern>/StoreEdit.pz</url-pattern>
+  </servlet-mapping> 
+  
+  
+     <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>Rating</servlet-name>
+  	<servlet-class>controller.Rating</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>Rating</servlet-name>
+  	<url-pattern>/Rating.pz</url-pattern>
+  </servlet-mapping> 
+  
+  
+       <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>RatingUpdate</servlet-name>
+  	<servlet-class>controller.RatingUpdate</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>RatingUpdate</servlet-name>
+  	<url-pattern>/RatingUpdate.pz</url-pattern>
+  </servlet-mapping> 
+  
+         <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>RatingInsert</servlet-name>
+  	<servlet-class>controller.RatingInsert</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>RatingInsert</servlet-name>
+  	<url-pattern>/RatingInsert.pz</url-pattern>
+  </servlet-mapping> 
+  
+          <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>RatingDelete</servlet-name>
+  	<servlet-class>controller.RatingDelete</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>RatingDelete</servlet-name>
+  	<url-pattern>/RatingDelete.pz</url-pattern>
+  </servlet-mapping>  
+  
+  <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>Saile</servlet-name>
+  	<servlet-class>controller.Saile</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>Saile</servlet-name>
+  	<url-pattern>/Saile.pz</url-pattern>
+  </servlet-mapping>
+  
+    <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>SaileED</servlet-name>
+  	<servlet-class>controller.SaileED</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>SaileED</servlet-name>
+  	<url-pattern>/SaileED.pz</url-pattern>
+  </servlet-mapping>
+  
+  
+      <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>SaileInsert</servlet-name>
+  	<servlet-class>controller.SaileInsert</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>SaileInsert</servlet-name>
+  	<url-pattern>/SaileInsert.pz</url-pattern>
+  </servlet-mapping>
+  
+ 
+  
+  <!--  어진이꺼 끝-->
+  
+  <!--  미나  -->
+  
+  
+   <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>memberEdit</servlet-name>
+  	<servlet-class>controller.cmn.MemberEditController</servlet-class>
+  </servlet>
+  
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>memberEdit</servlet-name>
+  	<url-pattern>/MemberEdit.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+     <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>member</servlet-name>
+  	<servlet-class>controller.cmn.MemberController</servlet-class>
+  </servlet>
+  
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>member</servlet-name>
+  	<url-pattern>/Member.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+   <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>saleslist</servlet-name>
+  	<servlet-class>controller.cmn.SalesListController</servlet-class>
+  </servlet>
+  
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>saleslist</servlet-name>
+  	<url-pattern>/SalesList.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <!--  미나 끝 -->
+  
+  
+  
+  <!-- 연주누나 -->
+  
+  
+	<!-- 공지-도미노뉴스추가 서블릿 등록 -->
+	<servlet>
+		<servlet-name>adddominonews</servlet-name>
+		<servlet-class>controller.lyj.AddDominoNews</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>adddominonews</servlet-name>
+		<url-pattern>/AddDominoNews.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 이벤트 추가하기 서블릿 등록 -->
+	<servlet>
+		<servlet-name>addevent</servlet-name>
+		<servlet-class>controller.lyj.AddEvent</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>addevent</servlet-name>
+		<url-pattern>/AddEvent.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 이벤트 삭제하기 서블릿 등록 -->
+	<servlet>
+		<servlet-name>deleteevent</servlet-name>
+		<servlet-class>controller.lyj.DeleteEvent</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>deleteevent</servlet-name>
+		<url-pattern>/DeleteEvent.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 공지사항 삭제하기 서블릿 등록 -->
+	<servlet>
+		<servlet-name>deletenotice</servlet-name>
+		<servlet-class>controller.lyj.DeleteNotice</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>deletenotice</servlet-name>
+		<url-pattern>/DeleteNotice.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 공지-PRESS 추가 서블릿 등록 -->
+	<servlet>
+		<servlet-name>addpress</servlet-name>
+		<servlet-class>controller.lyj.AddPress</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>addpress</servlet-name>
+		<url-pattern>/AddPress.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 이벤트 목록보기 서블릿 등록 -->
+	<servlet>
+		<servlet-name>eventlist</servlet-name>
+		<servlet-class>controller.lyj.Eventlist</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>eventlist</servlet-name>
+		<url-pattern>/Eventlist.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 이벤트 상세보기 추가 -->
+	<servlet>
+		<servlet-name>eventview</servlet-name>
+		<servlet-class>controller.lyj.EventView</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>eventview</servlet-name>
+		<url-pattern>/EventView.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 이벤트 수정하기 서블릿 등록 -->
+	<servlet>
+		<servlet-name>editevent</servlet-name>
+		<servlet-class>controller.lyj.EditEvent</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>editevent</servlet-name>
+		<url-pattern>/EditEvent.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 공지사항 수정하기 서블릿 등록 -->
+	<servlet>
+		<servlet-name>editnotice</servlet-name>
+		<servlet-class>controller.lyj.EditNotice</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>editnotice</servlet-name>
+		<url-pattern>/EditNotice.do</url-pattern>
+	</servlet-mapping>
+
+
+
+	<!-- 공지사항 목록보기 서블릿 등록 -->
+	<servlet>
+		<servlet-name>noticelist</servlet-name>
+		<servlet-class>controller.lyj.Noticelist</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>noticelist</servlet-name>
+		<url-pattern>/Noticelist.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 공지추가 서블릿 등록 -->
+	<servlet>
+		<servlet-name>noticeview</servlet-name>
+		<servlet-class>controller.lyj.NoticeView</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>noticeview</servlet-name>
+		<url-pattern>/NoticeView.do</url-pattern>
+	</servlet-mapping>
+
+  
+  
+  
+  
+  <!--  연주누나 끝 -->
+  
+  
+  <!--  동준이꺼 -->
+  
+   <!-- 서블릿 등록 -->
+   
+<!--   <servlet>
+  	<servlet-name>member2</servlet-name>
+  	<servlet-class>controller.Member</servlet-class>
+  </servlet>
+  요청 URL매핑
+  <servlet-mapping>
+  	<servlet-name>member2</servlet-name>
+  	<url-pattern>/Member.do</url-pattern>
+  </servlet-mapping>  
+   -->
+  
+  <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>ToppingMenu</servlet-name>
+  	<servlet-class>controller.kdj.Topping</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>ToppingMenu</servlet-name>
+  	<url-pattern>/ToppingMenu.do</url-pattern>
+  </servlet-mapping>  
+  
+  
+  <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>DrinkMenu</servlet-name>
+  	<servlet-class>controller.kdj.Drink</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>DrinkMenu</servlet-name>
+  	<url-pattern>/DrinkMenu.do</url-pattern>
+  </servlet-mapping>
+   
+  <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>SideMenu</servlet-name>
+  	<servlet-class>controller.kdj.SideMenu</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>SideMenu</servlet-name>
+  	<url-pattern>/SideMenu.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 메뉴 추가 -->
+  <servlet>
+   <servlet-name>CommentWrite</servlet-name>
+   <servlet-class>controller.kdj.WriteController</servlet-class>
+   </servlet>
+   <servlet-mapping>
+   <servlet-name>CommentWrite</servlet-name>
+   <url-pattern>/Write.do</url-pattern>
+   </servlet-mapping>
+   
+  <!-- 음료 추가 -->
+  <servlet>
+  <servlet-name>DrinkInsert</servlet-name>
+  <servlet-class>controller.kdj.DrinkInsert</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>DrinkInsert</servlet-name>
+  <url-pattern>/InsertDrink.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 사이드 메뉴 추가 -->
+  <servlet>
+  <servlet-name>SideMenuInsert</servlet-name>
+  <servlet-class>controller.kdj.SideMenuInsert</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>SideMenuInsert</servlet-name>
+  <url-pattern>/InsertSideMenu.do</url-pattern>
+  </servlet-mapping>
+  <!-- 토핑 추가 -->
+  <servlet>
+   <servlet-name>ToppingWrite</servlet-name>
+   <servlet-class>controller.kdj.ToppingController</servlet-class>
+   </servlet>
+   <servlet-mapping>
+   <servlet-name>ToppingWrite</servlet-name>
+   <url-pattern>/InsertTopping.do</url-pattern>
+   </servlet-mapping>
+   
+     <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>PizzaMenu</servlet-name>
+  	<servlet-class>controller.kdj.Menu</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>PizzaMenu</servlet-name>
+  	<url-pattern>/PizzaMenu.do</url-pattern>
+  </servlet-mapping>  
+  
+  
+  
+  <!-- 동준이꺼 -->
+  
+  
+  
+  <welcome-file-list>
+      <welcome-file>/WEB-INF/Admin/Login.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
