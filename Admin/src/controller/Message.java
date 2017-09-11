@@ -14,6 +14,8 @@ public class Message extends HttpServlet {
 		req.setAttribute("page", "menu");
 		req.getRequestDispatcher("/WEB-INF/Admin/Menu.jsp").forward(req, resp);
 		
+		
+		
 	}///// doget
 	
 
