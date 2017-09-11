@@ -1,4 +1,4 @@
-
+<!-- 테스트용 주석 추가 _  -->
 
 <!-- werrwe -->
     
@@ -16,9 +16,9 @@
     <title>Pijava</title>
 
 
-    <!-- Bootstrap core CSS --> <!-- 합쳐지고 최소화된 최신 CSS -->
+    <!-- Bootstrap core CSS --> <!-- í©ì³ì§ê³  ìµìíë ìµì  CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <!-- Bootstrap theme --> <!-- 부가적인 테마 -->
+    <!-- Bootstrap theme --> <!-- ë¶ê°ì ì¸ íë§ -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 
@@ -26,7 +26,7 @@
 
   <body role="document">
 
-    <!-- Fixed navbar --> <!--  고정 상단메뉴 시작 -->
+    <!-- Fixed navbar --> <!--  ê³ ì  ìë¨ë©ë´ ìì -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -35,13 +35,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">도미노피자</a>
+          <a class="navbar-brand" href="#">ëë¯¸ë¸í¼ì</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">홈</a></li>
-            <li><a href="#about">메뉴1</a></li>
-            <li><a href="#contact">메뉴2</a></li>
+            <li class="active"><a href="/">í</a></li>
+            <li><a href="#about">ë©ë´1</a></li>
+            <li><a href="#contact">ë©ë´2</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -57,7 +57,7 @@
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-    </nav> <!-- 고정바 끝 -->
+    </nav> <!-- ê³ ì ë° ë -->
     
 
     <div class="container theme-showcase" role="main">
@@ -620,7 +620,7 @@
       </div>
 
 
-    </div> <!-- 내용 끝 -->
+    </div> <!-- ë´ì© ë -->
 
 
     <!-- Bootstrap core JavaScript
