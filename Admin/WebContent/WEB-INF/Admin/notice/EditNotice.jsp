@@ -62,17 +62,19 @@
 					</tr>
 					<tr bgcolor="white">
 						<td align="center">내용 이미지</td>
-						<td><input type="file" name="timg" size="30" value="${editnotice.n_img }"/>수정 전 파일 : ${editnotice.n_img }</td>
+						<td><input type="file" name="n_img" size="30" value="${editnotice.n_img }"/>수정 전 파일 : ${editnotice.n_img }</td>
 					</tr>
 					<tr bgcolor="white">
 						<td align="center">내용</td>
 						<td><textarea cols="70" rows="15" name="content" style="width: 98%" >${editnotice.n_content }</textarea></td>
 					</tr>
-
+								
 				</table>
+					<input type="hidden" value="${editnotice.n_img }" name="orgnimg" />
 				<!-- <button type="button" onclick="location='AddEvent.do'">등록</button>  -->
 
 				<input type="submit" value="등록" />
+				
 			</form>
 			</div>
 		</div>

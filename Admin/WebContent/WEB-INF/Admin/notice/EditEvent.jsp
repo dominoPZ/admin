@@ -82,7 +82,8 @@
 
 				</table>
 				<!-- <button type="button" onclick="location='AddEvent.do'">등록</button>  -->
-
+				<input type="hidden" value="${editevent.e_cimg }" name="orgtimg" />
+				<input type="hidden" value="${editevent.e_timg }" name="orgcimg" />
 				<input type="submit" value="등록" />
 			</form>
 			</div>

@@ -70,12 +70,15 @@ public class EditEvent extends HttpServlet{
 				dto.setE_timg(e_timg);
 				dto.setE_cimg(e_cimg);
 				sucorfail = dao.updateEvent(dto);
-				
-				if(sucorfail == 1 && mr.getFilesystemName("e_timg") != null ) {
-					FileUtils.deleteFile(req, "E:\\LYJ\\JAVA\\WorkSpace\\Admin\\WebContent\\EventImage", "timg");
+				System.out.println(mr.getParameter("orgtimg"));
+				if(sucorfail == 1 && e_timg != null ) {
+					System.out.println("11");
+					FileUtils.deleteFile(req, "/EventImage",mr.getParameter("orgtimg"));
+					System.out.println("22");
 				}
-				if(sucorfail == 1 && mr.getFilesystemName("e_cimg") != null) {
-					FileUtils.deleteFile(req, "E:\\LYJ\\JAVA\\WorkSpace\\Admin\\WebContent\\EventImage", "cimg");
+				
+				if(sucorfail == 1 && e_cimg != null) {
+					FileUtils.deleteFile(req, "/EventImage",mr.getParameter("orgcimg"));
 				}
 				//sucorfail == 1 && 
 				dao.close();

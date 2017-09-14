@@ -156,6 +156,7 @@ function check() {
           </div>
         </div>
         <input type="hidden" name="org" value="${map.r_img }" />
+        
         </form>
           <hr>
         </div>

@@ -298,7 +298,7 @@ public class StoreDAO {
 					else
 						col=" P_SPRICE+D_PRICE ";
 					where = " p.p_no ";
-					from=" PIZZA P join PIZZA_DOUGH D on P.P_NO = D.P_NO ";
+					from="  PIZZA P join PIZZA_DOUGH D on P.P_NO = D.P_NO JOIN DOUGH DO ON DO.DOUGH_NO = D.DOUGH_NO  ";
 				}/// 피자
 				else{
 					col = rs2.getString(4).equals("2") ? " S_PRICE " : rs2.getString(4).equals("3") ? " D_PRICE " : rs2.getString(4).equals("4") ? " PC_PRICE " : " SC_PRICE " ;
@@ -502,6 +502,7 @@ public class StoreDAO {
 		map.put("rno", rs.getString(1));
 		map.put("rname", rs.getString(2));
 		map.put("rtar", rs.getString(3));
+		map.put("r_img", rs.getString(4));
 		
 		}
 		
