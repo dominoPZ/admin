@@ -62,22 +62,13 @@ public class CommentDao {
 				affected = psmt.executeUpdate();
 				
 				for(String dough : dto.getDough_name()) {
-					int num=0;
-					
-					if(dough.equals("4"))
-						num=2000;
-					p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,seq_pizza_p_no.currval,?,'"+num+"')";
+					p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,seq_pizza_p_no.currval,?)";
 					
 					p_dough_psmt = conn.prepareStatement(p_d_sql);
 					p_dough_psmt.setString(1,dough);
 					p_dough_psmt.executeUpdate();
 				}
 				
-				
-				
-				
-				
-					
 				
 				
 				
