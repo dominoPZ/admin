@@ -554,15 +554,15 @@ public class StoreDAO {
 		
 		return list;
 	}
-
-	public int ratingupdate(String rno, String rname, String rtar) {
+	public int ratingupdate(String rno, String rname, String rtar, String r_img) {
 		int i=0;
-		String sql = "update rating set r_name=?,r_target=? where r_no=?";
+		String sql = "update rating set r_name=?,r_target=?,r_img=? where r_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, rname);
 			psmt.setString(2, rtar);
-			psmt.setString(3, rno);
+			psmt.setString(3, r_img);
+			psmt.setString(4, rno);
 			i = psmt.executeUpdate();
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -600,16 +600,17 @@ public class StoreDAO {
 		return l;
 	}
 
-	public String ratingInsert(String rno, String rname, String rtar) {
+	public String ratingInsert(String rno, String rname, String rtar, String img) {
 		
 		int i =0;
 		System.out.println(rname);
 		System.out.println(rtar);
-		String sql = "INSERT INTO RATING VALUES(SEQ_RATING_R_NO.NEXTVAL,?,?)";
+		String sql = "INSERT INTO RATING VALUES(SEQ_RATING_R_NO.NEXTVAL,?,?,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, rname);
 			psmt.setString(2, rtar);
+			psmt.setString(3, img);
 			i = psmt.executeUpdate();
 			if(i==1) {
 			sql = "select SEQ_RATING_R_NO.CURRVAL FROM DUAL";

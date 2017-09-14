@@ -41,9 +41,6 @@ public class WriteController extends HttpServlet {
 			MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Upload"));
 			int sucorfail;
 			
-			for(String st : mr.getParameterValues("dough_name")){
-				
-			}
 			String p_no = mr != null ? req.getParameter("p_no") : "";
 			String p_name = mr != null ? req.getParameter("p_name") : "";
 			String p_kind = mr != null ? req.getParameter("p_kind") : "";

@@ -43,10 +43,9 @@ public class CommentDao {
 		public int insert(CommentDto dto) {
 			int affected=0;
 			String sql="INSERT INTO PIZZA VALUES(seq_pizza_p_no.nextval,?,?,?,?,?,?,?,?,?,?)";
-			String p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_d_no.nextval,seq_p_no.currval,seq_dough_no.currval,'2000')";
+			String p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,seq_pizza_p_no.currval,3,'2000')";
 			String p_dough_sql = "";	
 			try {
-				
 				psmt = conn.prepareStatement(sql);
 				
 				
@@ -67,7 +66,7 @@ public class CommentDao {
 					
 					if(dough.equals("4"))
 						num=2000;
-					p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_d_no.nextval,seq_pizza_p_no.currval,?,'"+num+"')";
+					p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,seq_pizza_p_no.currval,?,'"+num+"')";
 					
 					p_dough_psmt = conn.prepareStatement(p_d_sql);
 					p_dough_psmt.setString(1,dough);

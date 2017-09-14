@@ -85,7 +85,7 @@
                 <th style="width: 60%; min-width:90px " >등급 혜택</th>
                 <th style="width: 10%;min-width:90px ">등급 기준치</th>
                 <th>
-                 <form method="post" id="frs" name="frs" action="<c:url value='/RatingInsert.pz' />?rno=${map.rno}" >
+                 <form method="get" id="frs" name="frs" action="<c:url value='/RatingInsert.pz' />?rno=${map.rno}" >
                <button class="btn btn-xs btn-success" type="button" onclick="submit()"   >추가</button>
                </form>
                 </th>

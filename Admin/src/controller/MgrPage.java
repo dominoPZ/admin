@@ -80,6 +80,11 @@ public class MgrPage extends HttpServlet {
 			ls.add(map);
 			
 		}
+		List<String> test =  new Vector<String>();
+		test.add("111");
+		test.add("222");
+		test.add("333");
+		System.out.println(JSONArray.toJSONString(test));
 		System.out.println(JSONArray.toJSONString(ls));
 		pw.write(JSONArray.toJSONString(ls));
 		pw.flush();
