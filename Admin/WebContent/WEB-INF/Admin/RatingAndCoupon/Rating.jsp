@@ -80,10 +80,11 @@
             <thead>
               <tr>
               
+                <th style="width: 14%; min-width:90px ">등급사진</th>
                 <th style="width: 9%; min-width:90px ">등급번호</th>
                 <th style="width: 12%; min-width:90px " >등급명</th>
-                <th style="width: 60%; min-width:90px " >등급 혜택</th>
-                <th style="width: 10%;min-width:90px ">등급 기준치</th>
+                <th style="width: 55%; min-width:90px " >등급 혜택</th>
+                <th style="width: 9%;min-width:90px ">등급 기준치</th>
                 <th>
                  <form method="get" id="frs" name="frs" action="<c:url value='/RatingInsert.pz' />?rno=${map.rno}" >
                <button class="btn btn-xs btn-success" type="button" onclick="submit()"   >추가</button>
@@ -94,6 +95,7 @@
             <tbody>
             <c:forEach items="${list }" var="map"  >
               <tr>
+              	<td><img style="width: 50%" alt="${map.rname }" src="<c:url value='/Image/rating' />/${map.rimg }"></td>
                 <td>${map.rno }</td>
                 <td>${map.rname }</td>
                 <td>

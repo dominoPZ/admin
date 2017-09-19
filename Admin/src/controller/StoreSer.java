@@ -40,7 +40,8 @@ public class StoreSer extends HttpServlet {
 		String ser = req.getParameter("ser");
 		String sertxt = req.getParameter("st_name");
 		req.setAttribute("page", "store");
-		
+		System.out.println("!!!"+ser);
+		System.out.println("@@@"+sertxt);
 		
 		StoreDAO dao= new StoreDAO(req.getServletContext());
 		List<StoreDTO> dtos = dao.storeser(ser,sertxt);

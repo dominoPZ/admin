@@ -92,7 +92,7 @@ function check() {
     	    
     	    
         </div>
-        <form class="form-horizontal" method="post"  name="fr" id="fr"  action="<c:url value='/RatingUpdate.pz' />"  enctype="multipart/form-data" >
+        <form class="form-horizontal" method="post"  name="fr" id="fr"  action="<c:url value='/RatingUpdate.pz' />" enctype="multipart/form-data" >
         		<input type="hidden" name="rno" value="${rno }" >
                 <div class="form-group">
             <label class="col-sm-3 control-label"  for="inputName">등급명</label>
