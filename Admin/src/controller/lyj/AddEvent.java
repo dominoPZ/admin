@@ -1,5 +1,8 @@
 package controller.lyj;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import javax.servlet.ServletException;
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import controller.Files;
+
 public class AddEvent extends HttpServlet {
 
 	@Override
@@ -19,6 +24,7 @@ public class AddEvent extends HttpServlet {
 		
 	}///// doget
 
+	
 	// 파일 업로드 로직
 	public static MultipartRequest upload(HttpServletRequest req, String saveDirectory) {
 		MultipartRequest mr = null;
@@ -38,7 +44,7 @@ public class AddEvent extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		req.setCharacterEncoding("UTF-8");
 		req.setAttribute("page", "event");
-		MultipartRequest mr = upload(req, req.getServletContext().getRealPath("/EventImage"));
+		MultipartRequest mr = upload(req, req.getServletContext().getRealPath("/Image/EventImage"));
 		int sucorfail;
 		
 		String e_title = null;
@@ -64,6 +70,39 @@ public class AddEvent extends HttpServlet {
 			dto.setE_timg(e_timg);
 			dto.setE_cimg(e_cimg);
 			sucorfail = dao.insertEvent(dto);
+			
+			String src = req.getSession().getAttribute("SRC").toString()+"\\EventImage";
+			
+			File tfile = new File(req.getServletContext().getRealPath("/Image/EventImage")+File.separator+e_timg);
+			File cfile = new File(req.getServletContext().getRealPath("/Image/EventImage")+File.separator+e_cimg);
+
+			
+			FileInputStream fis = new FileInputStream(req.getServletContext().getRealPath("/Image/EventImage")+File.separator+e_timg);      
+			FileOutputStream fos = new FileOutputStream(src+File.separator+e_timg);
+			int data = 0;
+			byte[] buf = new byte[1024];
+			Files.fileIsLive(src+File.separator+e_timg);
+			while((data=fis.read(buf))!=-1) {
+				fos.write(buf,0,data);
+			    fos.flush();
+			 }
+			 fis.close();
+			 fos.close();
+
+			fis = new FileInputStream(cfile);      
+			fos = new FileOutputStream(src+File.separator+e_cimg);
+			data = 0;
+			buf = new byte[1024];
+			Files.fileIsLive(src+File.separator+e_cimg);
+			while((data=fis.read(buf))!=-1) {
+					fos.write(buf,0,data);
+				    fos.flush();
+				 }
+				 fis.close();
+				 fos.close();
+			
+		
+			
 		}
 		else {
 			sucorfail = -1;

@@ -90,7 +90,7 @@ function check() {
         <div class="page-header">
     	    <h1> 등급 추가 ${mes } <small>Rating </small></h1>
         </div>
-        <form class="form-horizontal" method="get"  name="fr" id="fr"  action="<c:url value='/RatingInsert.pz' />" >
+        <form class="form-horizontal" method="post"  name="fr" id="fr"  action="<c:url value='/RatingInsert.pz' />" enctype="multipart/form-data" >
         		<input type="hidden" name="rno" value="${rno }" >
                 <div class="form-group">
             <label class="col-sm-3 control-label"  for="inputName">등급명</label>
@@ -106,6 +106,14 @@ function check() {
             <input class="form-control" name="r_target" value="${map.rtar }" id="r_target" type="text" placeholder="기준 구매량">
           </div>
         </div>
+        
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="inputName">이미지</label>
+          <div class="col-sm-6">
+            <input class="form-control" name="r_img" value="${map.r_img }" id="r_img" type="file" placeholder="이미지">
+          </div>
+        </div>        
         
          <div class="form-group">
             <label class="col-sm-3 control-label" for="inputName">혜택 쿠폰</label>

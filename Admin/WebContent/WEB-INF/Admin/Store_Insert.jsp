@@ -34,7 +34,89 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
+    
+<script>
+
+
+//구글 맵 API키값:AIzaSyDmAha71igXMISM4aYIpTHXnsUfEM6MfTc
+//주소로 위치 찾기용
+var geocoder;
+
+//지도 표시용
+var map;
+var latitude;
+var longitude;
+window.onload = function () {
+if (navigator.geolocation) {
+  //현재위치의 위도/경도 얻기]
+  navigator.geolocation.getCurrentPosition(showLocation);
+  //주소로 위치 찾기위한 지오코드 얻기]
+  geocoder = new google.maps.Geocoder();
+}
+
+};////////////////////onload
+
+var showLocation = function (position) {
+//위도 얻기]
+var latitude = position.coords.latitude;
+//경도 얻기]
+var longitude = position.coords.longitude;
+
+map = new google.maps.Map(document.getElementById('map'), {
+  center: { lat: latitude, lng: longitude },
+  scrollwheel: false,
+  zoom: 16
+});
+
+//Create a marker and set its position.
+var marker = new google.maps.Marker({
+ /* map: map,*/
+  position: { lat: latitude, lng: longitude },
+  title: '한국소프트웨어 인재개발원'
+});
+//위의 map: map,를 주석처리시 아래 메소드로 마커 표시
+marker.setMap(map);
+
+
+}/////////////////////showLocation
+
+var address;
+
+function test() {
+	address = document.getElementById('addr1').value;
+    address = address.split("(")[0];
+	geocoder = new google.maps.Geocoder();
+	geocoder.geocode({ 'address': address }, function (results, status) {
+  if (status == 'OK') {
+	  map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+  } else {
+      alert(' 주소 호출시 오류가 발생하였습니다. 관리자에게 문의해주세요!!ㅠㅠ ' + status);
+  }
+  	var ret = results[0].geometry.location;
+	var pos = document.getElementById("xpos");
+  	pos.value = ret;
+	fr.submit();
+  
+  
+});
+
+}
+
+
+</script>
+
+    
+    
+    
+    
     <script>
+    
+    
+    
 function openDaumPostcode() {
     var width = 500; //팝업창이 실행될때 위치지정
     var height = 600; //팝업창이 실행될때 위치지정
@@ -89,6 +171,7 @@ function openDaumPostcode() {
 <script>
 
 function check() {
+	
   if(fr.st_name.value == "" || fr.st_id.value == "" || fr.addr2.value=="" || fr.st_pass.value == "" || fr.st_parkin.value == "" ) {
     alert("입력하지 않은 칸이 있습니다.");
     fr.inputName.focus();
@@ -109,7 +192,8 @@ function check() {
 	    return false;
 	  }
   else {
-	  fr.submit();
+	  test();
+	  
 	  
   }
 }
@@ -152,7 +236,7 @@ function check() {
         <div class="page-header">
     	    <h1> 매장 추가하기 ${mes } <small>Store </small></h1>
         </div>
-        <form class="form-horizontal" method="get"  name="fr" id="fr"  action="<c:url value='/StoreInsertController.do' />" >
+        <form class="form-horizontal" method="post"  enctype="multipart/form-data"  name="fr" id="fr"  action="<c:url value='/StoreInsertController.do' />" >
         
                 <div class="form-group">
             <label class="col-sm-3 control-label"  for="inputName">매장명</label>
@@ -194,7 +278,8 @@ function check() {
 		<input onclick="openDaumPostcode()" type="button" class="btn btn-sm btn-info"  value="우편번호찾기"><br>
         </div>
         </div>
-        
+        <input type="hidden" id="xpos" name="xpos" value="" >
+        <input type="hidden" id="ypos" name="ypos" value="" >
         <!--  주소 -->
          <div class="form-group">
          <label class="col-sm-3 control-label" for="inputEmail">매장 주소</label>
@@ -351,6 +436,7 @@ function openDaumPostcode() {
                 fullRoadAddr += extraRoadAddr;
             }
              
+            
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("post1").value = data.postcode1;
             document.getElementById("post2").value = data.postcode2;
@@ -373,7 +459,12 @@ function openDaumPostcode() {
   	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="<c:url value='/BootStrap/js/bootstrap.min.js' />" ></script>
 
-
+		<div style="visibility: hidden;" >
+		
+        <div id="map" style="width:0px;height:0px"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmAha71igXMISM4aYIpTHXnsUfEM6MfTc"
+                async defer></script>
+		</div>
 
   </body>
   

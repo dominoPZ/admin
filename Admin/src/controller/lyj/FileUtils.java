@@ -34,11 +34,12 @@ public class FileUtils {
 	// 파일 삭제 로직
 	public static void deleteFile(HttpServletRequest req, String directory, String original){
 		req.setAttribute("page", "event");
-		directory = "E:\\LYJ\\JAVA\\WorkSpace\\Admin\\WebContent\\EventImage";
 		// 서버의 물리적 경로 얻기
-		String saveDirectory = "E:\\LYJ\\JAVA\\WorkSpace\\Admin\\WebContent\\EventImage";
+		String saveDirectory = req.getServletContext().getRealPath(directory);
 		// 파일 객체 생성
 		File file = new File(saveDirectory+File.separator+original);
+		System.out.println("!"+saveDirectory+File.separator+original);
+		
 		// 파일 존재여부 판단 후 삭제
 		if(file.exists()) file.delete();
 	

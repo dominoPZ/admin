@@ -12,7 +12,6 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>bootstrap template</title>
 
-	
     <!-- Bootstrap -->
     <link href="<c:url value='/BootStrap/css/bootstrap_edt.css' />" rel="stylesheet">
     <!-- font awesome -->

@@ -14,7 +14,6 @@ public class StoreUpdate extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		
 		req.setAttribute("page", "store");
 		StoreDTO dto = new StoreDTO();
@@ -26,13 +25,14 @@ public class StoreUpdate extends HttpServlet {
 			req.setAttribute("dto", dto);
 		}
 		else{
+			System.out.println("뭔데");
 			dto.setSt_tel(req.getParameter("st_tel"));
 			dto.setSt_parkin(req.getParameter("st_parkin"));
 			dto.setSt_time(req.getParameter("st_time"));
 			int i = dao.update(dto,req.getSession().getAttribute("Sno").toString());
 			req.setAttribute("SUC_FAIL", i);
-		req.setAttribute("WHERE", "UPD");
-		url = "/WEB-INF/Admin/Message.jsp";
+			req.setAttribute("WHERE", "UPD");
+			url = "/WEB-INF/Admin/Message.jsp";
 		}
 		req.getRequestDispatcher(url).forward(req, resp);
 		

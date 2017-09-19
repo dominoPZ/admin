@@ -1,8 +1,11 @@
 package controller.kdj;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Map;
 
@@ -36,14 +39,12 @@ public class WriteController extends HttpServlet {
 			req.setAttribute("page", "menu");
 			//한글 처리
 			req.setCharacterEncoding("UTF-8");
+			String src = req.getSession().getAttribute("SRC").toString()+"\\pizzalist";
 			
 			//파일 업로드 관련 모델 호출
-			MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Upload"));
+			MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image/pizzalist"));
 			int sucorfail;
 			
-			for(String st : mr.getParameterValues("dough_name")){
-				
-			}
 			String p_no = mr != null ? req.getParameter("p_no") : "";
 			String p_name = mr != null ? req.getParameter("p_name") : "";
 			String p_kind = mr != null ? req.getParameter("p_kind") : "";
@@ -72,17 +73,65 @@ public class WriteController extends HttpServlet {
 				 p_detail = mr.getParameter("p_detail");
 				 dough_name = mr.getParameterValues("dough_name");
 				 
-				 File file = new File(req.getServletContext().getRealPath("/Upload")+File.separator+p_img);
+				 File file = new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_img);
 				 String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
-				 file.renameTo( new File(req.getServletContext().getRealPath("/Upload")+File.separator+p_name+"."+jpg));
-				 File file2 =  new File(req.getServletContext().getRealPath("/Upload")+File.separator+p_name+"."+jpg);
+				 file.renameTo( new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_name+"."+jpg));
+				 File file2 =  new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_name+"."+jpg);
 				 
-				 File dfile = new File(req.getServletContext().getRealPath("/Upload")+File.separator+p_dimg);
-				 String djpg = file.getName().substring(file.getName().length()-3,file.getName().length());
-				 file.renameTo( new File(req.getServletContext().getRealPath("/Upload")+File.separator+p_name+"."+djpg));
-				 File dfile2 =  new File(req.getServletContext().getRealPath("/Upload")+File.separator+p_name+"."+djpg);
+				 File dfile = new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_dimg);
+				 String djpg = dfile.getName().substring(file.getName().length()-3,dfile.getName().length());
+				 dfile.renameTo( new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_name+"D."+djpg));
+				 File dfile2 =  new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_name+"D."+djpg);
+				 
+				 File hfile = new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_himg);
+				 String hjpg = hfile.getName().substring(file.getName().length()-3,dfile.getName().length());
+				 hfile.renameTo( new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_name+"H."+hjpg));
+				 File hfile2 =  new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+p_name+"H."+hjpg);
+				 
+				 File tfile = new File(src+File.separator+p_name+"."+jpg);
+				 System.out.println(src+File.separator+p_name+"."+jpg);
+				 
+				 
+				 
+				 FileInputStream fis = new FileInputStream(file2);      
+				 FileOutputStream fos = new FileOutputStream(tfile);
+				 
+				 int data = 0;
+				 byte[] buf = new byte[1024];
+				 fileIsLive(src+File.separator+p_name+"."+jpg);
+				 while((data=fis.read(buf))!=-1) {
+				     fos.write(buf,0,data);
+				     fos.flush();
+				 }
+				 
+				 fis.close();
+				 fos.close();
+				 fis = new FileInputStream(dfile2);
+				 fos = new FileOutputStream(src+File.separator+p_name+"D."+djpg);
+				 fileIsLive(src+File.separator+p_name+"D."+djpg);
+				 data = 0;
+				 buf = new byte[1024];
+				 while((data=fis.read(buf))!=-1) {
+				     fos.write(buf,0,data);
+				     fos.flush();
+				 }
+				 fis.close();
+				 fos.close();
+				 fis = new FileInputStream(hfile2);
+				 fos = new FileOutputStream(src+File.separator+p_name+"H."+hjpg);
+				 fileIsLive(src+File.separator+p_name+"H."+hjpg);
+				 data = 0;
+				 buf=  new byte[1024];
+				 while((data=fis.read(buf))!=-1) {
+				     fos.write(buf,0,data);
+				     fos.flush();
+				 }
+				  
+				 fis.close();
+				 fos.close();
+
+				 
 				 System.out.println(req.getServletContext().getRealPath("/Upload"));
-				 new File(new File(req.getServletContext().getRealPath("/Upload")).getParent()).getParent();
 				 
 				 
 				 
@@ -124,6 +173,26 @@ public class WriteController extends HttpServlet {
 			}
 			
 		}
+		
+		
+		
+		
+		 public static void fileIsLive(String isLivefile) {
+			  File f1 = new File(isLivefile);
+			  
+			  if(f1.exists())
+			  {
+			   f1.delete();
+			  }else
+			  {
+			   
+			  }
+			 }
+
+
+		
+		
+		
 		
 }
 

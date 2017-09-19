@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -16,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import controller.dao.StoreDAO;
 import controller.dto.SalDTO;
 import controller.dto.SalUserDTO;
@@ -24,7 +29,7 @@ import controller.dto.ToppingDTO;
 public class RatingInsert extends HttpServlet {
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("page", "rating");
 		StoreDAO dao = new StoreDAO(req.getServletContext());
 		String rno = req.getParameter("rno");
@@ -59,14 +64,48 @@ public class RatingInsert extends HttpServlet {
 	
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String[] coupons = req.getParameterValues("coupon");
-		String rname = req.getParameter("r_name");
-		String rtar = req.getParameter("r_target");
-		String rno = req.getParameter("rno");
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image/rating"));
+		//한글 처리
+		req.setCharacterEncoding("UTF-8");
+		System.out.println(req.getServletContext().getRealPath("/Image/rating"));
+		
+		String r_img="";
+		if(mr!=null) {
+		String[] coupons = mr.getParameterValues("coupon");
+		String rname = mr.getParameter("r_name");
+		String rtar = mr.getParameter("r_target");
+		String rno = mr.getParameter("rno");
+		r_img = mr.getFilesystemName("r_img");
+		
+		File file = new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+r_img);
+		System.out.println(file.getName());
+		String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
+		System.out.println(file.getName()+"@!"+jpg);
+		file.renameTo( new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+rname+"."+jpg));
+		File file2 = new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+rname+"."+jpg);
+		
+		 String src = req.getSession().getAttribute("SRC").toString()+"\\rating";
+		 
+		 FileInputStream fis = new FileInputStream(file2);      
+		 FileOutputStream fos = new FileOutputStream(src+File.separator+rname+"."+jpg);
+		 int data = 0;
+		 byte[] buf = new byte[1024];
+		 Files.fileIsLive(src+File.separator+rname+"."+jpg);
+		 while((data=fis.read(buf))!=-1) {
+		     fos.write(buf,0,data);
+		     fos.flush();
+		 }
+		 fis.close();
+		 fos.close();
+		 
+		 
+		
+		
+		
 		
 		StoreDAO dao = new StoreDAO(req.getServletContext());
-		rno = dao.ratingInsert(rno,rname,rtar);
+		rno = dao.ratingInsert(rno,rname,rtar,rname+"."+jpg);
 		int i=0;
 		if(rno!=null&&rno.trim().length()>0)
 			i=1;
@@ -81,7 +120,7 @@ public class RatingInsert extends HttpServlet {
 		req.setAttribute("page", "menu");
 		req.setAttribute("SUC_FAIL", i);
 		req.setAttribute("WHERE", "RINS");
-		
+		}
 		req.getRequestDispatcher("/WEB-INF/Admin/Message.jsp").forward(req, resp);
 		
 	}

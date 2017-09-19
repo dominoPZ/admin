@@ -1,6 +1,8 @@
 package controller.kdj;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import controller.Files;
 import model.dtr.SideMenuDao;
 import model.dtr.SideMenuDto;
 import model.dtr.ToppingDao;
@@ -29,9 +32,9 @@ public class SideMenuInsert extends HttpServlet	 {
 		req.setCharacterEncoding("UTF-8");
 		req.setAttribute("page", "menu");
 		//파일 업로드 관련 모델 호출
-		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Upload"));
+		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image/pizzalist"));
 		int sucorfail;
-		System.out.println(req.getServletContext().getRealPath("/Upload"));
+		System.out.println(req.getServletContext().getRealPath("/Image/pizzalist"));
 		
 		String s_name = mr != null ? req.getParameter("s_name") : "";
 		String s_price = mr != null ? req.getParameter("s_price") : "";
@@ -53,11 +56,26 @@ public class SideMenuInsert extends HttpServlet	 {
 			s_detail = mr.getParameter("s_detail");
 			
 			 
-			 File file = new File(req.getServletContext().getRealPath("/Upload")+File.separator+s_img);
+			 File file = new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+s_img);
 			 System.out.println(file.getName());
 			 String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
 			 System.out.println(file.getName()+"@!"+jpg);
-			 file.renameTo( new File(req.getServletContext().getRealPath("/Upload")+File.separator+s_name+"."+jpg));
+			 file.renameTo( new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+s_name+"."+jpg));
+			 File file2 = new File(req.getServletContext().getRealPath("/Image/pizzalist")+File.separator+s_name+"."+jpg);
+
+			 String src = req.getSession().getAttribute("SRC").toString()+"\\pizzalist";
+			 FileInputStream fis = new FileInputStream(file2);      
+			 FileOutputStream fos = new FileOutputStream(src+File.separator+s_name+"."+jpg);
+			 int data = 0;
+			 byte[] buf = new byte[1024];
+			 Files.fileIsLive(src+File.separator+s_name+"."+jpg);
+			 while((data=fis.read(buf))!=-1) {
+			     fos.write(buf,0,data);
+			     fos.flush();
+			 }
+			 fis.close();
+			 fos.close();
+			 
 			 
 			 
 			//데이타베이스 CRUD작업과 관련된 모델 호출]

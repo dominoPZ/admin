@@ -47,13 +47,12 @@ public class EditNotice extends HttpServlet{
 			String n_content = null;
 			if(mr != null) {
 				n_title = mr.getParameter("title");
-				n_img = mr.getFilesystemName("img");
+				n_img = mr.getFilesystemName("n_img");
 				n_content = mr.getParameter("content");
 
 				if(n_img == null) {
-					n_img = mr.getParameter("originalimg");
+					n_img = mr.getParameter("orgnimg");
 				}
-
 				EventnNoticeDAO dao = new EventnNoticeDAO(req.getServletContext());
 				NoticeDTO dto = new NoticeDTO();
 				dto.setN_no(mr.getParameter("no"));
@@ -62,8 +61,9 @@ public class EditNotice extends HttpServlet{
 				dto.setN_content(n_content);
 				sucorfail = dao.updateNotice(dto);
 				
-				if(sucorfail == 1 && mr.getFilesystemName("n_img") != null ) {
-					FileUtils.deleteFile(req, "E:\\LYJ\\JAVA\\WorkSpace\\Admin\\WebContent\\NoticeImage", mr.getParameter("originalimg"));
+				if(sucorfail == 1 && n_img != null ) {
+					FileUtils.deleteFile(req, "/NoticeImage", mr.getParameter("orgnimg"));
+					
 				}
 				//sucorfail == 1 && 
 				dao.close();

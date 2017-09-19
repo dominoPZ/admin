@@ -56,7 +56,7 @@ public class StoreDAO {
 	public int insert(StoreDTO dto){
 		int i = 0;
 		try{
-		String sql = "insert into STORES VALUES(seq_stores_st_no.nextval,?,?,?,?,?,?,?,?)";
+		String sql = "insert into STORES VALUES(seq_stores_st_no.nextval,?,?,?,?,?,?,?,?,?,?)";
 		psmt = conn.prepareStatement(sql);
 		psmt.setString(1, dto.getSt_name());
 		psmt.setString(2, dto.getSt_id());
@@ -66,6 +66,8 @@ public class StoreDAO {
 		psmt.setString(6, dto.getSt_addr().replace("%&@#*^$@!", "<br/>"));
 		psmt.setString(7,dto.getSt_parkin());
 		psmt.setString(8, dto.getSt_time());
+		psmt.setString(9, dto.getSt_xpos());
+		psmt.setString(10, dto.getSt_ypos());
 		
 		i = psmt.executeUpdate();
 		if(i==1){
@@ -298,7 +300,7 @@ public class StoreDAO {
 					else
 						col=" P_SPRICE+D_PRICE ";
 					where = " p.p_no ";
-					from=" PIZZA P join PIZZA_DOUGH D on P.P_NO = D.P_NO ";
+					from="  PIZZA P join PIZZA_DOUGH D on P.P_NO = D.P_NO JOIN DOUGH DO ON DO.DOUGH_NO = D.DOUGH_NO  ";
 				}/// 피자
 				else{
 					col = rs2.getString(4).equals("2") ? " S_PRICE " : rs2.getString(4).equals("3") ? " D_PRICE " : rs2.getString(4).equals("4") ? " PC_PRICE " : " SC_PRICE " ;
@@ -502,6 +504,7 @@ public class StoreDAO {
 		map.put("rno", rs.getString(1));
 		map.put("rname", rs.getString(2));
 		map.put("rtar", rs.getString(3));
+		map.put("r_img", rs.getString(4));
 		
 		}
 		
@@ -554,15 +557,15 @@ public class StoreDAO {
 		
 		return list;
 	}
-
-	public int ratingupdate(String rno, String rname, String rtar) {
+	public int ratingupdate(String rno, String rname, String rtar, String r_img) {
 		int i=0;
-		String sql = "update rating set r_name=?,r_target=? where r_no=?";
+		String sql = "update rating set r_name=?,r_target=?,r_img=? where r_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, rname);
 			psmt.setString(2, rtar);
-			psmt.setString(3, rno);
+			psmt.setString(3, r_img);
+			psmt.setString(4, rno);
 			i = psmt.executeUpdate();
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -600,16 +603,17 @@ public class StoreDAO {
 		return l;
 	}
 
-	public String ratingInsert(String rno, String rname, String rtar) {
+	public String ratingInsert(String rno, String rname, String rtar, String img) {
 		
 		int i =0;
 		System.out.println(rname);
 		System.out.println(rtar);
-		String sql = "INSERT INTO RATING VALUES(SEQ_RATING_R_NO.NEXTVAL,?,?)";
+		String sql = "INSERT INTO RATING VALUES(SEQ_RATING_R_NO.NEXTVAL,?,?,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, rname);
 			psmt.setString(2, rtar);
+			psmt.setString(3, img);
 			i = psmt.executeUpdate();
 			if(i==1) {
 			sql = "select SEQ_RATING_R_NO.CURRVAL FROM DUAL";
@@ -746,7 +750,22 @@ public class StoreDAO {
 	}
 
 	public List<Map> salescon() {return null;}
-	
+
+	public String getsrc() {
+		String sql = "SELECT * FROM IMGSRC";
+		String src = "";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				src = rs.getString(1);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return src;
+	}
+
 	
 	
 

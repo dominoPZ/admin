@@ -80,7 +80,7 @@
 						<td width="*" align="center" colspan="2">이미지파일</td>
 					</tr>
 					<tr bgcolor="white">
-						<td width="100%" align="center" colspan="2"><img alt="첨부사진없음" src="<c:url value='/NoticeImage/${notice.n_img }'/>"></td>
+						<td width="100%" align="center" colspan="2"><img alt="첨부사진없음" src="<c:url value='/Image/NoticeImage/${notice.n_img }'/>"></td>
 					</tr>
 					<tr bgcolor="white">
 						<td width="*" align="center" colspan="2">내용</td>

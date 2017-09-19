@@ -217,8 +217,9 @@ public class EventnNoticeDAO {
 	// 공지사항 수정용
 	public int updateNotice(NoticeDTO dto) {
 		int affected = 0; 
-		String sql = "UPDATE NOTICE SET N_TITLE=?, N_CONTENT=?, SYSDATE, N_IMG=?, N_TYPE=? WHERE N_NO=?";
+		String sql = "UPDATE NOTICE SET N_TITLE=?, N_CONTENT=?, N_DATE=SYSDATE, N_IMG=?, N_TYPE=? WHERE N_NO=?";
 		try {
+			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getN_title());
 			psmt.setString(2, dto.getN_content());

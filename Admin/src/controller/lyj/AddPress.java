@@ -1,5 +1,8 @@
 package controller.lyj;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import controller.Files;
 
 public class AddPress extends HttpServlet {
 
@@ -36,7 +41,7 @@ public class AddPress extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		req.setCharacterEncoding("UTF-8");
-		MultipartRequest mr = upload(req,req.getServletContext().getRealPath("/NoticeImage"));
+		MultipartRequest mr = upload(req,req.getServletContext().getRealPath("/Image/NoticeImage"));
 		req.setAttribute("page", "event");
 		int sucorfail;
 		
@@ -55,6 +60,22 @@ public class AddPress extends HttpServlet {
 			dto.setN_content(n_content);
 			dto.setN_type("2");
 			sucorfail = dao.insertNotice(dto);
+			
+
+			String src = req.getSession().getAttribute("SRC").toString()+"\\NoticeImage";
+			 
+			FileInputStream fis = new FileInputStream(req.getServletContext().getRealPath("/Image/NoticeImage")+File.separator+n_img);      
+			FileOutputStream fos = new FileOutputStream(src+File.separator+n_img);
+			int data = 0;
+			byte[] buf = new byte[1024];
+			Files.fileIsLive(src+File.separator+n_img);
+			while((data=fis.read(buf))!=-1) {
+				fos.write(buf,0,data);
+			    fos.flush();
+			 }
+			 fis.close();
+			 fos.close();
+			
 		}
 		else {
 			sucorfail = -1;

@@ -14,7 +14,7 @@ public class Login extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		System.out.println(req.getContextPath()+"컨텍스트 패치");
 		req.setAttribute("page", "home");
 		req.getRequestDispatcher("/WEB-INF/Index.jsp").forward(req, resp);
 	}
@@ -23,6 +23,10 @@ public class Login extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		StoreDAO dao = new StoreDAO(req.getServletContext());
+		String src = dao.getsrc();
+
+		req.getSession().setAttribute("SRC", src);
+		
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = resp.getWriter();

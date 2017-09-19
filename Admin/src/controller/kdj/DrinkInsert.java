@@ -1,6 +1,8 @@
 package controller.kdj;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import controller.Files;
 import model.dtr.DrinkDao;
 import model.dtr.DrinkDto;
 import model.dtr.ToppingDao;
@@ -28,9 +31,11 @@ public class DrinkInsert extends HttpServlet {
 		req.setAttribute("page", "menu");
 		req.setCharacterEncoding("UTF-8");
 		int sucorfail;
+		
 		//파일 업로드 관련 모델 호출
-		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Upload"));
-				System.out.println(req.getServletContext().getRealPath("/Upload"));
+		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image/sidedish/beverage"));
+				System.out.println(req.getServletContext().getRealPath("/Image/sidedish/beverage"));
+		
 		
 		
 		String d_name = mr != null ? req.getParameter("d_name") : "";
@@ -47,11 +52,27 @@ public class DrinkInsert extends HttpServlet {
 			 d_price = mr.getParameter("d_price");
 			 d_img = mr.getFilesystemName("d_img");
 			 
-			 File file = new File(req.getServletContext().getRealPath("/Upload")+File.separator+d_img);
+			 File file = new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_img);
 			 System.out.println(file.getName());
 			 String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
 			 System.out.println(file.getName()+"@!"+jpg);
-			 file.renameTo( new File(req.getServletContext().getRealPath("/Upload")+File.separator+d_name+"."+jpg));
+			 file.renameTo( new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_name+"."+jpg));
+			 File file2 = new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_name+"."+jpg);
+			 
+			 String src = req.getSession().getAttribute("SRC").toString()+"\\sidedish\\beverage";
+			 
+			 FileInputStream fis = new FileInputStream(file2);      
+			 FileOutputStream fos = new FileOutputStream(src+File.separator+d_name+"."+jpg);
+			 int data = 0;
+			 byte[] buf = new byte[1024];
+			 Files.fileIsLive(src+File.separator+d_name+"."+jpg);
+			 while((data=fis.read(buf))!=-1) {
+			     fos.write(buf,0,data);
+			     fos.flush();
+			 }
+			 fis.close();
+			 fos.close();
+			 
 			 
 			 
 			//데이타베이스 CRUD작업과 관련된 모델 호출]
