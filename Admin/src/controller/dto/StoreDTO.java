@@ -11,7 +11,23 @@ public class StoreDTO {
 	private String st_parkin;
 	private String st_post;
 	private String st_no;
+	private String st_xpos;
+	private String st_ypos;
 	
+	
+	
+	public String getSt_xpos() {
+		return st_xpos;
+	}
+	public void setSt_xpos(String st_xpos) {
+		this.st_xpos = st_xpos;
+	}
+	public String getSt_ypos() {
+		return st_ypos;
+	}
+	public void setSt_ypos(String st_ypos) {
+		this.st_ypos = st_ypos;
+	}
 	public String getSt_name() {
 		return st_name;
 	}

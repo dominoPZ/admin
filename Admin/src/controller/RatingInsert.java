@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -63,10 +65,10 @@ public class RatingInsert extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Upload"));
+		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image/rating"));
 		//한글 처리
 		req.setCharacterEncoding("UTF-8");
-		System.out.println(req.getServletContext().getRealPath("/Upload"));
+		System.out.println(req.getServletContext().getRealPath("/Image/rating"));
 		
 		String r_img="";
 		if(mr!=null) {
@@ -76,11 +78,29 @@ public class RatingInsert extends HttpServlet {
 		String rno = mr.getParameter("rno");
 		r_img = mr.getFilesystemName("r_img");
 		
-		File file = new File(req.getServletContext().getRealPath("/Upload")+File.separator+r_img);
+		File file = new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+r_img);
 		System.out.println(file.getName());
 		String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
 		System.out.println(file.getName()+"@!"+jpg);
-		file.renameTo( new File(req.getServletContext().getRealPath("/Upload")+File.separator+rname+"."+jpg));
+		file.renameTo( new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+rname+"."+jpg));
+		File file2 = new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+rname+"."+jpg);
+		
+		 String src = req.getSession().getAttribute("SRC").toString()+"\\rating";
+		 
+		 FileInputStream fis = new FileInputStream(file2);      
+		 FileOutputStream fos = new FileOutputStream(src+File.separator+rname+"."+jpg);
+		 int data = 0;
+		 byte[] buf = new byte[1024];
+		 Files.fileIsLive(src+File.separator+rname+"."+jpg);
+		 while((data=fis.read(buf))!=-1) {
+		     fos.write(buf,0,data);
+		     fos.flush();
+		 }
+		 fis.close();
+		 fos.close();
+		 
+		 
+		
 		
 		
 		

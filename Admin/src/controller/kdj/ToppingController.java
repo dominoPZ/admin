@@ -45,7 +45,6 @@ public class ToppingController extends HttpServlet{
 		if(mr !=null){//파일 업로드 성공시 DB 입력처리]
 			
 			 //기타 파라미터 받아서 테이블에 입력처리]
-			
 			 t_name = mr.getParameter("t_name");
 			 t_img = mr.getFilesystemName("t_img");
 			 t_kind = mr.getParameter("t_kind");

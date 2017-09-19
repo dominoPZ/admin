@@ -1,5 +1,8 @@
 package controller.lyj;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import javax.servlet.ServletException;
@@ -64,6 +67,25 @@ public class AddEvent extends HttpServlet {
 			dto.setE_timg(e_timg);
 			dto.setE_cimg(e_cimg);
 			sucorfail = dao.insertEvent(dto);
+			
+			File tfile = new File(req.getServletContext().getRealPath("/EventImage")+File.separator+e_timg);
+			File cfile = new File(req.getServletContext().getRealPath("/EventImage")+File.separator+e_cimg);
+			FileInputStream fis =null;
+			FileOutputStream fos=null;
+			fis = new FileInputStream(tfile);
+			fos = new FileOutputStream("C:/Users/kosmo_22/Desktop/자바들/"+e_timg);
+			int data;
+			
+			byte[] b = new byte[128];
+			while((data= fis.read(b))!=-1){
+				//파일로 출력]
+				//write(배열명,0,읽은 바이트 수)
+				//즉 읽은 바이트 수만큼 출력]
+				fos.write(b,0,data);
+				fos.flush();
+			}
+		
+			
 		}
 		else {
 			sucorfail = -1;

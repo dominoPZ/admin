@@ -13,11 +13,12 @@ import controller.dto.StoreDTO;
 public class StoreInsertController extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
+		req.setCharacterEncoding("UTF-8");
 		StoreDTO dto = new StoreDTO();
-		dto.setSt_addr(req.getParameter("addr1")+" ^^ "+req.getParameter("addr2"));
+		dto.setSt_addr(req.getParameter("addr1")+" %&@#*^$@! "+req.getParameter("addr2"));
 		dto.setSt_id(req.getParameter("st_id"));
 		dto.setSt_name(req.getParameter("st_name"));
 		dto.setSt_pass(req.getParameter("st_pass"));
@@ -25,8 +26,12 @@ public class StoreInsertController extends HttpServlet {
 		dto.setSt_tel(req.getParameter("st_tel"));
 		dto.setSt_parkin(req.getParameter("st_parkin"));
 		dto.setSt_time(req.getParameter("st_time"));
-		
-		
+		String pos = req.getParameter("xpos").replace("(", "").replace(")", "");
+		String xpos = pos.split(",")[0];
+		String ypos = pos.split(",")[1];
+		dto.setSt_xpos(xpos);
+		dto.setSt_ypos(ypos);
+		System.out.println(xpos+","+ypos);
 		
 		StoreDAO dao = new StoreDAO(req.getServletContext());
 		int i = dao.insert(dto);

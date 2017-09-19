@@ -61,16 +61,18 @@
 		<c:set var="FAIL_MSG" value="입력 실패!!"/>
 		<c:set var="SUC_URL" value="/SideMenu.do"/>
 	</c:when>		
-		
-
+	
+	<c:when test="${WHERE eq 'UDP'}">
+		<c:set var="SUC_MSG" value="정상적으로 수정되었습니다."/>
+		<c:set var="FAIL_MSG" value="수정 실패!!"/>
+		<c:set var="SUC_URL" value="/StoreUpdate.pz?in=in"/>
+	</c:when>
 	
 	<c:otherwise>
 		<c:set var="SUC_MSG" value="삭제 성공"/>
 		<c:set var="FAIL_MSG" value="삭제 실패"/>
 		<c:set var="SUC_URL" value="/ReplyBBS/BBS/List.bbs"/>
 	</c:otherwise>
-	
-	
 	
 	
 </c:choose>
