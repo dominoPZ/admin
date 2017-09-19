@@ -71,14 +71,14 @@
 						<td width="*" align="center" colspan="2">타이틀 이미지</td>
 					</tr>
 					<tr bgcolor="white">
-						<td width="100%" align="center" colspan="2"><img alt="d" src="<c:url value='/EventImage/${event.e_timg }'/>"></td>
+						<td width="100%" align="center" colspan="2"><img alt="d" src="<c:url value='/Image/EventImage/${event.e_timg }'/>"></td>
 					</tr>
 					<tr bgcolor="white">
 						<td width="*" align="center" colspan="2">내용 이미지</td>
 					</tr>
 
 					<tr bgcolor="white">
-						<td width="100%" align="center" colspan="2"><img alt="d" src="<c:url value='/EventImage/${event.e_cimg }'/>"></td>
+						<td width="100%" align="center" colspan="2"><img alt="d" src="<c:url value='/Image/EventImage/${event.e_cimg }'/>"></td>
 					</tr>
 					<tr bgcolor="white" align="center">
 						<td colspan="2"><a href="<c:url value='/EditEvent.do?no=${event.e_no }'/>">수정</a> | 

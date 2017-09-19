@@ -167,7 +167,9 @@
 													</c:otherwise>
 												</c:choose>
 											</td>
+											<c:if test="">
 											
+											</c:if>
 											<!-- 피자 이미지 폼 레이어  -->
 											<div class="${fn:replace(item.menu_name,' ', '')}">
 											<div class="popupLayer">
