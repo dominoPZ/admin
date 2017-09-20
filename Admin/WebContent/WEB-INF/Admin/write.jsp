@@ -33,19 +33,14 @@
          return false;
       }//else if
       
-       if(formObject.p_topping.value == 0){
-           alert("토핑을 입력 하세요");
-           formObject.p_topping.focus();
-           return false;
-        }//else if
         
-       if(formObject.p_sprice.value == 0){
+       if(formObject.p_sprice.length == 0){
            alert("S 사이즈 가격을 입력해 주세요");
            formObject.p_sprice.focus();
            return false;
         }//else if
         
-       if(formObject.p_lprice.value == 0){
+       if(formObject.p_lprice.length == 0){
            alert("L 사이즈 가격을 입력해 주세요");
            formObject.p_lprice.focus();
            return false;
@@ -58,11 +53,7 @@
            return false;
         }// if
          */
-        if(formObject.p_origin.value == 0){
-        	alert("원산지 정보를 입력 하세요");
-        	formObject.p_origin.focus();
-        	return false;
-        }
+      
        
        if(formObject.p_img.value.length == 0){
          alert("피자 이미지 파일을 첨부하세요");
@@ -70,24 +61,6 @@
          return false;
       }//else if
       
-       if(formObject.p_himg.value.length == 0){
-           alert("하프앤하프 이미지 파일을 첨부하세요");
-           formObject.p_himg.focus();
-           return false;
-        }//else if
-        
-       if(formObject.p_dimg.value.length == 0){
-           alert("피자 상세정보 이미지 파일을 첨부하세요");
-           formObject.p_dimg.focus();
-           return false;
-        }//else if
-      
-       if(formObject.p_detail.value.length == 0){
-           alert("피자 상세정보 를 입력 하세요");
-           formObject.p_detail.focus();
-           return false;
-        }//else if
-        
         
         
        /*  
@@ -127,6 +100,8 @@
                        <span style="color:red; font-size:1.5em; ">${errorMessage }</span>
                         <form onsubmit="return isValidate(this);" action="${pageContext.request.contextPath}/Write.do" method="post" enctype="multipart/form-data">
                            <table style="line-height: 2.3em" >
+
+                                                
                                                 
                               <tr bgcolor="white">
                                  <td width="30%" align="center">피자 명</td>
@@ -167,10 +142,12 @@
                               </tr>
                               
                               <tr>
+                              <td width="30%" align="center">도우</td>
+                              
                               <td>
                                     <c:if test="${!empty list }">
-                                  <c:forEach items="${list}" var="dog"  >
-                              <input type="checkbox" name="dough_name" value="${dog.dough_no}">${dog.dough_name}
+                            	<c:forEach items="${list}" var="dog"  >
+                              	<input type="checkbox" name="dough_name" checked="checked" value="${dog.dough_no}">${dog.dough_name}
                                      </c:forEach> 
                                     </c:if>
                               </td>
@@ -222,14 +199,83 @@
                                  </td>
                               </tr>                     
                            </table> 
+                           <h1>&nbsp;</h1>
+                           <h1>&nbsp;</h1>
+                           
+                           
+                        <table class="table table-striped" style="width: 80%" >
+						<thead style="background:#ff1230;font-weight: bold;font-size: 15px; color: white;">
+							<tr>
+								<th style="width: 15%" >도우명(사이즈)</th>
+								<th>총 중량</th>
+								<th>1회 제공량</th>
+								<th>1회 기준 중량</th>
+								<th>열량(KCAL)</th>
+								<th>단백질(g)</th>
+								<th>포화지방(g)</th>
+								<th>나트륨(mg)</th>
+								<th>당류(g)</th>
+							</tr>
+						</thead>
+						
+						
+						<tbody class="firstTbody" id="tbody" >
+							<c:forEach items="${list }" var="dto" varStatus="loop" >
+							<tr class="tp${ dto.dough_no}" >
+									<td>${dto.dough_name }(L)</td>
+									<td><input style="width: 80%" type="text" name="n_gramL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stanL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stangramL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_kcalL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_proteinL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sfatL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_natriumL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sugarL${dto.dough_no}" /></td>
+							</tr>
+									<tr class="tp${ dto.dough_no}" id="${item.id}" title="클릭하시면 '${item.id}'회원의 구매내역 페이지로 이동합니다.">
+									<td>${dto.dough_name }(M)</td>
+									
+									<td><input style="width: 80%" type="text" name="n_gramM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stanM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stangramM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_kcalM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_proteinM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sfatM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_natriumM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sugarM${dto.dough_no}" /></td>
+							</tr>
+							</c:forEach>
+						</tbody>
+						</table>
                         </form>
                     </fieldset>                        
                     </div>
                 </div>
             </div>
+
             
         </div>
     </div>
+
+    <script>
+    $(function(){
+		$(":checkbox").click(function(){
+			if($(":checkbox:checked").length==0){
+				alert("한 개 이상 선택해주세요.");
+				 this.checked = true;
+			}
+			
+		$("#tbody tr td").hide();
+    	for(var i=0;i < $(":checkbox:checked").length;i++ ){
+			var no =$(":checkbox:checked").get(i).value;
+			$(".tp"+no+" td").show();			
+		}
+
+		});
+    });
+    
+    </script>
+    
     	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="<c:url value='/BootStrap/js/bootstrap.min.js' />" ></script>
     

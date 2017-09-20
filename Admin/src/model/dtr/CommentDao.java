@@ -15,6 +15,8 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
+import controller.dto.P_nutrientDTO;
+
 
 
 public class CommentDao {
@@ -124,6 +126,28 @@ public class CommentDao {
 		         }
 		      } catch (SQLException e) {e.printStackTrace();}
 		      return list;
+		}
+
+
+		public void pnutrientIn(P_nutrientDTO dto) {
+			String sql = "INSERT INTO P_NUTRIENT VALUES(SEQ_P_NUTRIENT_N_NO.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, dto.getD_no());
+				psmt.setString(2, dto.getN_size());
+				psmt.setString(3, dto.getN_gram());
+				psmt.setString(4, dto.getN_stan());
+				psmt.setString(5, dto.getN_stangram());
+				psmt.setString(6, dto.getN_kcal());
+				psmt.setString(7, dto.getN_protein());
+				psmt.setString(8, dto.getN_sfat());
+				psmt.setString(9, dto.getN_natrium());
+				psmt.setString(10, dto.getN_sugar());
+				System.out.println("??"+dto.getN_sugar());
+				psmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

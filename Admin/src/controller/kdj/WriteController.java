@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
-
+import controller.dto.P_nutrientDTO;
 import model.dtr.CommentDao;
 import model.dtr.CommentDto;
 import model.dtr.DoughDTO;
@@ -78,23 +79,9 @@ public class WriteController extends HttpServlet {
 				 file.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"."+jpg));
 				 File file2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"."+jpg);
 				 
-				 File dfile = new File(req.getServletContext().getRealPath("/Image")+File.separator+p_dimg);
-				 String djpg = dfile.getName().substring(file.getName().length()-3,dfile.getName().length());
-				 dfile.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"D."+djpg));
-				 File dfile2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"D."+djpg);
-				 
-				 File hfile = new File(req.getServletContext().getRealPath("/Image")+File.separator+p_himg);
-				 String hjpg = hfile.getName().substring(hfile.getName().length()-3,hfile.getName().length());
-				 hfile.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"H."+hjpg));
-				 File hfile2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"H."+hjpg);
-				 
-				 File tfile = new File(src+File.separator+p_name+"."+jpg);
-				 System.out.println(src+File.separator+p_name+"."+jpg);
-				 
-				 
-				 
+
 				 FileInputStream fis = new FileInputStream(file2);      
-				 FileOutputStream fos = new FileOutputStream(tfile);
+				 FileOutputStream fos = new FileOutputStream(src+File.separator+p_name+"."+jpg);
 				 
 				 int data = 0;
 				 byte[] buf = new byte[1024];
@@ -106,6 +93,12 @@ public class WriteController extends HttpServlet {
 				 
 				 fis.close();
 				 fos.close();
+				 File dfile2=null;
+				 if(p_dimg!=null) {
+				 File dfile = new File(req.getServletContext().getRealPath("/Image")+File.separator+p_dimg);
+				 String djpg = dfile.getName().substring(file.getName().length()-3,dfile.getName().length());
+				 dfile.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"D."+djpg));
+				 dfile2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"D."+djpg);
 				 fis = new FileInputStream(dfile2);
 				 fos = new FileOutputStream(src+File.separator+p_name+"D."+djpg);
 				 fileIsLive(src+File.separator+p_name+"D."+djpg);
@@ -117,6 +110,14 @@ public class WriteController extends HttpServlet {
 				 }
 				 fis.close();
 				 fos.close();
+				 }
+				 
+				 File hfile2=null;
+				 if(p_himg!=null) {
+				 File hfile = new File(req.getServletContext().getRealPath("/Image")+File.separator+p_himg);
+				 String hjpg = hfile.getName().substring(hfile.getName().length()-3,hfile.getName().length());
+				 hfile.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"H."+hjpg));
+				 hfile2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"H."+hjpg);
 				 fis = new FileInputStream(hfile2);
 				 fos = new FileOutputStream(src+File.separator+p_name+"H."+hjpg);
 				 fileIsLive(src+File.separator+p_name+"H."+hjpg);
@@ -126,10 +127,16 @@ public class WriteController extends HttpServlet {
 				     fos.write(buf,0,data);
 				     fos.flush();
 				 }
-				  
 				 fis.close();
 				 fos.close();
 
+				 
+				 
+				 }
+				 
+				 //File tfile = new File(src+File.separator+p_name+"."+jpg);
+				 System.out.println(src+File.separator+p_name+"."+jpg);
+				 
 				 
 				 System.out.println(req.getServletContext().getRealPath("/Upload"));
 				 
@@ -145,12 +152,41 @@ public class WriteController extends HttpServlet {
 				dto.setP_sprice(p_sprice);
 				dto.setP_lprice(p_lprice);
 				dto.setP_origin(p_origin);
-				dto.setP_img(file2.getName());
-				dto.setP_himg(p_himg);
-				dto.setP_dimg(dfile2.getName());
+				dto.setP_img(file2==null?"":file2.getName());
+				dto.setP_himg(dfile2==null?"":hfile2.getName());
+				dto.setP_dimg(hfile2==null?"":dfile2.getName());
 				dto.setP_detail(p_detail);
 				dto.setDough_name(dough_name);
 				sucorfail=dao.insert(dto);
+				
+				List<P_nutrientDTO> pnlist= new Vector<>();
+				String tsize="";
+				
+				for(String no:dough_name) {
+					for(int i=0;i<2;i++) {
+					if(i==0) {
+						tsize="L";	
+					}
+					else tsize="M";
+					P_nutrientDTO pndto = new P_nutrientDTO();
+					System.out.println(mr.getParameter("n_gram"+tsize+no)+"!!!!");
+					pndto.setN_gram(mr.getParameter("n_gram"+tsize+no));
+					pndto.setN_kcal(mr.getParameter("n_kacl"+tsize+no));
+					pndto.setN_natrium(mr.getParameter("n_natrium"+tsize+no));
+					pndto.setN_protein(mr.getParameter("n_protein"+tsize+no));
+					pndto.setN_sfat(mr.getParameter("n_sfat"+tsize+no));
+					pndto.setN_size(mr.getParameter("n_size"+tsize+no));
+					pndto.setN_stan(mr.getParameter("n_stan"+tsize+no));
+					pndto.setN_stangram(mr.getParameter("n_stangram"+tsize+no));
+					pndto.setN_sugar(mr.getParameter("n_sugar"+tsize+no));
+					pndto.setN_size(tsize);
+					pndto.setD_no(no);
+					dao.pnutrientIn(pndto);
+					
+					}
+				}
+				
+				
 				
 			}
 			else sucorfail = -1;
@@ -169,7 +205,7 @@ public class WriteController extends HttpServlet {
 				out.println("<script>");
 				out.println("alert('정상적으로 입력 되었습니다')");
 				out.println("</script>");
-				req.getRequestDispatcher("/WEB-INF/Admin/Menu.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/Admin/write.jsp").forward(req, resp);
 			}
 			
 		}
