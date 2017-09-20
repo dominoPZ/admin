@@ -177,9 +177,11 @@ function check() {
 	     </select>
 	     <input name="st_name" style="width: 23%" class="form-control"  id="sertxt" type="text" placeholder="검색">
 	     <button class="btn btn-primary" type="button" onclick="serc();" > 검색</button>
-	     
-	      </div>
         	</form>
+
+		 <a href='<c:url value='/StoreSer.pz' />'><button class="btn btn-primary" type="button"  > 전체보기</button></a>
+
+	      </div>
         	</div>
         	<br/><br/>
         	

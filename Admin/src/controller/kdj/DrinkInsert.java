@@ -33,8 +33,8 @@ public class DrinkInsert extends HttpServlet {
 		int sucorfail;
 		
 		//파일 업로드 관련 모델 호출
-		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image/sidedish/beverage"));
-				System.out.println(req.getServletContext().getRealPath("/Image/sidedish/beverage"));
+		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image"));
+				System.out.println(req.getServletContext().getRealPath("/Image"));
 		
 		
 		
@@ -52,12 +52,13 @@ public class DrinkInsert extends HttpServlet {
 			 d_price = mr.getParameter("d_price");
 			 d_img = mr.getFilesystemName("d_img");
 			 
-			 File file = new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_img);
+			 
+			 File file = new File(req.getServletContext().getRealPath("/Image")+File.separator+d_img);
 			 System.out.println(file.getName());
 			 String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
 			 System.out.println(file.getName()+"@!"+jpg);
-			 file.renameTo( new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_name+"."+jpg));
-			 File file2 = new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_name+"."+jpg);
+			 file.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+d_name+"."+jpg));
+			 File file2 = new File(req.getServletContext().getRealPath("/Image")+File.separator+d_name+"."+jpg);
 			 
 			 String src = req.getSession().getAttribute("SRC").toString()+"\\sidedish\\beverage";
 			 

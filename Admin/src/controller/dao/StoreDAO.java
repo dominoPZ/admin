@@ -359,9 +359,6 @@ public class StoreDAO {
 		
 		}catch (Exception e) {
 		}
-		
-		
-		
 		return i;
 	}
 	
@@ -387,7 +384,7 @@ public class StoreDAO {
 		StoreDTO dto = new StoreDTO();
 		System.out.println(ser+sertxt);
 		String sql="";
-		if(sertxt==null||sertxt.length()>0)
+		if(sertxt==null||sertxt.length()==0)
 			sql="SELECT ST_NAME,ST_ID,ST_PASS,ST_TEL,ST_PARKIN,ST_TIME,ST_NO FROM STORES";
 			else
 		sql = "SELECT ST_NAME,ST_ID,ST_PASS,ST_TEL,ST_PARKIN,ST_TIME,ST_NO FROM STORES WHERE "+ser+" like '%"+sertxt+"%'";		
@@ -470,6 +467,7 @@ public class StoreDAO {
 			map.put("rno", rs.getString(1));
 			map.put("rname", rs.getString(2));
 			map.put("rtar", rs.getString(3));
+			map.put("rimg", rs.getString(4));
 			psmt2 = conn.prepareStatement("select C.C_NO,C.C_NAME FROM RATING_CUPPON RC JOIN SAILE_COUPON C ON C.C_NO = RC.C_NO WHERE R_NO=?");
 			psmt2.setString(1, rs.getString(1));
 			rs2 = psmt2.executeQuery();

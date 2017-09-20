@@ -28,10 +28,9 @@ public class RatingUpdate extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image/rating"));
 		//한글 처리
 		req.setCharacterEncoding("UTF-8");
-		MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Upload"));
 		String jpg="";
 		if(mr!=null) {
 			
@@ -41,20 +40,21 @@ public class RatingUpdate extends HttpServlet {
 		String rno = mr.getParameter("rno");
 		
 		
+		
+		
 		String r_img = mr.getFilesystemName("r_img");				
 		if(r_img ==null){//파일 미교체
 			r_img=mr.getParameter("org");
 		}
 		else {
-		controller.lyj.FileUtils.deleteFile(req, "/Upload",mr.getParameter("org"));
+		controller.lyj.FileUtils.deleteFile(req, "/Image/rating",mr.getParameter("org"));
 		
-		File file = new File(req.getServletContext().getRealPath("/Upload")+File.separator+r_img);
+		File file = new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+r_img);
 		System.out.println(file.getName());
 		jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
 		System.out.println(file.getName()+"@!"+jpg);
-		file.renameTo( new File(req.getServletContext().getRealPath("/Upload")+File.separator+rname+"."+jpg));
+		file.renameTo( new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+rname+"."+jpg));
 		}
-		
 		StoreDAO dao = new StoreDAO(req.getServletContext());
 		int i = 0;
 		i = dao.ratingupdate(rno,rname,rtar,rname+"."+jpg);
