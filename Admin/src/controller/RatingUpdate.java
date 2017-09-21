@@ -38,26 +38,23 @@ public class RatingUpdate extends HttpServlet {
 		String rname = mr.getParameter("r_name");
 		String rtar = mr.getParameter("r_target");
 		String rno = mr.getParameter("rno");
-		
-		
-		
-		
-		String r_img = mr.getFilesystemName("r_img");				
-		if(r_img ==null){//파일 미교체
+		String r_img = mr.getFilesystemName("r_img");			
+		System.out.println(r_img);
+		if(r_img ==null || r_img.equals("")){//파일 미교체
 			r_img=mr.getParameter("org");
-		}
+			}
 		else {
 		controller.lyj.FileUtils.deleteFile(req, "/Image/rating",mr.getParameter("org"));
-		
 		File file = new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+r_img);
 		System.out.println(file.getName());
 		jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
 		System.out.println(file.getName()+"@!"+jpg);
 		file.renameTo( new File(req.getServletContext().getRealPath("/Image/rating")+File.separator+rname+"."+jpg));
+		r_img=rname+"."+jpg;
 		}
 		StoreDAO dao = new StoreDAO(req.getServletContext());
 		int i = 0;
-		i = dao.ratingupdate(rno,rname,rtar,rname+"."+jpg);
+		i = dao.ratingupdate(rno,rname,rtar,r_img);
 		int k=0;
 		k = dao.deletecr(rno);
 		int l = 0;

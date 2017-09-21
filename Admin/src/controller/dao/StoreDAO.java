@@ -16,6 +16,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import controller.dto.P_nutrientDTO;
+import controller.dto.PizzaMenuListDTO;
 import controller.dto.SalDTO;
 import controller.dto.SalUserDTO;
 import controller.dto.StoreDTO;
@@ -762,6 +764,80 @@ public class StoreDAO {
 		}
 		
 		return src;
+	}
+
+	public List<PizzaMenuListDTO> menuList(Map map) {
+		List<PizzaMenuListDTO> list = new Vector<PizzaMenuListDTO>();
+		String sql = "SELECT "+map.get("sel")+ " from " + map.get("fro") + " where " + map.get("whe");
+		System.out.println(sql);
+		try {
+		psmt = conn.prepareStatement(sql);
+		rs = psmt.executeQuery();
+		while(rs.next()) {
+		//	P_NAME,P_SPRICE,P_LPRICE,P_IMG,P.P_NO,D_PRICE 
+			PizzaMenuListDTO dto = new PizzaMenuListDTO();
+			dto.setP_name(rs.getString(1));
+			dto.setP_sprice(rs.getString(2));
+			dto.setP_lprice(rs.getString(3));
+			dto.setP_img(rs.getString(4));
+			dto.setP_no(rs.getString(5));
+			dto.setD_price(rs.getString(6));
+			list.add(dto);
+		}
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public PizzaMenuListDTO pizzaView(String no) {
+		String sql = "select * from pizza where p_no='"+no+"'";
+		PizzaMenuListDTO dto = new PizzaMenuListDTO();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				dto.setP_name(rs.getString(2));
+				dto.setP_kind(rs.getString(3));
+				dto.setP_topping(rs.getString(4));
+				dto.setP_sprice(rs.getString(5));
+				dto.setP_lprice(rs.getString(6));
+				dto.setP_origin(rs.getString(7));
+				dto.setP_img(rs.getString(8));
+				dto.setP_himg(rs.getString(9));
+				dto.setP_dimg(rs.getString(10));
+				dto.setP_detail(rs.getString(11));
+			}
+			
+			sql="SELECT PN.*,DOUGH_NAME,D.DOUGH_NO FROM P_NUTRIENT PN JOIN PIZZA_DOUGH PD ON PD.D_NO = PN.D_NO JOIN DOUGH D ON D.DOUGH_NO = PD.DOUGH_NO WHERE P_NO='"+no+"'";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			List<P_nutrientDTO> list = new Vector<P_nutrientDTO>();
+			while(rs.next()) {
+				P_nutrientDTO pndto = new P_nutrientDTO();
+				pndto.setN_no(rs.getString(1));
+				pndto.setD_no(rs.getString(2));
+				pndto.setN_size(rs.getString(3));
+				pndto.setN_gram(rs.getString(4));
+				pndto.setN_stan(rs.getString(5));
+				pndto.setN_stangram(rs.getString(6));
+				pndto.setN_kcal(rs.getString(7));
+				pndto.setN_protein(rs.getString(8));
+				pndto.setN_sfat(rs.getString(9));
+				pndto.setN_natrium(rs.getString(10));
+				pndto.setN_sugar(rs.getString(11));
+				pndto.setDough_name(rs.getString(12));
+				pndto.setDough_no(rs.getString(13));
+				list.add(pndto);
+			}
+				dto.setList(list);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	

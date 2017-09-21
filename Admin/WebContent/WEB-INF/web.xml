@@ -263,6 +263,28 @@
   	<url-pattern>/SaileInsert.pz</url-pattern>
   </servlet-mapping>
   
+        <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>PizzaList</servlet-name>
+  	<servlet-class>controller.PizzaList</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>PizzaList</servlet-name>
+  	<url-pattern>/PizzaList.pz</url-pattern>
+  </servlet-mapping>
+ 
+         <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>PizzaEdit</servlet-name>
+  	<servlet-class>controller.PizzaEdit</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>PizzaEdit</servlet-name>
+  	<url-pattern>/PizzaEdit.pz</url-pattern>
+  </servlet-mapping>
+ 
  
   
   <!--  어진이꺼 끝-->

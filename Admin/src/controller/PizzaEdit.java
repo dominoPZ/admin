@@ -1,4 +1,4 @@
-package controller.kdj;
+package controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,21 +17,32 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import controller.dao.StoreDAO;
 import controller.dto.P_nutrientDTO;
+import controller.dto.PizzaMenuListDTO;
 import model.dtr.CommentDao;
 import model.dtr.CommentDto;
 import model.dtr.DoughDTO;
 
-public class WriteController extends HttpServlet {
+public class PizzaEdit extends HttpServlet {
 		
 		//입력 폼으로 이동
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			req.setAttribute("page", "menu");
+			String no = req.getParameter("p_no");
 			CommentDao dao = new CommentDao(req.getServletContext());
+			StoreDAO daos = new StoreDAO(req.getServletContext());
+			
+			PizzaMenuListDTO dto = daos.pizzaView(no);
 			List<DoughDTO> list = dao.getDough();
 			req.setAttribute("list", list);
-			req.getRequestDispatcher("/WEB-INF/Admin/write.jsp").forward(req,resp);
+			
+			req.setAttribute("dtos", dto);
+		
+			
+			req.getRequestDispatcher("/WEB-INF/Admin/PizzaEdit.jsp").forward(req,resp);
+		
 		}//doGet()
 	
 		//입력처리

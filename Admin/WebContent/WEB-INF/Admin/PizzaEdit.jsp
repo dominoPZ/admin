@@ -2,11 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%
-    
-    
-    
-    %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,6 +77,9 @@
        */
       
    }//isValidate()
+   
+ 
+   
 </script>
 </head>
 <body >
@@ -106,7 +106,7 @@
                               <tr bgcolor="white">
                                  <td width="30%" align="center">피자 명</td>
                                  <td >
-                                 <input type="text" size="20" name="p_name" value="${p_name == null ? '' : p_name}" />
+                                 <input type="text" size="20" name="p_name" value="${dtos.p_name == null ? '' : dtos.p_name}" />
                                  </td>
                               </tr>
                               <tr bgcolor="white" >
@@ -124,19 +124,19 @@
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">기본 토핑</td>
                                  <td >
-                                 <input type="text"  name="p_topping" style="width:98%" value="${p_topping == null ? '' : p_topping}" />
+                                 <input type="text"  name="p_topping" style="width:98%" value="${dtos.p_topping}" />
                                  </td>
                               </tr>
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">피자 S 가격</td>
                                  <td >
-                                 <input type="text"  size="7" name="p_sprice"  value="${p_sprice == null ? '' : p_sprice}" />
+                                 <input type="text"  size="7" name="p_sprice"  value="${dtos.p_sprice}" />
                                  </td>
                               </tr>
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">피자 L 가격</td>
                                  <td >
-                                 <input type="text" size="7" maxlength="5" name="p_lprice"  value="${p_lprice == null ? '' : p_lprice}" />
+                                 <input type="text" size="7" maxlength="5" name="p_lprice"  value="${dtos.p_lprice}" />
                                  
                                  </td>       
                               </tr>
@@ -147,6 +147,7 @@
                               <td>
                                     <c:if test="${!empty list }">
                             	<c:forEach items="${list}" var="dog"  >
+                            	
                               	<input type="checkbox" name="dough_name" checked="checked" value="${dog.dough_no}">${dog.dough_name}
                                      </c:forEach> 
                                     </c:if>
@@ -157,13 +158,13 @@
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">원산지</td>
                                  <td >
-                                 <input type="text"  name="p_origin" style="width:98%" value="${p_origin == null ? '' : p_origin}" />
+                                 <input type="text"  name="p_origin" style="width:98%" value="${dtos.p_origin == null ? '' : dtos.p_origin}" />
                                  </td>
                               </tr>
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">피자 이미지파일</td>
                                  <td >
-                                 ${p_img == null ? '' : p_img}
+                                 ${dtos.p_img == null ? '' : dtos.p_img}
                                  <input type="file" name="p_img" style="width:98%" id="pimg"/>
                                  
                                  </td>
@@ -179,7 +180,7 @@
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">피자 상세정보 이미지 파일</td>
                                  <td >
-                                 ${p_dimg == null ? '' : p_dimg}
+                                 ${dtos.p_dimg == null ? '' : dtos.p_dimg}
                                  <input type="file" name="p_dimg" style="width:98%" id="pdimg"/>
                                  
                                  </td>
@@ -187,7 +188,7 @@
                               <tr bgcolor="white" >
                                  <td align="center">피자 상세정보</td>
                                  <td>
-                                 <textarea rows="10" style="width:98%" name="p_detail">${p_detail == null ? '' : p_detail}</textarea>
+                                 <textarea rows="10" style="width:98%" name="p_detail">${dtos.p_detail == null ? '' : dtos.p_detail}</textarea>
                                  </td>
                               </tr>
                               
@@ -218,33 +219,22 @@
 							</tr>
 						</thead>
 						
-						
 						<tbody class="firstTbody" id="tbody" >
-							<c:forEach items="${list }" var="dto" varStatus="loop" >
+							<c:forEach items="${dtos.list }" var="dto" varStatus="loop" >
 							<tr class="tp${ dto.dough_no}" >
-									<td>${dto.dough_name }(L)</td>
-									<td><input style="width: 80%" type="text" name="n_gramL${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_stanL${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_stangramL${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_kcalL${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_proteinL${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_sfatL${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_natriumL${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_sugarL${dto.dough_no}" /></td>
+									<td>${dto.dough_name }(${dto.n_size })</td>
+									<td><input style="width: 80%" type="text" name="n_gramL${dto.dough_no}" value="${dto.n_gram }"  /></td>
+									<td><input style="width: 80%" type="text" name="n_stanL${dto.dough_no}" value="${dto.n_stan }" /></td>
+									<td><input style="width: 80%" type="text" name="n_stangramL${dto.dough_no}" value="${dto.n_stangram }" /></td>
+									<td><input style="width: 80%" type="text" name="n_kcalL${dto.dough_no}" value="${dto.n_kcal }" /></td>
+									<td><input style="width: 80%" type="text" name="n_proteinL${dto.dough_no}" value="${dto.n_protein }" /></td>
+									<td><input style="width: 80%" type="text" name="n_sfatL${dto.dough_no}" value="${dto.n_sfat }" /></td>
+									<td><input style="width: 80%" type="text" name="n_natriumL${dto.dough_no}" value="${dto.n_natrium }" /></td>
+									<td><input style="width: 80%" type="text" name="n_sugarL${dto.dough_no}" value="${dto.n_sugar }" /></td>
 							</tr>
-									<tr class="tp${ dto.dough_no}" id="${item.id}" title="클릭하시면 '${item.id}'회원의 구매내역 페이지로 이동합니다.">
-									<td>${dto.dough_name }(M)</td>
-									
-									<td><input style="width: 80%" type="text" name="n_gramM${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_stanM${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_stangramM${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_kcalM${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_proteinM${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_sfatM${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_natriumM${dto.dough_no}" /></td>
-									<td><input style="width: 80%" type="text" name="n_sugarM${dto.dough_no}" /></td>
-							</tr>
+							
 							</c:forEach>
+							
 						</tbody>
 						</table>
                         </form>
@@ -259,6 +249,12 @@
 
     <script>
     $(function(){
+	
+ 	 
+ 	   $("select option[value='${dtos.p_kind}']").attr('selected','selected');
+
+ 	   
+    	
 		$(":checkbox").click(function(){
 			if($(":checkbox:checked").length==0){
 				alert("한 개 이상 선택해주세요.");

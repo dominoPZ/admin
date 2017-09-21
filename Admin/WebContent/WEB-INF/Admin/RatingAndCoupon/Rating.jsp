@@ -39,6 +39,17 @@
 		else alert("취소 되었습니다.");
 	}
 	
+	$(function(){
+			var wid;
+			var hei;
+		$(".imgs").hover(function(){
+			this.style.width='120%';
+	    	
+		},function(){
+			this.style.width="50%";
+		});
+	});
+	
 	</script>
 	
 
@@ -95,7 +106,7 @@
             <tbody>
             <c:forEach items="${list }" var="map"  >
               <tr>
-              	<td><img style="width: 50%" alt="${map.rname }" src="<c:url value='/Image/rating' />/${map.rimg }"></td>
+              	<td><img class="imgs" style="width: 50%" alt="${map.rname }" src="<c:url value='/Image/rating' />/${map.rimg }"></td>
                 <td>${map.rno }</td>
                 <td>${map.rname }</td>
                 <td>
