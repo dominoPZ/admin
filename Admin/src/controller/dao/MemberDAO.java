@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import controller.dto.MemberDTO;
 import controller.dto.SalesListDTO;
 
-
+//회원정보 리스트, 회원의 구매내역 리스트 출력
 public class MemberDAO {
 	
 	//멤버변수]

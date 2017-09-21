@@ -44,7 +44,6 @@ public class MemberController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("여기냐?");
 		MemberDAO dao = new MemberDAO(req.getServletContext());
 		int affected=0;
 		System.out.println("ASD");
