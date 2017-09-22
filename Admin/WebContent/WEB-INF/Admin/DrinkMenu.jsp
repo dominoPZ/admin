@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,8 +21,38 @@
     <!-- Bootstrap theme --> <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap-theme.min.css' />" />
 
+	<link rel="stylesheet" type="text/css" href="<c:url value='/test/main.css'/>">
+	<script src="<c:url value='/test/app.js'/>"></script>
 
   </head>
+
+<style>
+.ih-item.circle.effect10.colored .info {
+    background: #c3dbd4;
+}
+.addLi {
+    float: left;
+    list-style: none;
+}
+.ih-item.circle.effect10 .info p {
+    color: #126b53;
+    font-style: italic;
+    font-size: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+.ih-item.circle.effect10 .info h3 {
+    color: #102b6b;
+    text-transform: uppercase;
+    vertical-align: middle;
+    /* position: relative; */
+    letter-spacing: 2px;
+    font-size: 22px;
+    font-weight: bold;
+    text-shadow: 0 0 2px white, 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+</style>
+
+
 
   <body role="document">
 
@@ -32,52 +62,79 @@
  </div>
 	
     <div class="container theme-showcase" role="main">
-			
-	      <!-- Main jumbotron for a primary marketing message or call to action -->
+		<!-- Main jumbotron for a primary marketing message or call to action -->
 	      <div class="jumbotron">
-	        <h1>음료 추가 </h1>
-	        <h3>음료 추가 페이지 입니다.</h3>
+	        <h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2>
 	      </div>
+	      
+	      <div class="page-header">
+	        <h1>음료 목록</h1>
+	      </div>
+	      
+<div class="CircleEvent">
+<ul>
+	<c:forEach items="${drinkList}" var="list">
+	<li class="addLi">
+			<div class="row"  style="padding: 15px">
+				<div class="col-sm-6">
+					<!-- colored -->
+					<div class="ih-item circle colored effect10 bottom_to_top">
+						<a href="#">
+							<div class="img">
+								<img alt="${list.d_img}" src="<c:url value='/Image/sidedish/beverage/'/>${fn:replace(list.d_img,' ', '')}">
+							</div>
+							<div class="info">
+								<h3 style="font-family:맑은 고딕;font-size:15px;line-height:1.4em;vertical-align: middle;">${list.d_name}</h3>
+								<p>
+									<fmt:formatNumber value="${list.d_price}" /> 원
+								</p>
+							</div>
+						</a>
+					</div>
+					<!-- end colored -->
+				</div>
+				</div>
+	</li>
+		</c:forEach>
+</ul>
+</div>
+
+		<input type=button value="음료 추가하기" class="btn btn-sm btn-info" OnClick="location.href='<c:url value="/InsertDrink.do"/>'">
 	
 			<!--  실제 내용의 제목 표시 -->
-	      <div class="page-header">
-	        <h1>회원목록</h1>
-	      </div>
-	      <div>
+
+	 
+	      
 	      <!--  실재 내용 표시  -->
 	              
-       	  <div class="col-md-6">
-          <table class="table table-striped">
-            <thead>
+	              
+	              
+       	  <div><!-- class="col-md-6" 간격조정 때문에 삭제 -->
+          <table class="table table-striped" style="text-align:center;vertical-align: middle;">
+            <thead >
               <tr>
-                <th>번호</th>
-                <th>이름</th>
-                <th>주소</th>
-                <th>아이디</th>
+                <th style="width:110px">일련번호</th>
+                <th style="width:600px">음료</th>
+                <th style="width:150px">가격</th>
+                <th style="width:600px">이미지파일</th>
+                <th style="width:100px">이미지</th>
               </tr>
             </thead>
             <tbody>
+            <c:forEach items="${drinkList}" var="list">
               <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>soule</td>
-                <td>erjlj</td>
+                <td>${list.dr_no}</td>
+                <td>${list.d_name}</td>
+                <td><fmt:formatNumber value="${list.d_price}"/></td>
+                <td>${list.d_img}</td>
+                <td><img style="height:80px;border-radius: 60px;" alt="${list.d_img}" src="<c:url value='/Image/sidedish/beverage/'/>${fn:replace(list.d_img,' ', '')}"></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Mark</td>
-                <td>soule</td>
-                <td>erjlj</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Mark</td>
-                <td>soule</td>
-                <td>erjlj</td>        
-              </tr>
+            </c:forEach>
+              	
+              	
+              	
             </tbody>
           </table>
-          <input type=button value="음료 추가하기" class="btn btn-sm btn-info" OnClick="location.href='<c:url value="/InsertDrink.do"/>'">
         </div>
       </div>      
 	      </div>

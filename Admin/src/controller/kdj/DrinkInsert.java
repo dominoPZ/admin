@@ -88,8 +88,9 @@ public class DrinkInsert extends HttpServlet {
 			req.setAttribute("page", "menu");
 			req.setAttribute("SUC_FAIL", sucorfail);
 			req.setAttribute("WHERE", "MINS");
-			
+			dao.close(); //추가 -미나
 	}		
+		
 		req.getRequestDispatcher("/WEB-INF/Admin/Message.jsp").forward(req,resp);
 		
 	}

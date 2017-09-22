@@ -134,7 +134,7 @@
 							<c:choose>
 								<c:when test="${total eq 0}">
 									<tr align="center">
-										<td colspan="13">구매내역이 없습니다.</td>
+										<td colspan="13" style="font-size: 18px">'${id}'회원의 구매내역이 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -150,8 +150,8 @@
 													&nbsp;/&nbsp;${item.menu_size}
 												</c:if>
 											</td>
-											<td>${item.menu_price}</td>
-											<td>${item.menu_price * item.menu_qty}</td>
+											<td><fmt:formatNumber value="${item.menu_price}"/></td>
+											<td><fmt:formatNumber value="${item.menu_price * item.menu_qty}"/></td>
 											<td colspan="5">
 												<c:forEach var="addr" items="${fn:split(item.sa_addr, '%&@#*^$@!') }"> 
 													${addr }

@@ -288,53 +288,79 @@
  
   
   <!--  어진이꺼 끝-->
+
+
+
+
+	<!-- 미나 시작 ============================================================================= -->
+
+	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>memberEdit</servlet-name>
+		<servlet-class>controller.cmn.MemberEditController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>memberEdit</servlet-name>
+		<url-pattern>/MemberEdit.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>member</servlet-name>
+		<servlet-class>controller.cmn.MemberController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>member</servlet-name>
+		<url-pattern>/Member.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>saleslist</servlet-name>
+		<servlet-class>controller.cmn.SalesListController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>saleslist</servlet-name>
+		<url-pattern>/SalesList.do</url-pattern>
+	</servlet-mapping>
+ 
+ 	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>drinklist</servlet-name>
+		<servlet-class>controller.cmn.DrinkListController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>drinklist</servlet-name>
+		<url-pattern>/DrinkList.do</url-pattern>
+	</servlet-mapping> 
   
-  <!--  미나  -->
+	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>saucelist</servlet-name>
+		<servlet-class>controller.cmn.SauceListController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>saucelist</servlet-name>
+		<url-pattern>/SauceList.do</url-pattern>
+	</servlet-mapping> 
+ 
+	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>picklelist</servlet-name>
+		<servlet-class>controller.cmn.PickleListController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>picklelist</servlet-name>
+		<url-pattern>/PickleList.do</url-pattern>
+	</servlet-mapping> 
   
-  
-   <!-- 서블릿 등록 -->
-  <servlet>
-  	<servlet-name>memberEdit</servlet-name>
-  	<servlet-class>controller.cmn.MemberEditController</servlet-class>
-  </servlet>
-  
-  <!--요청 URL매핑 -->
-  <servlet-mapping>
-  	<servlet-name>memberEdit</servlet-name>
-  	<url-pattern>/MemberEdit.do</url-pattern>
-  </servlet-mapping>
-  
-  
-  
-     <!-- 서블릿 등록 -->
-  <servlet>
-  	<servlet-name>member</servlet-name>
-  	<servlet-class>controller.cmn.MemberController</servlet-class>
-  </servlet>
-  
-  <!--요청 URL매핑 -->
-  <servlet-mapping>
-  	<servlet-name>member</servlet-name>
-  	<url-pattern>/Member.do</url-pattern>
-  </servlet-mapping>
-  
-  
-  
-   <!-- 서블릿 등록 -->
-  <servlet>
-  	<servlet-name>saleslist</servlet-name>
-  	<servlet-class>controller.cmn.SalesListController</servlet-class>
-  </servlet>
-  
-  <!--요청 URL매핑 -->
-  <servlet-mapping>
-  	<servlet-name>saleslist</servlet-name>
-  	<url-pattern>/SalesList.do</url-pattern>
-  </servlet-mapping>
-  
-  
-  
-  <!--  미나 끝 -->
+  <!-- 미나 끝 ================================================================================ -->
   
   
   
