@@ -13,7 +13,7 @@ public class StoreDTO {
 	private String st_no;
 	private String st_xpos;
 	private String st_ypos;
-	
+	private String st_road;
 	
 	
 	public String getSt_xpos() {
@@ -82,6 +82,12 @@ public class StoreDTO {
 	}
 	public void setSt_no(String st_no) {
 		this.st_no = st_no;
+	}
+	public String getSt_road() {
+		return st_road;
+	}
+	public void setSt_road(String st_road) {
+		this.st_road = st_road;
 	}
 
 	

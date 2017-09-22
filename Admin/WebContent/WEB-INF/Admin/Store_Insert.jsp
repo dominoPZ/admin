@@ -96,11 +96,12 @@ function test() {
   } else {
       alert(' 주소 호출시 오류가 발생하였습니다. 관리자에게 문의해주세요!!ㅠㅠ ' + status);
   }
-  	var ret = results[0].geometry.location;
-	var pos = document.getElementById("xpos");
+  	var ret = results[0].geometry.location+" ";
+	var pos = document.getElementById("pos");
+	ret = ret.replace("("," ");
+	ret = ret.replace(")"," ");
   	pos.value = ret;
 	fr.submit();
-  
   
 });
 
@@ -236,8 +237,7 @@ function check() {
         <div class="page-header">
     	    <h1> 매장 추가하기 ${mes } <small>Store </small></h1>
         </div>
-        <form class="form-horizontal" method="post"  enctype="multipart/form-data"  name="fr" id="fr"  action="<c:url value='/StoreInsertController.do' />" >
-        
+        <form class="form-horizontal" method="get"  enctype="multipart/form-data"  name="fr" id="fr"  action="<c:url value='/StoreInsertController.do' />" >
                 <div class="form-group">
             <label class="col-sm-3 control-label"  for="inputName">매장명</label>
           <div class="col-sm-6">
@@ -278,7 +278,7 @@ function check() {
 		<input onclick="openDaumPostcode()" type="button" class="btn btn-sm btn-info"  value="우편번호찾기"><br>
         </div>
         </div>
-        <input type="hidden" id="xpos" name="xpos" value="" >
+        <input type="hidden" id="pos" name="pos" value="" >
         <input type="hidden" id="ypos" name="ypos" value="" >
         <!--  주소 -->
          <div class="form-group">
@@ -297,7 +297,16 @@ function check() {
         <div class="col-sm-6">
 		<input id="addr2" class="poststyle2" size="40" name="addr2" placeholder="상세 주소">
         </div>
-        </div>        
+        </div>    
+        
+        <div class="form-group">
+         <label class="col-sm-3 control-label" for="inputEmail">찾아오는 길</label>
+
+        <div class="col-sm-6">
+		<input id=st_road" class="poststyle2" size="40" name="st_road" placeholder="찾아오는 길">
+        </div>
+        </div>    
+            
        <div class="form-group">
             <label class="col-sm-3 control-label" for="inputName">매장 전화번호</label>
           <div class="col-sm-6">
@@ -435,7 +444,8 @@ function openDaumPostcode() {
             if(fullRoadAddr !== ''){
                 fullRoadAddr += extraRoadAddr;
             }
-             
+        
+            
             
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("post1").value = data.postcode1;
@@ -452,7 +462,6 @@ function openDaumPostcode() {
 }
 </script>
 	
-	
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   
   
@@ -465,7 +474,6 @@ function openDaumPostcode() {
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmAha71igXMISM4aYIpTHXnsUfEM6MfTc"
                 async defer></script>
 		</div>
-
   </body>
   
 </html>

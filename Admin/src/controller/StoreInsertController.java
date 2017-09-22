@@ -13,7 +13,7 @@ import controller.dto.StoreDTO;
 public class StoreInsertController extends HttpServlet {
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
 		req.setCharacterEncoding("UTF-8");
@@ -26,7 +26,12 @@ public class StoreInsertController extends HttpServlet {
 		dto.setSt_tel(req.getParameter("st_tel"));
 		dto.setSt_parkin(req.getParameter("st_parkin"));
 		dto.setSt_time(req.getParameter("st_time"));
-		String pos = req.getParameter("xpos").replace("(", "").replace(")", "");
+		dto.setSt_road(req.getParameter("st_road"));
+		String pos = "1,2";
+		System.out.println(req.getParameter("pos"));
+		if(req.getParameter("pos")!=null)
+		pos = req.getParameter("pos").replace("(", "").replace(")", "");
+		System.out.println(pos+"@@");
 		String xpos = pos.split(",")[0];
 		String ypos = pos.split(",")[1];
 		dto.setSt_xpos(xpos);

@@ -58,7 +58,7 @@ public class StoreDAO {
 	public int insert(StoreDTO dto){
 		int i = 0;
 		try{
-		String sql = "insert into STORES VALUES(seq_stores_st_no.nextval,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into STORES VALUES(seq_stores_st_no.nextval,?,?,?,?,?,?,?,?,?,?,?)";
 		psmt = conn.prepareStatement(sql);
 		psmt.setString(1, dto.getSt_name());
 		psmt.setString(2, dto.getSt_id());
@@ -70,7 +70,7 @@ public class StoreDAO {
 		psmt.setString(8, dto.getSt_time());
 		psmt.setString(9, dto.getSt_xpos());
 		psmt.setString(10, dto.getSt_ypos());
-		
+		psmt.setString(11, dto.getSt_road());
 		i = psmt.executeUpdate();
 		if(i==1){
 		}
