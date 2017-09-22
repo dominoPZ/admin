@@ -53,7 +53,7 @@
 	<c:when test="${WHERE eq 'MINS' }">
 		<c:set var="SUC_MSG" value="정상적으로 입력되었습니다."/>
 		<c:set var="FAIL_MSG" value="입력 실패!!"/>
-		<c:set var="SUC_URL" value="/DrinkMenu.do"/>
+		<c:set var="SUC_URL" value="/DrinkList.do"/>
 	</c:when>		
 	
 	<c:when test="${WHERE eq 'SINS' }">
