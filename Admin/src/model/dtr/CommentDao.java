@@ -41,12 +41,28 @@ public class CommentDao {
 		       
 		    }
 		
+		public void close() {
+			try {
+			if(psmt!=null)
+				psmt.close();
+			if(conn!=null)
+				conn.close();
+			if(rs!=null)
+				rs.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
-		public int insert(CommentDto dto) {
-			int affected=0;
+		
+		public List<Map> insert(CommentDto dto) {
+			List affected=new Vector<>();
 			String sql="INSERT INTO PIZZA VALUES(seq_pizza_p_no.nextval,?,?,?,?,?,?,?,?,?,?)";
 			String p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,seq_pizza_p_no.currval,3,'2000')";
 			String p_dough_sql = "";	
+			PreparedStatement psmt2;
+			ResultSet rs2;
 			try {
 				psmt = conn.prepareStatement(sql);
 				
@@ -61,7 +77,7 @@ public class CommentDao {
 				psmt.setString(8,dto.getP_himg());
 				psmt.setString(9,dto.getP_dimg());
 				psmt.setString(10,dto.getP_detail());
-				affected = psmt.executeUpdate();
+				psmt.executeUpdate();
 				
 				for(String dough : dto.getDough_name()) {
 					p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,seq_pizza_p_no.currval,?)";
@@ -69,6 +85,17 @@ public class CommentDao {
 					p_dough_psmt = conn.prepareStatement(p_d_sql);
 					p_dough_psmt.setString(1,dough);
 					p_dough_psmt.executeUpdate();
+					
+					String sql2 = "select seq_pizza_dough_d_no.currval from dual";
+					psmt2 = conn.prepareStatement(sql2);
+					rs2 = psmt2.executeQuery();
+					if(rs2.next()) {
+						Map map = new HashMap<>();
+						map.put("d_no", rs2.getString(1));
+						map.put("dough_no", dough);
+						affected.add(map);
+					}
+					
 				}
 				
 				
@@ -150,6 +177,62 @@ public class CommentDao {
 			}
 		}
 		
+		
+		public List<Map> edit(CommentDto dto) {
+			List affected=new Vector<>();
+			String sql="INSERT INTO PIZZA VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+			String p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,?,3,'2000')";
+			String delete = "";	
+			try {
+				delete = "delete pizza where p_no=?";
+				psmt = conn.prepareStatement(delete);
+				psmt.setString(1, dto.getP_no());
+				psmt.executeUpdate();
+				
+			PreparedStatement psmt2;
+			ResultSet rs2;
+				psmt = conn.prepareStatement(sql);
+				
+				psmt.setString(1, dto.getP_no());
+				psmt.setString(2,dto.getP_name());
+				psmt.setString(3,dto.getP_kind());
+				psmt.setString(4,dto.getP_topping());
+				psmt.setString(5,dto.getP_sprice());
+				psmt.setString(6,dto.getP_lprice());
+				psmt.setString(7,dto.getP_origin());
+				psmt.setString(8,dto.getP_img());
+				psmt.setString(9,dto.getP_himg());
+				psmt.setString(10,dto.getP_dimg());
+				psmt.setString(11,dto.getP_detail());
+				psmt.executeUpdate();
+				
+				for(String dough : dto.getDough_name()) {
+					p_d_sql = "INSERT INTO PIZZA_DOUGH VALUES(seq_pizza_dough_d_no.nextval,?,?)";
+					
+					p_dough_psmt = conn.prepareStatement(p_d_sql);
+					p_dough_psmt.setString(1, dto.getP_no());
+					p_dough_psmt.setString(2,dough);
+					p_dough_psmt.executeUpdate();
+					
+					String sql2 = "select seq_pizza_dough_d_no.currval from dual";
+					psmt2 = conn.prepareStatement(sql2);
+					rs2 = psmt2.executeQuery();
+					if(rs2.next()) {
+						Map map = new HashMap<>();
+						map.put("d_no", rs2.getString(1));
+						map.put("dough_no", dough);
+						affected.add(map);
+					}
+					
+				}
+				
+				
+				
+				
+			} catch (SQLException e) {e.printStackTrace();}
+			
+			return affected;
+		}/////////////////insert
 		
 		
 	}///CommentDao

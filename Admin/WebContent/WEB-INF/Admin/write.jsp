@@ -232,7 +232,7 @@
 									<td><input style="width: 80%" type="text" name="n_natriumL${dto.dough_no}" /></td>
 									<td><input style="width: 80%" type="text" name="n_sugarL${dto.dough_no}" /></td>
 							</tr>
-									<tr class="tp${ dto.dough_no}" id="${item.id}" title="클릭하시면 '${item.id}'회원의 구매내역 페이지로 이동합니다.">
+									<tr class="tp${ dto.dough_no}">
 									<td>${dto.dough_name }(M)</td>
 									
 									<td><input style="width: 80%" type="text" name="n_gramM${dto.dough_no}" /></td>

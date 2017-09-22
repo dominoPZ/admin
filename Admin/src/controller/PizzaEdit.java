@@ -25,7 +25,6 @@ import model.dtr.CommentDto;
 import model.dtr.DoughDTO;
 
 public class PizzaEdit extends HttpServlet {
-		
 		//입력 폼으로 이동
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,12 +36,11 @@ public class PizzaEdit extends HttpServlet {
 			PizzaMenuListDTO dto = daos.pizzaView(no);
 			List<DoughDTO> list = dao.getDough();
 			req.setAttribute("list", list);
-			
+			dto.setP_no(no);
 			req.setAttribute("dtos", dto);
-		
-			
+			dao.getClass();
 			req.getRequestDispatcher("/WEB-INF/Admin/PizzaEdit.jsp").forward(req,resp);
-		
+			
 		}//doGet()
 	
 		//입력처리
@@ -52,10 +50,9 @@ public class PizzaEdit extends HttpServlet {
 			//한글 처리
 			req.setCharacterEncoding("UTF-8");
 			String src = req.getSession().getAttribute("SRC").toString()+"\\pizzalist";
-			
 			//파일 업로드 관련 모델 호출
 			MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image"));
-			int sucorfail;
+			List<Map> sucorfail;
 			
 			
 			String p_no = mr != null ? req.getParameter("p_no") : "";
@@ -85,17 +82,24 @@ public class PizzaEdit extends HttpServlet {
 				 p_detail = mr.getParameter("p_detail");
 				 dough_name = mr.getParameterValues("dough_name");
 				 
-				 File file = new File(req.getServletContext().getRealPath("/Image")+File.separator+p_img);
-				 String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
-				 file.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"."+jpg));
-				 File file2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"."+jpg);
-				 
-
-				 FileInputStream fis = new FileInputStream(file2);      
-				 FileOutputStream fos = new FileOutputStream(src+File.separator+p_name+"."+jpg);
-				 
+				 FileInputStream fis = null;
+				 FileOutputStream fos = null;
+				 File file;
+				 File file2=null;
 				 int data = 0;
 				 byte[] buf = new byte[1024];
+				 
+				 if(p_img!=null) {
+				 file = new File(req.getServletContext().getRealPath("/Image")+File.separator+p_img);
+				 String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
+				 file.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"."+jpg));
+				 file2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"."+jpg);
+				 
+
+				 fis = new FileInputStream(file2);      
+				 fos = new FileOutputStream(src+File.separator+p_name+"."+jpg);
+				 data = 0;
+				 buf = new byte[1024];
 				 fileIsLive(src+File.separator+p_name+"."+jpg);
 				 while((data=fis.read(buf))!=-1) {
 				     fos.write(buf,0,data);
@@ -104,10 +108,12 @@ public class PizzaEdit extends HttpServlet {
 				 
 				 fis.close();
 				 fos.close();
+				 }
+				 
 				 File dfile2=null;
 				 if(p_dimg!=null) {
 				 File dfile = new File(req.getServletContext().getRealPath("/Image")+File.separator+p_dimg);
-				 String djpg = dfile.getName().substring(file.getName().length()-3,dfile.getName().length());
+				 String djpg = dfile.getName().substring(dfile.getName().length()-3,dfile.getName().length());
 				 dfile.renameTo( new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"D."+djpg));
 				 dfile2 =  new File(req.getServletContext().getRealPath("/Image")+File.separator+p_name+"D."+djpg);
 				 fis = new FileInputStream(dfile2);
@@ -122,6 +128,7 @@ public class PizzaEdit extends HttpServlet {
 				 fis.close();
 				 fos.close();
 				 }
+				 
 				 
 				 File hfile2=null;
 				 if(p_himg!=null) {
@@ -145,11 +152,11 @@ public class PizzaEdit extends HttpServlet {
 				 
 				 }
 				 
+				 
 				 //File tfile = new File(src+File.separator+p_name+"."+jpg);
-				 System.out.println(src+File.separator+p_name+"."+jpg);
 				 
 				 
-				 System.out.println(req.getServletContext().getRealPath("/Upload"));
+				 System.out.println(req.getServletContext().getRealPath("/Image"));
 				 
 				 
 				 
@@ -163,35 +170,36 @@ public class PizzaEdit extends HttpServlet {
 				dto.setP_sprice(p_sprice);
 				dto.setP_lprice(p_lprice);
 				dto.setP_origin(p_origin);
-				dto.setP_img(file2==null?"":file2.getName());
-				dto.setP_himg(dfile2==null?"":hfile2.getName());
-				dto.setP_dimg(hfile2==null?"":dfile2.getName());
+				dto.setP_img(file2==null?mr.getParameter("fileOrgName"):file2.getName());
+				dto.setP_himg(dfile2==null?mr.getParameter("hfileOrgName"):hfile2.getName());
+				dto.setP_dimg(hfile2==null?mr.getParameter("dfileOrgName"):dfile2.getName());
 				dto.setP_detail(p_detail);
 				dto.setDough_name(dough_name);
-				sucorfail=dao.insert(dto);
+				sucorfail=dao.edit(dto);
+				System.out.println(dto.getP_img()+"!파일이름");
 				
 				List<P_nutrientDTO> pnlist= new Vector<>();
 				String tsize="";
 				
-				for(String no:dough_name) {
+				for(Map map:sucorfail) {
 					for(int i=0;i<2;i++) {
 					if(i==0) {
 						tsize="L";	
 					}
 					else tsize="M";
 					P_nutrientDTO pndto = new P_nutrientDTO();
-					System.out.println(mr.getParameter("n_gram"+tsize+no)+"!!!!");
-					pndto.setN_gram(mr.getParameter("n_gram"+tsize+no));
-					pndto.setN_kcal(mr.getParameter("n_kacl"+tsize+no));
-					pndto.setN_natrium(mr.getParameter("n_natrium"+tsize+no));
-					pndto.setN_protein(mr.getParameter("n_protein"+tsize+no));
-					pndto.setN_sfat(mr.getParameter("n_sfat"+tsize+no));
-					pndto.setN_size(mr.getParameter("n_size"+tsize+no));
-					pndto.setN_stan(mr.getParameter("n_stan"+tsize+no));
-					pndto.setN_stangram(mr.getParameter("n_stangram"+tsize+no));
-					pndto.setN_sugar(mr.getParameter("n_sugar"+tsize+no));
+					System.out.println(mr.getParameter("n_gram"+tsize+map.get("dough_no"))+"!!!!");
+					pndto.setN_gram(mr.getParameter("n_gram"+tsize+map.get("dough_no")));
+					pndto.setN_kcal(mr.getParameter("n_kcal"+tsize+map.get("dough_no")));
+					pndto.setN_natrium(mr.getParameter("n_natrium"+tsize+map.get("dough_no")));
+					pndto.setN_protein(mr.getParameter("n_protein"+tsize+map.get("dough_no")));
+					pndto.setN_sfat(mr.getParameter("n_sfat"+tsize+map.get("dough_no")));
+					pndto.setN_size(mr.getParameter("n_size"+tsize+map.get("dough_no")));
+					pndto.setN_stan(mr.getParameter("n_stan"+tsize+map.get("dough_no")));
+					pndto.setN_stangram(mr.getParameter("n_stangram"+tsize+map.get("dough_no")));
+					pndto.setN_sugar(mr.getParameter("n_sugar"+tsize+map.get("dough_no")));
 					pndto.setN_size(tsize);
-					pndto.setD_no(no);
+					pndto.setD_no(map.get("d_no").toString());
 					dao.pnutrientIn(pndto);
 					
 					}
@@ -200,24 +208,25 @@ public class PizzaEdit extends HttpServlet {
 				
 				
 			}
-			else sucorfail = -1;
+			else sucorfail = null;
 			
 			
 			//5]리퀘스트 영역에 결과값 혹은 필요한 값 저장
 			//5-1]DB입력 성공 여부 및 파일용량 초과 판단용 속성 저장
-			req.setAttribute("SUC_FAIL", sucorfail);
+			req.setAttribute("SUC_FAIL", -1);
 			//5-2]컨트롤러 구분용-입력:INS,수정:EDT,삭제:DEL
 			req.setAttribute("WHERE", "INS");
 			
-			if(sucorfail ==1){//입력 성공
+			if(sucorfail !=null){//입력 성공
 				//※입력후 바로 목록으로 이동]-반드시 List.jsp가 아닌 List.do로
 				resp.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = resp.getWriter();
 				out.println("<script>");
 				out.println("alert('정상적으로 입력 되었습니다')");
 				out.println("</script>");
-				req.getRequestDispatcher("/WEB-INF/Admin/write.jsp").forward(req, resp);
+				
 			}
+			req.getRequestDispatcher("/PizzaList.pz").forward(req, resp);
 			
 		}
 		

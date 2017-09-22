@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import controller.dao.StoreDAO;
 import controller.dto.P_nutrientDTO;
 import model.dtr.CommentDao;
 import model.dtr.CommentDto;
@@ -31,6 +32,7 @@ public class WriteController extends HttpServlet {
 			CommentDao dao = new CommentDao(req.getServletContext());
 			List<DoughDTO> list = dao.getDough();
 			req.setAttribute("list", list);
+			dao.close();
 			req.getRequestDispatcher("/WEB-INF/Admin/write.jsp").forward(req,resp);
 		}//doGet()
 	
@@ -40,11 +42,14 @@ public class WriteController extends HttpServlet {
 			req.setAttribute("page", "menu");
 			//한글 처리
 			req.setCharacterEncoding("UTF-8");
-			String src = req.getSession().getAttribute("SRC").toString()+"\\pizzalist";
+			StoreDAO sdao=new StoreDAO(req.getServletContext());
+			String src2 = sdao.getsrc();
+			String src = src2+"\\pizzalist";
+			req.getSession().setAttribute("SRC", src2);
 			
 			//파일 업로드 관련 모델 호출
 			MultipartRequest mr=model.dtr.FileUtils.upload(req,req.getServletContext().getRealPath("/Image"));
-			int sucorfail;
+			List<Map> sucorfail;
 			
 			
 			String p_no = mr != null ? req.getParameter("p_no") : "";
@@ -161,26 +166,27 @@ public class WriteController extends HttpServlet {
 				
 				List<P_nutrientDTO> pnlist= new Vector<>();
 				String tsize="";
-				
-				for(String no:dough_name) {
+				System.out.println(sucorfail.size()+"사이즈!!");
+				System.out.println(sucorfail.get(1).get("d_no"));
+				for(Map map:sucorfail) {
 					for(int i=0;i<2;i++) {
 					if(i==0) {
 						tsize="L";	
 					}
 					else tsize="M";
 					P_nutrientDTO pndto = new P_nutrientDTO();
-					System.out.println(mr.getParameter("n_gram"+tsize+no)+"!!!!");
-					pndto.setN_gram(mr.getParameter("n_gram"+tsize+no));
-					pndto.setN_kcal(mr.getParameter("n_kacl"+tsize+no));
-					pndto.setN_natrium(mr.getParameter("n_natrium"+tsize+no));
-					pndto.setN_protein(mr.getParameter("n_protein"+tsize+no));
-					pndto.setN_sfat(mr.getParameter("n_sfat"+tsize+no));
-					pndto.setN_size(mr.getParameter("n_size"+tsize+no));
-					pndto.setN_stan(mr.getParameter("n_stan"+tsize+no));
-					pndto.setN_stangram(mr.getParameter("n_stangram"+tsize+no));
-					pndto.setN_sugar(mr.getParameter("n_sugar"+tsize+no));
+					System.out.println(mr.getParameter("n_gram"+tsize+map.get("dough_no"))+"!!!!");
+					pndto.setN_gram(mr.getParameter("n_gram"+tsize+map.get("dough_no")));
+					pndto.setN_kcal(mr.getParameter("n_kcal"+tsize+map.get("dough_no")));
+					pndto.setN_natrium(mr.getParameter("n_natrium"+tsize+map.get("dough_no")));
+					pndto.setN_protein(mr.getParameter("n_protein"+tsize+map.get("dough_no")));
+					pndto.setN_sfat(mr.getParameter("n_sfat"+tsize+map.get("dough_no")));
+					pndto.setN_size(mr.getParameter("n_size"+tsize+map.get("dough_no")));
+					pndto.setN_stan(mr.getParameter("n_stan"+tsize+map.get("dough_no")));
+					pndto.setN_stangram(mr.getParameter("n_stangram"+tsize+map.get("dough_no")));
+					pndto.setN_sugar(mr.getParameter("n_sugar"+tsize+map.get("dough_no")));
 					pndto.setN_size(tsize);
-					pndto.setD_no(no);
+					pndto.setD_no(map.get("d_no").toString());
 					dao.pnutrientIn(pndto);
 					
 					}
@@ -189,7 +195,7 @@ public class WriteController extends HttpServlet {
 				
 				
 			}
-			else sucorfail = -1;
+			else sucorfail = null;
 			
 			
 			//5]리퀘스트 영역에 결과값 혹은 필요한 값 저장
@@ -198,14 +204,15 @@ public class WriteController extends HttpServlet {
 			//5-2]컨트롤러 구분용-입력:INS,수정:EDT,삭제:DEL
 			req.setAttribute("WHERE", "INS");
 			
-			if(sucorfail ==1){//입력 성공
+			if(sucorfail !=null){//입력 성공
 				//※입력후 바로 목록으로 이동]-반드시 List.jsp가 아닌 List.do로
 				resp.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = resp.getWriter();
 				out.println("<script>");
 				out.println("alert('정상적으로 입력 되었습니다')");
 				out.println("</script>");
-				req.getRequestDispatcher("/WEB-INF/Admin/write.jsp").forward(req, resp);
+				
+				req.getRequestDispatcher("/PizzaList.pz").forward(req, resp);
 			}
 			
 		}

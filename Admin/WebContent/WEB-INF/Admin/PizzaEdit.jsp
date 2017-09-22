@@ -52,11 +52,6 @@
          */
       
        
-       if(formObject.p_img.value.length == 0){
-         alert("피자 이미지 파일을 첨부하세요");
-         formObject.p_img.focus();
-         return false;
-      }//else if
       
         
         
@@ -98,7 +93,7 @@
                        <legend>메뉴 등록</legend>
                        <legend style="font-weight: bold; font-size: 2em;" align="top">메뉴 등록</legend>
                        <span style="color:red; font-size:1.5em; ">${errorMessage }</span>
-                        <form onsubmit="return isValidate(this);" action="${pageContext.request.contextPath}/Write.do" method="post" enctype="multipart/form-data">
+                        <form onsubmit="return isValidate(this);" action="${pageContext.request.contextPath}/PizzaEdit.pz" method="post" enctype="multipart/form-data">
                            <table style="line-height: 2.3em" >
 
                                                 
@@ -164,25 +159,30 @@
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">피자 이미지파일</td>
                                  <td >
-                                 ${dtos.p_img == null ? '' : dtos.p_img}
                                  <input type="file" name="p_img" style="width:98%" id="pimg"/>
+                                 <span style="font-size: 0.8em">
+                                 ${dtos.p_img}
+                                 </span>
                                  
                                  </td>
                               </tr>
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">하프앤하프 이미지 파일</td>
                                  <td >
-                                 ${p_himg == null ? '' : p_himg}
                                  <input type="file" name="p_himg" style="width:98%" id="phimg"/>
+                                  <span style="font-size: 0.8em">
+                                 ${dtos.p_himg}
+                                 </span>
                                  
                                  </td>
                               </tr>
                               <tr bgcolor="white" >
                                  <td width="30%" align="center">피자 상세정보 이미지 파일</td>
                                  <td >
-                                 ${dtos.p_dimg == null ? '' : dtos.p_dimg}
                                  <input type="file" name="p_dimg" style="width:98%" id="pdimg"/>
-                                 
+                                  <span style="font-size: 0.8em">
+                                 ${dtos.p_dimg}
+                                 </span>
                                  </td>
                               </tr>
                               <tr bgcolor="white" >
@@ -191,9 +191,10 @@
                                  <textarea rows="10" style="width:98%" name="p_detail">${dtos.p_detail == null ? '' : dtos.p_detail}</textarea>
                                  </td>
                               </tr>
-                              
-                              
-                              
+                              <input type="hidden" name="p_no" value="${dtos.p_no}" />
+                            	<input type="hidden" name="fileOrgName" value=" ${dtos.p_img == null ? '' : dtos.p_img}" >
+                            	<input type="hidden" name="dfileOrgName" value=" ${dtos.p_dimg == null ? '' : dtos.p_dimg}" >
+                            	<input type="hidden" name="hfileOrgName" value=" ${dtos.p_himg == null ? '' : dtos.p_himg}" >
                               <tr bgcolor="white" align="center">
                                  <td colspan="2">
                                  <input type="submit" class="btn btn-sm btn-info" value="메뉴 등록"/>
@@ -220,21 +221,70 @@
 						</thead>
 						
 						<tbody class="firstTbody" id="tbody" >
-							<c:forEach items="${dtos.list }" var="dto" varStatus="loop" >
+							<c:forEach items="${list }" var="dto" varStatus="loop" >
+								<c:set value="0" var="nont" />
+								<c:forEach items="${dtos.list }" var="dto2" varStatus="loop2" >
+									<c:if test="${dto2.dough_no==dto.dough_no && dto2.n_size=='L' }">
 							<tr class="tp${ dto.dough_no}" >
-									<td>${dto.dough_name }(${dto.n_size })</td>
-									<td><input style="width: 80%" type="text" name="n_gramL${dto.dough_no}" value="${dto.n_gram }"  /></td>
-									<td><input style="width: 80%" type="text" name="n_stanL${dto.dough_no}" value="${dto.n_stan }" /></td>
-									<td><input style="width: 80%" type="text" name="n_stangramL${dto.dough_no}" value="${dto.n_stangram }" /></td>
-									<td><input style="width: 80%" type="text" name="n_kcalL${dto.dough_no}" value="${dto.n_kcal }" /></td>
-									<td><input style="width: 80%" type="text" name="n_proteinL${dto.dough_no}" value="${dto.n_protein }" /></td>
-									<td><input style="width: 80%" type="text" name="n_sfatL${dto.dough_no}" value="${dto.n_sfat }" /></td>
-									<td><input style="width: 80%" type="text" name="n_natriumL${dto.dough_no}" value="${dto.n_natrium }" /></td>
-									<td><input style="width: 80%" type="text" name="n_sugarL${dto.dough_no}" value="${dto.n_sugar }" /></td>
+									<td>${dto.dough_name }(L)</td>
+									<c:set value="1" var="nont" />
+									<td><input style="width: 80%" type="text" value="${dto2.n_gram }" name="n_gramL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_stan }" name="n_stanL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_stangram }" name="n_stangramL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_kcal }" name="n_kcalL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_protein }" name="n_proteinL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_sfat }" name="n_sfatL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_natrium }" name="n_natriumL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_sugar }" name="n_sugarL${dto.dough_no}" /></td>
 							</tr>
-							
+									</c:if>
+									<c:if test="${dto2.dough_no==dto.dough_no && dto2.n_size=='M' }">
+							<tr class="tp${ dto.dough_no}">
+									<td>${dto.dough_name }(M)</td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_gram }" name="n_gramM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_stan }" name="n_stanM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_stangram }" name="n_stangramM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_kcal }" name="n_kcalM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_protein }" name="n_proteinM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_sfat }" name="n_sfatM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_natrium }" name="n_natriumM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" value="${dto2.n_sugar }" name="n_sugarM${dto.dough_no}" /></td>
+							</tr>
+									</c:if>
+									</c:forEach>
+									
+								<c:if test="${nont==0 }">
+								!!!
+								<tr class="tp${ dto.dough_no}"  >
+									<td>${dto.dough_name }(L)</td>
+									<td><input style="width: 80%" type="text" name="n_gramL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stanL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stangramL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_kcalL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_proteinL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sfatL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_natriumL${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sugarL${dto.dough_no}" /></td>
+							</tr>
+									<tr class="tp${ dto.dough_no}" >
+									<td>${dto.dough_name }(M)</td>
+									
+									<td><input style="width: 80%" type="text" name="n_gramM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stanM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_stangramM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_kcalM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_proteinM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sfatM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_natriumM${dto.dough_no}" /></td>
+									<td><input style="width: 80%" type="text" name="n_sugarM${dto.dough_no}" /></td>
+							</tr>
+								
+								
+								</c:if>
+									
+									
+									
 							</c:forEach>
-							
 						</tbody>
 						</table>
                         </form>
