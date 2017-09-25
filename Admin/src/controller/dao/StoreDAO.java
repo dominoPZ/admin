@@ -80,7 +80,6 @@ public class StoreDAO {
 		}
 		return i;
 	}
-	
 
 	
 	public List<SalUserDTO> printsal(String no) {
@@ -93,7 +92,7 @@ public class StoreDAO {
 		ResultSet rs4;
 		
 		try{
-		String sql = "select sa_no,name,tel,sa_addr,TO_char(sa_date,'yyyy/mm/dd hh24:mi:ss'),sa_pro from sales s join customer c on c.id = s.id where sa_pro != '주문 상태 - 종료' AND st_no ="+no;
+		String sql = "select sa_no,sa_recipt,sa_rectel,sa_addr,TO_char(sa_date,'yyyy/mm/dd hh24:mi:ss'),sa_pro,sa_request from sales s join customer c on c.id = s.id where sa_pro != '주문 상태 - 종료' AND st_no ="+no;
 		System.out.println(no);
 		
 		psmt = conn.prepareStatement(sql);
@@ -107,6 +106,7 @@ public class StoreDAO {
 			dto.setName(rs.getString(2));
 			dto.setS_date(rs.getString(5));
 			dto.setTel(rs.getString(3));
+			dto.setRequest(rs.getString(7));
 			String sql2 = "select menu_name,menu_qty,menu_size,menu_price,sm_no,menu_kind,menu_no from sales s join sales_menu sm on sm.sa_no = s.sa_no where s.sa_no='"+rs.getString(1)+"'";
 			psmt2 = conn.prepareStatement(sql2);
 			rs2 = psmt2.executeQuery();
@@ -117,13 +117,16 @@ public class StoreDAO {
 				sdto.setQty(rs2.getString(2));
 				sdto.setSize(rs2.getString(3));
 				sdto.setPrice(rs2.getString(4));
-				
-				if(rs2.getString(6).equals("1")){
-					sql = "select dough_name from dough d join pizza_dough p on p.dough_no = d.dough_no where p_no = '"+rs2.getString(7)+"'";
+				System.out.println(rs2.getString(6).trim()+"이프문 안으로 들어가자");
+				if(rs2.getString(6).trim().equals("1")){
+					System.out.println(rs2.getString(7)+"d_no");
+					sql = "select dough_name from dough d join pizza_dough p on p.dough_no = d.dough_no where p.d_no = '"+rs2.getString(7)+"'";
 					psmt4 = conn.prepareStatement(sql);
 					rs4 = psmt4.executeQuery();
-					if(rs4.next())
-					sdto.setDoughname(rs4.getString(1));
+					if(rs4.next()) {
+						sdto.setDoughname(rs4.getString(1));
+						System.out.println(rs4.getString(1)+"이프문 내에서");
+					}
 				}
 				
 				
@@ -154,8 +157,10 @@ public class StoreDAO {
 	public int login(String type,String id, String pass, HttpSession session) {
 		String sql="";
 		System.out.println(type+id+pass);
-		if(type.equals("admin"))
-			sql="select count(*) from admin_tab where ad_id=? and ad_pass=?";
+		if(type.equals("admin")) {
+			sql="select * from admin_tab where ad_id=? and ad_pass=?";
+			System.out.println("어드민");
+		}
 		else sql = "select st_no,st_name from stores where st_id=? and st_pass=?";
 		try{
 		psmt = conn.prepareStatement(sql);
@@ -239,13 +244,13 @@ public class StoreDAO {
 			else
 				sql0 += " "+ser+" ";
 		}
-		sql0 += " group by s.sa_no ";
+		sql0 += "  group by s.sa_no  order by s.sa_no desc  ";
 		System.out.println("sa주기용"+sql0);
 		psmt0 = conn.prepareStatement(sql0);
 		rs0 = psmt0.executeQuery();
 		while(rs0.next()) {
 		System.out.println("sa = "+rs0.getString(1));
-		String sql = "select sa_no,name,tel,sa_addr,sa_date from sales s join customer c on c.id=s.id where sa_no = "+rs0.getString(1)+" ";
+		String sql = "select sa_no,sa_recipt,sa_rectel,sa_addr,sa_date,sa_request from sales s join customer c on c.id=s.id where sa_no = "+rs0.getString(1)+" ";
 		
 		if(date1.length()>0&&date2.length()>0){
 			sql+=" and sa_date between '"+date1+"' and to_date('"+date2+"','YYYY-MM-DD')+1";
@@ -253,8 +258,9 @@ public class StoreDAO {
 		System.out.println(sql);
 		
 		if(sa_no.length()>0)
-			sql += "and sa_no ='"+sa_no+"'";
+			sql += "and sa_no ='"+sa_no+"' ";
 			
+		sql += "  order by sa_no desc  ";
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
 		while(rs.next()){
@@ -262,11 +268,12 @@ public class StoreDAO {
 			List list2 = new Vector<>();
 			dto.setNo(rs.getString(1));
 			dto.setName(rs.getString(2));
+			dto.setRequest(rs.getString(6));
 			dto.setTel(rs.getString(3));
 			dto.setAddr(rs.getString(4).replace("%&@#*^$@!", "<br/>"));
 			dto.setS_date(rs.getString(5));
 			System.out.println(rs.getString(5)+"@@");
-			sql = "select * from sales_menu where sa_no="+rs.getString(1);
+			sql = "select * from sales_menu where sa_no="+rs.getString(1)+"  order by sa_no desc  ";
 			psmt2 = conn.prepareStatement(sql);
 			rs2 = psmt2.executeQuery();
 			while(rs2.next()){
@@ -281,7 +288,7 @@ public class StoreDAO {
 				dto2.setMenu_no(rs2.getString(3));
 				System.out.println(rs2.getString(3)+"$$");
 				if(rs2.getString(4).equals("1")){
-					sql = "select dough_name from dough d join pizza_dough p on p.dough_no = d.dough_no where p_no = '"+rs2.getString(3)+"'";
+					sql = "select dough_name from dough d join pizza_dough p on p.dough_no = d.dough_no where p.d_no = '"+rs2.getString(3)+"'";
 					psmt4 = conn.prepareStatement(sql);
 					rs4 = psmt4.executeQuery();
 					if(rs4.next()) {
@@ -301,7 +308,7 @@ public class StoreDAO {
 					}/// 피자 - 라지
 					else
 						col=" P_SPRICE+D_PRICE ";
-					where = " p.p_no ";
+					where = " D.d_no ";
 					from="  PIZZA P join PIZZA_DOUGH D on P.P_NO = D.P_NO JOIN DOUGH DO ON DO.DOUGH_NO = D.DOUGH_NO  ";
 				}/// 피자
 				else{

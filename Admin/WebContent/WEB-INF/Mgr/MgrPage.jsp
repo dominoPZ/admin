@@ -144,19 +144,18 @@
 			var tableString='';
  			 tableString ='<table class="table table-striped" >';
  			$.each(data,function(index,rec){
- 				
- 				
- 			tableString+='<div><thead style=" vertical-align: middle; background-color: #EEEEEE" title="'+index+'" class="'+index+'">';
- 			tableString+='<tr>';
- 			tableString+='</tr><th style="width:20%; vertical-align: middle; " >'+rec.name+'('+rec.tel+')</th><th id="'+index+'tb"  class="'+index+'head" style="width: 65%; vertical-align: middle;" >주소: '+rec.addr+'</th><th style="width:15%;  text-align:center; "><span style="color:blue;font-size:0.8em">'+rec.date+'<br/>['+rec.sum+'원]</span></td><th style=" vertical-align:middle;"><span title="'+index+'" class="label label-danger" id="'+index+'" onclick="clicks(this);" style="cursor:pointer;" >'+rec.pro+'</span></th></tr></thead>';
- 				tableString+='<tbody class="'+index+'"  >';
- 				tableString+='<input type="hidden" id="'+index+'no" value='+rec.no+'>';
- 				$.each(rec.menu,function(index2,rec2){
- 				tableString+='<tr><td style="border-top:solid;">메뉴</td><td style="border-top:solid;">'+rec2.pname+" "+rec2.size+" "+rec2.dname+'('+rec2.qty+')</td><td style="border-top:solid";></td><td style="border-top:solid";>가격:'+rec2.price+'</td></tr><tr><td>추가토핑</td><td>'+rec2.topping+'</td><td> </td></tr>';
- 				});
- 					tableString+='</tbody>'
+	 			tableString+='<div><thead style=" vertical-align: middle; background-color: #EEEEEE" title="'+index+'" class="'+index+'">';
+	 			tableString+='<tr>';
+	 			tableString+='</tr><th style="width:20%; vertical-align: middle; " >'+rec.name+'('+rec.tel+')</th><th id="'+index+'tb"  class="'+index+'head" style="width: 65%; vertical-align: middle;" >주소: '+rec.addr+'</th><th style="width:15%;  text-align:center; "><span style="color:blue;font-size:0.8em">'+rec.date+'<br/>['+rec.sum+'원]</span></td><th style=" vertical-align:middle;"><span title="'+index+'" class="label label-danger" id="'+index+'" onclick="clicks(this);" style="cursor:pointer;" >'+rec.pro+'</span></th></tr></thead>';
+	 			tableString+='<tbody class="'+index+'"  >';
+	 			tableString+='<input type="hidden" id="'+index+'no" value='+rec.no+'>';
+	 			$.each(rec.menu,function(index2,rec2){
+	 				tableString+='<tr><td style="border-top:solid;">메뉴</td><td style="border-top:solid;">'+rec2.pname+" "+rec2.size+" "+rec2.dname+'('+rec2.qty+')</td><td style="border-top:solid";></td><td style="border-top:solid";>가격:'+rec2.price+'</td></tr><tr><td>추가토핑</td><td>'+rec2.topping+'</td><td> </td></tr>';
+	 			});
+	 			tableString+='<tr><td>요청사항</td><td>'+rec.sa_req+'</td><td></td><td></td></tr>';
+	 			tableString+='</tbody>'
  			});
- 						tableString+='</table></div>'
+ 				tableString+='</table></div>'
  			$(".col-md-10").html(tableString);
  			
  		}

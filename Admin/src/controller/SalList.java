@@ -28,10 +28,15 @@ public class SalList extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("page", "SalList");
-		String date1=req.getParameter("date1")==null?"":req.getParameter("date1");
-		String date2=req.getParameter("date2")==null?"":req.getParameter("date2");
+		SimpleDateFormat smpl = new SimpleDateFormat("YYYY-MM-dd");
+		java.util.Date date = new java.util.Date();
+		String dates = smpl.format(date);
+		System.out.println(dates);
+		String date1=req.getParameter("date1")==null?dates:req.getParameter("date1");
+		String date2=req.getParameter("date2")==null?dates:req.getParameter("date2");
 		String col = req.getParameter("col")==null?"":req.getParameter("col");
 		String ser = req.getParameter("ser")==null?"":req.getParameter("ser");
+		System.out.println(date1);
 		req.setAttribute("date1", date1);
 		req.setAttribute("date2", date2);
 		
@@ -51,6 +56,7 @@ public class SalList extends HttpServlet {
 			map.put("addr", dto.getAddr().replace("%&@#*^$@!", "<br/>"));
 			map.put("id",dto.getId());
 			map.put("name",dto.getName());
+			map.put("request", dto.getRequest());
 			map.put("no",dto.getNo());
 			System.out.println(dto.getName());
 			map.put("pro",dto.getPro());

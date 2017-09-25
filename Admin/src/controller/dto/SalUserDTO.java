@@ -13,6 +13,7 @@ public class SalUserDTO {
 	private List<SalDTO> sdto;
 	private String tel;
 	private String id;
+	private String request;
 	
 	
 	public String getName() {
@@ -62,6 +63,12 @@ public class SalUserDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getRequest() {
+		return request;
+	}
+	public void setRequest(String request) {
+		this.request = request;
 	}
 	
 	

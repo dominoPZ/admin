@@ -83,8 +83,19 @@
          		  도합 - ${dto.price }
          		 </li>
 	           </ul>
+	           
+	           
 	           </c:forEach>
 	           	</c:forEach>
+	           
+	          
+	         	<p style="font-size:1.2em">요청사항</p>
+	           <ul>
+   	            <li>
+	           	${dtomap.request }
+	           	</li>
+	           </ul>
+	           
 	           
 	           </fieldset>
         </div>

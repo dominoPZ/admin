@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,10 +43,13 @@ public class MgrPage extends HttpServlet {
 		for(SalUserDTO dto : list){
 			sum=0;
 			Map map = new HashMap();
+			System.out.println("aas");
 			List list2 = new Vector<>();
 			List list3 = new Vector<>();
 			map.put("no", dto.getNo());
 			map.put("name", dto.getName());
+			System.out.println("요청:"+dto.getRequest());
+			map.put("sa_req", dto.getRequest());
 			map.put("addr", dto.getAddr());
 			map.put("tel", dto.getTel());
 			map.put("pro", dto.getPro());
