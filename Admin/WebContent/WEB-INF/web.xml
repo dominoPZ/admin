@@ -337,7 +337,18 @@
 		<servlet-name>drinklist</servlet-name>
 		<url-pattern>/DrinkList.do</url-pattern>
 	</servlet-mapping> 
-  
+	
+ 	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>drinkEdit</servlet-name>
+		<servlet-class>controller.cmn.DrinkEditController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>drinkEdit</servlet-name>
+		<url-pattern>/DrinkEdit.do</url-pattern>
+	</servlet-mapping>  
+	 
 	<!-- 서블릿 등록 -->
 	<servlet>
 		<servlet-name>saucelist</servlet-name>

@@ -66,18 +66,29 @@ thead {
 
 <script>
 var add=false;
+
+
+var tagStr1 = '';
+var tagStr2 = '';
+var tagStr3 = '';
+var tagStr4 = ''; 		
+var tag1 = '';
+var tag2 = '';
+var tag3 = '';
+var tag4 = ''; 		
+var id;
+var name;
+var price;
+var img;
+
 	//등록, 수정, 삭제 중인지 체크
 	var check = function(checkVal){
 		if(checkVal){			
 			alert("등록을 끝낸 후 실행해주세요.");
 			return;
 		}
-		
-		
 	}
 
-
-    
     //음료 추가
 	 var addDrink = function(){
     	add = true;
@@ -109,10 +120,10 @@ var add=false;
 		      
 		     if(validate()){
 				$("#addDrink").css("display","none");
+				$("#editDrink").css("display","none");
 				add = false;
 		     }
 		 }
-	
 		
 		//선택한 파일이 이미지 파일인지 체크
 		function validate() {
@@ -130,12 +141,26 @@ var add=false;
 	    	 	alert(extensions.join(', ') +"파일만 등록 가능합니다.");
 	    	 return false;
 	    	 }
-		
-		
-		
+				
 		 var addDrinkCancel = function(){
-			 if(confirm("작성중인 값은 저장 되지 않습니다.\r\n등록을 취소하시겠습니까?"))
-			 $("#addDrink").css("display","none");
+			 	if(confirm("작성중인 값은 저장 되지 않습니다.\r\n등록을 취소하시겠습니까?"))
+			 		$("#addDrink").css("display","none");
+		 }
+		 
+		 var editDrinkCancel = function(){
+			if(confirm("작성중인 값은 저장 되지 않습니다.\r\n수정을 취소하시겠습니까?")){
+				//location.href="<c:url value='DrinkList.do'/>";
+				$("#"+id).children("td:eq(1)").html(tag1);
+				$("#"+id).children("td:eq(2)").html(tag2);
+				$("#"+id).children("td:eq(3)").html(tag3);
+				$("#"+id).children("td:eq(4)").html(tag4);
+				//$(".data").find($("td")).not($(".firstTd")).parents().children("td").html(tag1);
+/* 				$(".data").find($("td")).not($(".firstTd")).parents().children("td:eq(2)").html(tag2);
+				$(".data").find($("td")).not($(".firstTd")).parents().children("td:eq(3)").html(tag3);
+				$(".data").find($("td")).not($(".firstTd")).parents().children("td:eq(4)").html(tag4); */
+			}
+				 
+			
 		 }
 		 
 		 
@@ -155,41 +180,44 @@ var add=false;
 					});
 				}); 
 			 	
-			 	
+ 					var tagStr1 = '';
+ 					var tagStr2 = '';
+ 					var tagStr3 = '';
+ 					var tagStr4 = ''; 			
+		 				
 
-				
-			 	
 		 		$(".data").find($("td")).not($(".firstTd")).click(function() {
-					var id = $(this).parents().attr("id");
-					//alert("id:"+id);
-					//alert($(this).parents().children("td"));
-					
-/* 					var tagStr = "" 
-					
-						html += '<li id="'+$(this).val()+'">'
-						+	'	<p class="topping_name">'+$(this).find("option:selected").data("name")+' ' + $(this).find("option:selected").data("weight") +'</p>'
-						+	'	<span class="bill_price">'+(parseInt($(this).find("option:selected").data("price"))).cvtNumber()+'</span>'
-						+	'	<a href="javascript:;" onclick="$(this).parent().remove();setToppingPrice();" class="btn_ico btn_delete">삭제하기</a>'
-						+	'</li>';					
-					 */
-					$(this).parents().children("td:gt(0)").html(tagStr);
-					 
-					//location.href = '<c:url value="/SalesList.do?salesList='+ id + '"/>';
+		 			if(tagStr1.length == 0){
+
+		 				
+		 				tag1 = $(this).parents().children("td:eq(1)").html();
+		 				tag2 = $(this).parents().children("td:eq(2)").html();
+		 				tag3 = $(this).parents().children("td:eq(3)").html();
+		 				tag4 = $(this).parents().children("td:eq(4)").html();
+		
+						id = $(this).parents().attr("id");
+	 					name = $(this).parents().children("td:eq(1)").text();
+						price = $(this).parents().children("td:eq(2)").text();
+						img = $(this).parents().children("td:eq(3)").html();
+	 					tagStr1 = '<input type="text" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="'+name+'"/>';				
+	 					tagStr2 = '<input type="text" size="15" placeholder="가격을 입력해주세요." name="edit_price" value="'+price+'"/>';
+	 					tagStr3 = '<input type="file" name="d_img" style="width:98%;padding-left:30px" id=edit_img/>';
+	 					tagStr4 = '<input type="submit" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value="수정" />'
+								+ '<input type="button" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />';
+
+						$(this).parents().children("td:eq(1)").html(tagStr1);
+						$(this).parents().children("td:eq(2)").html(tagStr2);
+						$(this).parents().children("td:eq(3)").html(tagStr3);
+						$(this).parents().children("td:eq(4)").html(tagStr4);
+						 
+						//location.href = '<c:url value="/SalesList.do?salesList='+ id + '"/>';
+		 			}
 				});
-			 	
-			 	
 		 }
 		 
-		 
-		 
-		 
-		 
-		
 	 $(function(){
 	 
-
 	 });
-	  
 </script>
 
 
@@ -285,20 +313,26 @@ var add=false;
                 </td>
                 <c:set var="loopCount" value="${loop.count}"/>
               </tr>
-              
+
               
             </c:forEach>
             
             
-   
+            <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/EditDrink.do'/>" method="post" enctype="multipart/form-data" >
+   	 				<input type="hidden" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value=" "/>		
+	 				<input type="hidden" size="15" placeholder="가격을 입력해주세요." name="edit_price" value="<fmt:formatNumber value=' '/>"/>
+	 				<input type="file" name="d_img" style="display:none;width:98%;padding-left:30px" id=edit_img/>
+	 				<input type="hidden" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value=" " />
+					<input type="hidden" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />
             
+              </form>
             
         
 	              <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/InsertDrink.do'/>" method="post" enctype="multipart/form-data">
 		               <tr id="addDrink" style="display:none">
 		               	<td>${loopCount+1}</td>
 		                <td><input type="text" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="${d_name == null ? '' : d_name}"/></td>
-		                <td><input type="text" size="15" placeholder="음료의 가격을 입력해주세요." name="d_price"  value="${d_price == null ? '' : d_price}"/></td>
+		                <td><input type="text" size="15" placeholder="가격을 입력해주세요." name="d_price"  value="${d_price == null ? '' : d_price}"/></td>
 		                <td> 
 		                	${d_img == null ? '' : d_img }
 	                        <input type="file" name="d_img" style="width:98%;padding-left:30px" id=t_img/>
