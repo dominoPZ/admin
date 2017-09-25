@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -139,7 +139,7 @@
                 ${dto.date}
                 </td>
                 <td>${dto.menu}</td>
-                <td>${dto.sum}</td>
+                <td><fmt:formatNumber>${dto.sum}</fmt:formatNumber> </td>
               </tr>
               
               
@@ -147,9 +147,8 @@
             </c:forEach>
             </tbody>
           </table>
-          <div style="text-align: right; margin-right:120px; "><span style=" font-weight: bold;">Total : ${only }</span></div>
+          <div style="text-align: right; margin-right:120px; "><span style=" font-weight: bold;">Total : <fmt:formatNumber> ${only } </fmt:formatNumber></span></div>
         </div>
-	     
 	     
         	
         </div>

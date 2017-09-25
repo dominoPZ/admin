@@ -186,8 +186,8 @@ var img;
  					var tagStr4 = ''; 			
 		 				
 
-		 		$(".tbodyClass .data").click(function() {
-		 			/* if(tagStr1.length == 0){
+		 		$(".data").find($("td")).not($(".firstTd")).click(function() {
+		 			if(tagStr1.length == 0){
 
 		 				
 		 				tag1 = $(this).parents().children("td:eq(1)").html();
@@ -212,11 +212,7 @@ var img;
 						 
 						//location.href = '<c:url value="/SalesList.do?salesList='+ id + '"/>';
 		 			}
-				 */
-				 $(this).hide();
-				var hid = this.id;
-		 		$("."+hid).show();
-		 		});
+				});
 		 }
 		 
 	 $(function(){
@@ -305,8 +301,7 @@ var img;
             </thead>
             <tbody class="tbodyClass"> 
             <c:forEach items="${drinkList}" var="list" varStatus="loop">
-            
-              <tr class="data" id="h_${list.dr_no}" title="클릭하시면 '${list.d_name}'를 수정합니다.">
+              <tr class="data" id="${list.dr_no}" title="클릭하시면 '${list.d_name}'를 수정합니다.">
                 <%-- <td>${list.dr_no}</td> --%>
                 <td class="firstTd">${loop.count}</td>
                 <td>${list.d_name}</td>
@@ -318,25 +313,22 @@ var img;
                 </td>
                 <c:set var="loopCount" value="${loop.count}"/>
               </tr>
+
               
-              <form action="/test.pz" >
-              <tr class="h_${list.dr_no}" style="display: none;" id="${list.dr_no}" title="클릭하시면 '${list.d_name}'를 수정합니다.">
-                <%-- <td>${list.dr_no}</td> --%>
-                <td class="firstTd">${loop.count}</td>
-                <td><input type="text" value=" ${list.d_name}" ></td>
-                <td><input type="text" value=" ${list.d_price}"></td>
-                <td><input type="file" name="d_img" style="width:98%;padding-left:30px" id=edit_img/></td>
-                <td>
-                	<input type="submit" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value="수정" /> 
-                	<input type="button" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />
-                </td>
-                <c:set var="loopCount" value="${loop.count}"/>
-              </tr>
-              </form>
             </c:forEach>
             
+            
+            <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/EditDrink.do'/>" method="post" enctype="multipart/form-data" >
+   	 				<input type="hidden" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value=" "/>		
+	 				<input type="hidden" size="15" placeholder="가격을 입력해주세요." name="edit_price" value="<fmt:formatNumber value=' '/>"/>
+	 				<input type="file" name="d_img" style="display:none;width:98%;padding-left:30px" id=edit_img/>
+	 				<input type="hidden" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value=" " />
+					<input type="hidden" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />
+            
+              </form>
+            
         
-	         <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/InsertDrink.do'/>" method="post" enctype="multipart/form-data">
+	              <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/InsertDrink.do'/>" method="post" enctype="multipart/form-data">
 		               <tr id="addDrink" style="display:none">
 		               	<td>${loopCount+1}</td>
 		                <td><input type="text" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="${d_name == null ? '' : d_name}"/></td>
