@@ -348,7 +348,18 @@
 		<servlet-name>drinkEdit</servlet-name>
 		<url-pattern>/DrinkEdit.do</url-pattern>
 	</servlet-mapping>  
-	 
+
+ 	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>drinkDelete</servlet-name>
+		<servlet-class>controller.cmn.DrinkDeleteController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>drinkDelete</servlet-name>
+		<url-pattern>/DrinkDelete.do</url-pattern>
+	</servlet-mapping>  
+		 
 	<!-- 서블릿 등록 -->
 	<servlet>
 		<servlet-name>saucelist</servlet-name>

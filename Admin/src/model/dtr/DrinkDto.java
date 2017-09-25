@@ -3,10 +3,11 @@ package model.dtr;
 public class DrinkDto {
 
 	//맴버변수
-	String dr_no;
-	String d_name;
-	String d_price;
-	String d_img;
+	private String dr_no;
+	private String d_name;
+	private String d_price;
+	private String d_img;
+	private String attachedfile;
 	
 	//GetSet
 	
@@ -33,6 +34,12 @@ public class DrinkDto {
 	}
 	public void setDr_no(String dr_no) {
 		this.dr_no = dr_no;
+	}
+	public String getAttachedfile() {
+		return attachedfile;
+	}
+	public void setAttachedfile(String attachedfile) {
+		this.attachedfile = attachedfile;
 	}
 	
 }
