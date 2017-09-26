@@ -85,7 +85,8 @@ public class DrinkDao {
 	//음료 수정용]
 	public int update(DrinkDto dto) {
 		int affected = 0;
-		String sql = "UPDATE DRINK SET D_NAME=?, D_PRICE=?, D_IMG=? WERHE DR_NO=?";
+		System.out.println(dto.getD_name()+" / "+dto.getD_price()+" / "+dto.getD_img()+" / "+dto.getDr_no());
+		String sql = "UPDATE DRINK SET D_NAME=?, D_PRICE=?, D_IMG=? WHERE DR_NO=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getD_name());
@@ -100,7 +101,7 @@ public class DrinkDao {
 	//음료 삭제용]
 	public int delete(DrinkDto dto) {
 		int affected = 0;
-		String sql = "DELECT DRINK WHERE DR_NO=?";
+		String sql = "DELETe DRINK WHERE DR_NO=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getDr_no());
@@ -109,12 +110,23 @@ public class DrinkDao {
 		return affected;
 	}
 	
-	
-	
-	
-	
-	
-	
+	//음료 1행 선택용]
+	public DrinkDto selectOne(String no) {
+		DrinkDto dto =  new DrinkDto();
+		String sql = "SELECT * FROM DRINK WHERE DR_NO=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, no);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto.setDr_no(rs.getString(1));
+				dto.setD_name(rs.getString(2));
+				dto.setD_price(rs.getString(3));
+				dto.setD_img(rs.getString(4));
+			}
+		} catch (SQLException e) {e.printStackTrace();}
+		return dto;
+	}
 	
 }
 

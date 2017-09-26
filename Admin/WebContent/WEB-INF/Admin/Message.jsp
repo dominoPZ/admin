@@ -50,12 +50,27 @@
 		<c:set var="FAIL_MSG" value="추가 실패!!"/>
 		<c:set var="SUC_URL" value="/Saile.pz"/>
 	</c:when>	
+	
+	
+	
 	<c:when test="${WHERE eq 'MINS' }">
-		<c:set var="SUC_MSG" value="정상적으로 입력되었습니다."/>
-		<c:set var="FAIL_MSG" value="입력 실패!!"/>
+		<c:set var="SUC_MSG" value="입력하신 음료가 등록되었습니다."/>
+		<c:set var="FAIL_MSG" value="음료정보 등록에 실패하였습니다."/>
+		<c:set var="SUC_URL" value="/DrinkList.do"/>
+	</c:when>		
+	<c:when test="${WHERE eq 'DRINKEDIT' }">
+		<c:set var="SUC_MSG" value="음료정보가 수정되었습니다."/>
+		<c:set var="FAIL_MSG" value="수정을 실패하였습니다."/>
+		<c:set var="SUC_URL" value="/DrinkList.do"/>
+	</c:when>	
+	<c:when test="${WHERE eq 'DRINKDEL' }">
+		<c:set var="SUC_MSG" value="선택하신 음료가 삭제되었습니다."/>
+		<c:set var="FAIL_MSG" value="음료 삭제를 실패하였습니다."/>
 		<c:set var="SUC_URL" value="/DrinkList.do"/>
 	</c:when>		
 	
+	
+		
 	<c:when test="${WHERE eq 'SINS' }">
 		<c:set var="SUC_MSG" value="정상적으로 입력되었습니다."/>
 		<c:set var="FAIL_MSG" value="입력 실패!!"/>
@@ -71,7 +86,7 @@
 	<c:otherwise>
 		<c:set var="SUC_MSG" value="삭제 성공"/>
 		<c:set var="FAIL_MSG" value="삭제 실패"/>
-		<c:set var="SUC_URL" value="/ReplyBBS/BBS/List.bbs"/>
+		<c:set var="SUC_URL" value="/login.pz"/>
 	</c:otherwise>
 	
 	

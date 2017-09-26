@@ -93,7 +93,7 @@ var img;
 	 var addDrink = function(){
     	add = true;
 		 $("#addDrink").css("display","");
-		 $(":text:first").focus()
+		 $("#focus").focus();
 	 }
 	 
 		function isValidate(formObject) {
@@ -149,20 +149,15 @@ var img;
 		 
 		 var editDrinkCancel = function(){
 			if(confirm("작성중인 값은 저장 되지 않습니다.\r\n수정을 취소하시겠습니까?")){
-				//location.href="<c:url value='DrinkList.do'/>";
-				$("#"+id).children("td:eq(1)").html(tag1);
-				$("#"+id).children("td:eq(2)").html(tag2);
-				$("#"+id).children("td:eq(3)").html(tag3);
-				$("#"+id).children("td:eq(4)").html(tag4);
-				//$(".data").find($("td")).not($(".firstTd")).parents().children("td").html(tag1);
-/* 				$(".data").find($("td")).not($(".firstTd")).parents().children("td:eq(2)").html(tag2);
-				$(".data").find($("td")).not($(".firstTd")).parents().children("td:eq(3)").html(tag3);
-				$(".data").find($("td")).not($(".firstTd")).parents().children("td:eq(4)").html(tag4); */
+			 		$("."+id).hide();
+			 		$("#"+id).show();
+		 		
 			}
-				 
-			
 		 }
-		 
+		 var deleteDrink = function(no){
+			if(confirm("선택하신 음료정보를 삭제하시겠습니까?\r\n음료의 정보는 영구적으로 삭제됩니다."))
+			 	location.href="<c:url value='/DrinkEdit.do?delete=DEL&no="+no+"'/>";
+		 }
 		 
 		 //음료 수정
 		 var editDrink = function(){
@@ -179,57 +174,15 @@ var img;
 						$(this).css("backgroundColor", color);
 					});
 				}); 
-			 	
- 					var tagStr1 = '';
- 					var tagStr2 = '';
- 					var tagStr3 = '';
- 					var tagStr4 = ''; 			
-		 				
 
 		 		$(".tbodyClass .data").click(function() {
-		 			/* if(tagStr1.length == 0){
-
-		 				
-		 				tag1 = $(this).parents().children("td:eq(1)").html();
-		 				tag2 = $(this).parents().children("td:eq(2)").html();
-		 				tag3 = $(this).parents().children("td:eq(3)").html();
-		 				tag4 = $(this).parents().children("td:eq(4)").html();
-		
-						id = $(this).parents().attr("id");
-	 					name = $(this).parents().children("td:eq(1)").text();
-						price = $(this).parents().children("td:eq(2)").text();
-						img = $(this).parents().children("td:eq(3)").html();
-	 					tagStr1 = '<input type="text" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="'+name+'"/>';				
-	 					tagStr2 = '<input type="text" size="15" placeholder="가격을 입력해주세요." name="edit_price" value="'+price+'"/>';
-	 					tagStr3 = '<input type="file" name="d_img" style="width:98%;padding-left:30px" id=edit_img/>';
-	 					tagStr4 = '<input type="submit" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value="수정" />'
-								+ '<input type="button" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />';
-
-						$(this).parents().children("td:eq(1)").html(tagStr1);
-						$(this).parents().children("td:eq(2)").html(tagStr2);
-						$(this).parents().children("td:eq(3)").html(tagStr3);
-						$(this).parents().children("td:eq(4)").html(tagStr4);
-						 
-						//location.href = '<c:url value="/SalesList.do?salesList='+ id + '"/>';
-		 			}
-				 */
-				 $(this).hide();
-				var hid = this.id;
-		 		$("."+hid).show();
+						 $(this).hide();
+						id = this.id;
+				 		$("."+id).show();
 		 		});
 		 }
-		 
-	 $(function(){
-	 
-	 });
 </script>
-
-
-
   </head>
-
-
-
 
   <body role="document">
 
@@ -250,19 +203,7 @@ var img;
 	        <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right">
 	      </div>
 
- <%-- 	<input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="location.href='<c:url value="/InsertDrink.do"/>'"> --%>
-
- 	
- 		
- 		
- 		
-
        	  <div><!-- class="col-md-6" 간격조정 때문에 삭제 -->
-       	  
-       	  
-       	  
-       	  
-       	  
 <div class="CircleEvent" style="float:right;margin-left:50px">
 <ul>
 	<c:forEach items="${drinkList}" var="list">
@@ -306,40 +247,45 @@ var img;
             <tbody class="tbodyClass"> 
             <c:forEach items="${drinkList}" var="list" varStatus="loop">
             
+            <!-- 데이터 -->
               <tr class="data" id="h_${list.dr_no}" title="클릭하시면 '${list.d_name}'를 수정합니다.">
                 <%-- <td>${list.dr_no}</td> --%>
                 <td class="firstTd">${loop.count}</td>
                 <td>${list.d_name}</td>
                 <td><fmt:formatNumber value="${list.d_price}"/></td>
-                <td>${list.d_img}</td>
+                <td>${fn:replace(list.d_img,' ', '')}</td>
                 <td>
-                	<img style="height:80px;border-radius: 60px;" alt="${list.d_img}" 
+                	<img style="height:80px;border-radius: 60px;" alt="${fn:replace(list.d_img,' ', '')}" 
                 		src="<c:url value='/Image/sidedish/beverage/'/>${fn:replace(list.d_img,' ', '')}">
                 </td>
                 <c:set var="loopCount" value="${loop.count}"/>
               </tr>
               
-              <form action="/test.pz" >
+              <!-- 수정 폼 -->
+              <form onsubmit="return isValidate(this);" action="<c:url value='/DrinkEdit.do'/>" method="post" enctype="multipart/form-data">
               <tr class="h_${list.dr_no}" style="display: none;" id="${list.dr_no}" title="클릭하시면 '${list.d_name}'를 수정합니다.">
                 <%-- <td>${list.dr_no}</td> --%>
                 <td class="firstTd">${loop.count}</td>
-                <td><input type="text" value=" ${list.d_name}" ></td>
-                <td><input type="text" value=" ${list.d_price}"></td>
-                <td><input type="file" name="d_img" style="width:98%;padding-left:30px" id=edit_img/></td>
+                <input type="hidden" value="${list.dr_no}" name="edit_no"/>
+                <input type="hidden" value="${fn:replace(list.d_img,' ', '')}" name="original_img"/>
+                <td><input type="text" value="${list.d_name}" name="edit_name"/></td>
+                <td><input type="text" value="${list.d_price}" name="edit_price"/></td>
+                <td><input type="file" name="edit_img" style="width:98%;padding-left:30px" id="edit_img"></input>원본 파일명 : ${fn:replace(list.d_img,' ', '')}</td>
                 <td>
                 	<input type="submit" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value="수정" /> 
                 	<input type="button" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />
+                	<input type="button" value="삭제" class="btn btn-sm btn-info" OnClick="javascript:deleteDrink(${list.dr_no})" />
                 </td>
                 <c:set var="loopCount" value="${loop.count}"/>
               </tr>
               </form>
             </c:forEach>
             
-        
+	         <!-- 등록 폼 -->
 	         <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/InsertDrink.do'/>" method="post" enctype="multipart/form-data">
 		               <tr id="addDrink" style="display:none">
 		               	<td>${loopCount+1}</td>
-		                <td><input type="text" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="${d_name == null ? '' : d_name}"/></td>
+		                <td><input type="text" id="focus" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="${d_name == null ? '' : d_name}"/></td>
 		                <td><input type="text" size="15" placeholder="가격을 입력해주세요." name="d_price"  value="${d_price == null ? '' : d_price}"/></td>
 		                <td> 
 		                	${d_img == null ? '' : d_img }
@@ -351,9 +297,6 @@ var img;
 						<td>
 		              </tr>             	
 	              </form>
-  
-              	
-              	
             </tbody>
           </table>
         </div>
