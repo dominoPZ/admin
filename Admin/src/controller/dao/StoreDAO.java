@@ -865,6 +865,29 @@ public class StoreDAO {
 		return map;
 	}
 
+	public Map getsaileprice(String sano) {
+		Map map = new HashMap<>();
+		String sql = " SELECT SP.* , (SELECT C_NAME FROM SAILE_COUPON SC JOIN MY_CUPON MC ON MC.C_NO = SC.C_NO ";
+		sql += " JOIN USE_SAILECOUPON UC ON UC.MC_NO = MC.MC_NO WHERE SA_NO = ?  ) NAME ";
+		sql += " FROM SALES_PRICE SP WHERE SA_NO = ? ";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, sano);
+			psmt.setString(2, sano);
+			rs=psmt.executeQuery();
+			if(rs.next()) {
+			map.put("totalprice", rs.getString(2));
+			map.put("saile", rs.getString(3));
+			map.put("minprice", rs.getString(4));
+			map.put("fprice", rs.getString(5));
+			map.put("cname", rs.getString(6));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
 	
 	
 

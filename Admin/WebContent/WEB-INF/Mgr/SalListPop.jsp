@@ -57,6 +57,13 @@
          		 <li>연 락 처 :${dtomap.tel }</li>
          		 <li>배 송 지 :${dtomap.addr }</li>
          		 <li>총 가 격 :<fmt:formatNumber>${dtomap.sum }</fmt:formatNumber> </li>
+         		 <li>할 인 율 :<fmt:formatNumber>${saile }</fmt:formatNumber>
+         		 <c:if test="${!empty cname }">
+         		 <br/>
+         		 [${cname }]
+         		 </c:if>
+         		 <li>할 인 가 :-<fmt:formatNumber>${minprice }</fmt:formatNumber>
+         		 <li>최 종 가 :<fmt:formatNumber>${fprice }</fmt:formatNumber>
 	           </ul>
 	           <hr>
 	            <p style="font-size:1.2em">주문 정보</p>

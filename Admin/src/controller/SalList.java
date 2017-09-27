@@ -121,6 +121,15 @@ public class SalList extends HttpServlet {
 				ls.add(map);
 				req.setAttribute("dtomap", map);
 		}////for
+		
+		Map map = dao.getsaileprice(sano);
+		
+		
+		req.setAttribute("totalprice", map.get("totalprice"));
+		req.setAttribute("saile", map.get("saile"));
+		req.setAttribute("minprice", map.get("minprice"));
+		req.setAttribute("fprice", map.get("fprice"));
+		req.setAttribute("cname", map.get("cname"));
 		dao.close();
 		req.setAttribute("only", only);
 		req.setAttribute("menu", ls);
