@@ -62,7 +62,7 @@
 		<c:set var="SUC_URL" value="/SideMenu.do"/>
 	</c:when>		
 	
-	<c:when test="${WHERE eq 'UDP'}">
+	<c:when test="${WHERE eq 'UPD'}">
 		<c:set var="SUC_MSG" value="정상적으로 수정되었습니다."/>
 		<c:set var="FAIL_MSG" value="수정 실패!!"/>
 		<c:set var="SUC_URL" value="/StoreUpdate.pz?in=in"/>

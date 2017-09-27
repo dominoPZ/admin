@@ -92,7 +92,7 @@ public class StoreDAO {
 		ResultSet rs4;
 		
 		try{
-		String sql = "select sa_no,sa_recipt,sa_rectel,sa_addr,TO_char(sa_date,'yyyy/mm/dd hh24:mi:ss'),sa_pro,sa_request from sales s join customer c on c.id = s.id where sa_pro != '주문 상태 - 종료' AND st_no ="+no;
+		String sql = "select sa_no,sa_recipt,sa_rectel,sa_addr,TO_char(sa_date,'yyyy/mm/dd hh24:mi:ss') DAT ,sa_pro,sa_request from sales s join customer c on c.id = s.id where sa_pro != '주문 상태 - 종료' AND st_no ="+no+" ORDER BY DAT ";
 		System.out.println(no);
 		
 		psmt = conn.prepareStatement(sql);
@@ -845,6 +845,24 @@ public class StoreDAO {
 			e.printStackTrace();
 		}
 		return dto;
+	}
+
+	public Map getPay(Map map) {
+		String sql = "SELECT P.PAY_TYPE,P.PAY_NAME FROM PAY P JOIN SALES S ON S.PAY_NO = P.PAY_NO WHERE SA_NO=?";
+		try {
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, map.get("no").toString());
+		rs = psmt.executeQuery();
+		while(rs.next()) {
+			map.put("pay_type", rs.getString(1).equals("1")?"선":"후");
+			map.put("pay_name", rs.getString(2));
+			System.out.println(map.get("pay_type")+"dao안");
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		return map;
 	}
 
 	

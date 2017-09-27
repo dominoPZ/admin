@@ -37,7 +37,7 @@ public class MgrPage extends HttpServlet {
 		list = dao.printsal(req.getSession().getAttribute("Sno").toString());
 		List<Map> ls = new Vector<>();
 		
-		dao.close();
+		
 		int sum=0;
 		
 		for(SalUserDTO dto : list){
@@ -79,11 +79,15 @@ public class MgrPage extends HttpServlet {
 				map2.put("topping", str);
 				list2.add(map2);
 			}
+			
+			map = dao.getPay(map);
+			System.out.println(map.get("pay_type")+"dao밖");
 			map.put("menu", list2);
 			map.put("sum", sum);
 			ls.add(map);
 			
 		}
+		dao.close();
 		List<String> test =  new Vector<String>();
 		test.add("111");
 		test.add("222");

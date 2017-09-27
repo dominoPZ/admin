@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -55,13 +56,13 @@
          		<li>주 문 자 :${dtomap.name }</li>
          		 <li>연 락 처 :${dtomap.tel }</li>
          		 <li>배 송 지 :${dtomap.addr }</li>
-         		 <li>총 가 격 :${dtomap.sum }</li>
+         		 <li>총 가 격 :<fmt:formatNumber>${dtomap.sum }</fmt:formatNumber> </li>
 	           </ul>
 	           <hr>
 	            <p style="font-size:1.2em">주문 정보</p>
 	           	<c:forEach var="dtos" items="${menu}" >
 	           	<c:forEach var="dto" items="${dtos.sdto}" >	
-	           		<span>${dto.menu_name} ${dto.dname } ${dto.size } (${dto.orgp})
+	           		<span>${dto.menu_name} ${dto.dname } ${dto.size } (<fmt:formatNumber>${dto.orgp}</fmt:formatNumber>)
 	           		<c:if test="${!empty dto.qty }">
 	           		[* ${dto.qty }]
 	           		</c:if>
@@ -70,17 +71,17 @@
 	           	<ul>
          		 <li>추가 :<br/>
          		 <c:forEach var="top" items="${dto.topping}" >	
-         		  ${top.tname } ${top.tsize }(${top.tprice }) <br/>
+         		  ${top.tname } ${top.tsize }(<fmt:formatNumber>${top.tprice }</fmt:formatNumber>) <br/>
          		 </c:forEach>
          		 <c:if var="tes" test='${dto.ttprice!="0"}'>
-         		  - Total ${dto.ttprice}
+         		  - Total <fmt:formatNumber>${dto.ttprice}</fmt:formatNumber>
          		 </c:if>
          		 <c:if test="${!tes }">
          		   * 
          		 </c:if>
          		 </li>
          		 <li>
-         		  도합 - ${dto.price }
+         		  도합 - <fmt:formatNumber>${dto.price }</fmt:formatNumber>
          		 </li>
 	           </ul>
 	           
