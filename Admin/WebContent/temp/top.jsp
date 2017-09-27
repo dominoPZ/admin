@@ -71,7 +71,6 @@ $(function(){
                 <li class="dropdown-header">Nav header</li>
                 <li><a href="#">피자 메뉴 정보 수정</a></li>
                 <li><a href="#">사이드 메뉴 정보 수정</a></li>
-                <li><a href="#">음료 정보 수정</a></li>
                 <li><a href="#">토핑 정보 수정</a></li>
               </ul>
             </li>

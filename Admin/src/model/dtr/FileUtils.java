@@ -38,7 +38,16 @@ public class FileUtils {
 	}/////////////////////////////upload
 	
 	
-	
+	//파일 삭제 로직]
+	public static void deleteFile(HttpServletRequest req, String directory, String original){
+		//서버의 물리적 경로 얻기]
+		String saveDirectory = req.getServletContext().getRealPath(directory);
+		//파일 객체 생성]
+		File file= new File(saveDirectory + File.separator + original);
+		System.out.println("디렉토리 : " + saveDirectory + File.separator + original);
+		//파일 존재 여부 판단 후 삭제]
+		if(file.exists()) file.delete();
+	}///////////////////////////deleteFile	
 	
 	
 }
