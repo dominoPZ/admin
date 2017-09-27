@@ -69,6 +69,24 @@
 		<c:set var="SUC_URL" value="/DrinkList.do"/>
 	</c:when>		
 	
+
+	<c:when test="${WHERE eq 'PICKLESAUCEWRITE' }">
+		<c:set var="SUC_MSG" value="입력하신 상품이 등록되었습니다."/>
+		<c:set var="FAIL_MSG" value="상품 등록에 실패하였습니다."/>
+		<c:set var="SUC_URL" value="/PickleSauceList.do"/>
+	</c:when>		
+	<c:when test="${WHERE eq 'PICKLESAUCEEDIT' }">
+		<c:set var="SUC_MSG" value="등록된 상품이 수정되었습니다."/>
+		<c:set var="FAIL_MSG" value="수정을 실패하였습니다."/>
+		<c:set var="SUC_URL" value="/PickleSauceList.do"/>
+	</c:when>	
+	<c:when test="${WHERE eq 'PICKLESAUCEDEL' }">
+		<c:set var="SUC_MSG" value="선택하신 상품이 삭제되었습니다."/>
+		<c:set var="FAIL_MSG" value="상품 삭제를 실패하였습니다."/>
+		<c:set var="SUC_URL" value="/PickleSauceList.do"/>
+	</c:when>	
+
+
 	
 		
 	<c:when test="${WHERE eq 'SINS' }">

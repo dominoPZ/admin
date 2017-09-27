@@ -14,7 +14,7 @@ import model.dtr.DrinkDto;
 public class DrinkListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//req.setAttribute("page", "menu");
+		req.setAttribute("page", "menu");
 		DrinkDao dao = new DrinkDao(req.getServletContext());
 		List<DrinkDto> list = dao.selectList();
 		req.setAttribute("drinkList", list);

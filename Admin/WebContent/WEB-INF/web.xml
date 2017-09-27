@@ -362,25 +362,37 @@
 		 
 	<!-- 서블릿 등록 -->
 	<servlet>
-		<servlet-name>saucelist</servlet-name>
-		<servlet-class>controller.cmn.SauceListController</servlet-class>
+		<servlet-name>pickleSauceList</servlet-name>
+		<servlet-class>controller.cmn.PickleSauceListController</servlet-class>
 	</servlet>
 	<!--요청 URL매핑 -->
 	<servlet-mapping>
-		<servlet-name>saucelist</servlet-name>
-		<url-pattern>/SauceList.do</url-pattern>
+		<servlet-name>pickleSauceList</servlet-name>
+		<url-pattern>/PickleSauceList.do</url-pattern>
 	</servlet-mapping> 
  
-	<!-- 서블릿 등록 -->
+   	<!-- 서블릿 등록 -->
 	<servlet>
-		<servlet-name>picklelist</servlet-name>
-		<servlet-class>controller.cmn.PickleListController</servlet-class>
+		<servlet-name>pickleSauceWrite</servlet-name>
+		<servlet-class>controller.cmn.PickleSauceWriteController</servlet-class>
 	</servlet>
 	<!--요청 URL매핑 -->
 	<servlet-mapping>
-		<servlet-name>picklelist</servlet-name>
-		<url-pattern>/PickleList.do</url-pattern>
-	</servlet-mapping> 
+		<servlet-name>pickleSauceWrite</servlet-name>
+		<url-pattern>/PickleSauceWrite.do</url-pattern>
+	</servlet-mapping>  
+ 
+  	<!-- 서블릿 등록 -->
+	<servlet>
+		<servlet-name>pickleSauceEdit</servlet-name>
+		<servlet-class>controller.cmn.PickleSauceEditController</servlet-class>
+	</servlet>
+	<!--요청 URL매핑 -->
+	<servlet-mapping>
+		<servlet-name>pickleSauceEdit</servlet-name>
+		<url-pattern>/PickleSauceEdit.do</url-pattern>
+	</servlet-mapping>  
+ 
   
   <!-- 미나 끝 ================================================================================ -->
   

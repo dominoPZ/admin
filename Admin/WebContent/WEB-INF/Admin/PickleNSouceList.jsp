@@ -14,7 +14,7 @@
     <link rel="icon" href="../../favicon.ico">
    -->
 
-    <title>음료 관리 페이지</title>
+    <title>피클&소스 메뉴 관리 페이지</title>
 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
 	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 
@@ -30,7 +30,7 @@
 
 <style>
 .ih-item.circle.effect10.colored .info {
-    background: #c3dbd4;
+    background: #fff1ce;
 }
 .addLi {
     float: left;
@@ -43,7 +43,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.5);
 }
 .ih-item.circle.effect10 .info h3 {
-    color: #ffffff ; /* #102b6b; */
+    color: #fb9511;
     text-transform: uppercase;
     vertical-align: middle;
     /* position: relative; */
@@ -135,7 +135,7 @@ input[type=checkbox] {
 
 .jumbotron {
     margin-left: 70px;
-    background-image: url(/Admin/Image/backend_beverage.png);
+    background-image: url(/Admin/Image/backend_pickNSouce.png);
     background-color: white;
     width: 1000px;
     height: 241px;
@@ -158,7 +158,7 @@ var id;
 	//등록, 수정 중인지 체크
 	var check = function(checkVal){
 		if(!checkVal){			
-			alert("음료 등록중입니다.\r\n음료 등록을 끝낸 후 실행해주세요.");
+			alert("상품 등록중입니다.\r\n상품 등록을 끝낸 후 실행해주세요.");
 			$("#checkbox2").get(0).checked = "";
 			return false;
 		}
@@ -167,14 +167,14 @@ var id;
 		}
 	}
 	
-    //음료 추가
+    //상품 추가
 	 var addDrink = function(){
     	if(!($(":checked").val() == 'on')) {
     		addDrinkCancel();
     		return;
     	}
     	if(!flagedit){
-			alert("음료 수정중입니다.\r\n음료 수정모드 버튼을 클릭하여 모드를 변경 후 실행해주세요.");
+			alert("상품 수정중입니다.\r\n상품 수정모드 버튼을 클릭하여 모드를 변경 후 실행해주세요.");
 			$("#checkbox").get(0).checked = "";
 			return;
     	}
@@ -186,17 +186,17 @@ var id;
 	 
 		function isValidate(formObject) {
 		    if(formObject.d_name.value.length == 0){
-		       alert("음료명을 입력 하세요");
+		       alert("상품명을 입력 하세요");
 		       formObject.d_name.focus();
 		       return false;
 		    }
 		     if(formObject.d_price.value == 0){
-		       alert("음료 가격을 입력 하세요");
+		       alert("상품 가격을 입력 하세요");
 		       formObject.d_price.focus();
 		       return false;
 		    }
 		     if(!$.isNumeric(formObject.d_price.value)){
-			       alert("음료 가격은 숫자만 입력가능 합니다.");
+			       alert("상품 가격은 숫자만 입력가능 합니다.");
 			       formObject.d_price.focus();
 			       return false;
 			    }
@@ -230,21 +230,21 @@ var id;
 		 		
 			}
 		 }
-		 var deleteDrink = function(no){
-			if(confirm("선택하신 음료정보를 삭제하시겠습니까?\r\n음료의 정보는 영구적으로 삭제됩니다.")){
-			 	location.href="<c:url value='/DrinkEdit.do?delete=DEL&no="+no+"'/>";
+		 var deleteDrink = function(no, kind){
+			if(confirm("선택하신 상품정보를 삭제하시겠습니까?\r\n상품의 정보는 영구적으로 삭제됩니다.")){
+			 	location.href="<c:url value='/PickleSauceEdit.do?delete=DEL&no="+no+"&kind="+kind+"'/>";
 			 	edit = false;
 			}
 		 }
 		 
-		 //음료 수정
+		 //상품 수정
 		 var editDrink = function(){
 			if(check(add)){
 			 edit = false;
 			 flagedit = false;
 				if($(":checked").length == 1){
 			 
-			 $("#message").html("<span style='font-size:18px;color: blue;margin-top: 40px;margin-bottom: 40px'>수정 모드입니다. 아래 원모양 이미지를 클릭하시거나 하단의 음료리스트의 행을 클릭하시면 수정폼으로 변경됩니다.</span>");
+			 $("#message").html("<span style='font-size:18px;color: blue;margin-top: 40px;margin-bottom: 40px'>수정 모드입니다. 아래 원모양 이미지를 클릭하시거나 하단의 상품리스트의 행을 클릭하시면 수정폼으로 변경됩니다.</span>");
  			 	$("tr:gt(0)").each(function() {
 			 		$(this).css("cursor","pointer");
 				}); 
@@ -255,6 +255,7 @@ var id;
 						$("#h_"+this.id).hide();
 						id = "h_"+this.id;
 				 		$("."+id).show();
+				 		$(":radio").val([$("."+id).find(":hidden:eq(1)").val()]);
 				 		$("."+id).find(":text:eq(0)").focus();
 				 		edit = true;
 					}
@@ -273,6 +274,8 @@ var id;
 								 $(this).hide();
 								id = this.id;
 						 		$("."+id).show();
+						 		//alert($("."+id).find(":hidden:eq(1)").val());
+						 		$(":radio").val([$("."+id).find(":hidden:eq(1)").val()]);
 						 		$("."+id).find(":text:eq(0)").focus();
 						 		edit = true;
 							}
@@ -318,6 +321,8 @@ var id;
 		     $(this).removeClass('selected');
 		 }); 
 		 
+		
+		
 </script>
   </head>
 
@@ -333,20 +338,20 @@ var id;
 		
 <%-- 		<div style="background-image: url('<c:url value="/Image/backend_beverage.png"/>');width:1000px:height:241px">
 			<img src="<c:url value='/Image/backend_beverage.png'/>" alt="">
-			<h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2>
+			<h2>상품 관리(등록/수정/삭제) 페이지 입니다.</h2>
 		</div>
  --%>
 		 
 	      <div class="jumbotron">
-<!-- 	        <h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2> -->
+<!-- 	        <h2>상품 관리(등록/수정/삭제) 페이지 입니다.</h2> -->
 	      </div> 
 	       
 	       <div style="width: 100%;text-align:center;" id="message"></div>
 	       
 	      <div class="page-header">
-	        <span style="font-size: 20px">음료 목록</span>
-	        <!-- <input type=checkbox id="checkbox" value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
-<!-- 	        <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
+	        <span style="font-size: 20px">상품 목록</span>
+	        <!-- <input type=checkbox id="checkbox" value="상품 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
+<!-- 	        <input type=button value="상품 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
  	        
 
 	<span style="float:right">
@@ -355,7 +360,7 @@ var id;
 	</span>
 	<span style="float:right">
 	    <input type="checkbox" name="checkbox" id="checkbox" OnClick="javascript:addDrink()"/>
-	    <label for="checkbox">음료 추가</label>
+	    <label for="checkbox">상품 추가</label>
 	</span>
 	        
 	      </div>
@@ -363,7 +368,7 @@ var id;
        	  <div><!-- class="col-md-6" 간격조정 때문에 삭제 -->
 <div class="CircleEvent" style="width:1200px;">
 <ul>
-	<c:forEach items="${drinkList}" var="list">
+	<c:forEach items="${pickleSauceList}" var="list">
 	<li class="addLi" id="${list.dr_no}">
 			<div class="row"  style="padding: 15px">
 				<div class="col-sm-6">
@@ -371,7 +376,7 @@ var id;
 					<div class="ih-item circle colored effect10 bottom_to_top">
 						<a href="#">
 							<div class="img">
-								<img alt="${list.d_img}" src="<c:url value='/Image/sidedish/beverage/'/>${fn:replace(list.d_img,' ', '')}">
+								<img alt="${list.d_img}" src="<c:url value='/Image/sidedish/pickleNSouce/'/>${fn:replace(list.d_img,' ', '')}">
 							</div>
 							<div class="info">
 								<h3 style="font-family:맑은 고딕;font-size:15px;line-height:1.4em;vertical-align: middle;">${list.d_name}</h3>
@@ -396,43 +401,50 @@ var id;
             <thead >
               <tr>
                 <th style="width:110px">일련번호</th>
-                <th style="width:600px">음료</th>
+                <th style="width:80px">분류</th>
+                <th style="width:600px">상품</th>
                 <th style="width:150px">가격</th>
                 <th style="width:400px">이미지파일</th>
                 <th style="width:200px">이미지</th>
               </tr>
             </thead>
             <tbody class="tbodyClass"> 
-            <c:forEach items="${drinkList}" var="list" varStatus="loop">
+            <c:forEach items="${pickleSauceList}" var="list" varStatus="loop">
             
             <!-- 데이터 -->
               <tr class="data" id="h_${list.dr_no}" title="'${list.d_name}'">
                 <%-- <td>${list.dr_no}</td> --%>
                 <td class="firstTd">${loop.count}</td>
+                <td>${list.d_kind}</td>
                 <td>${list.d_name}</td>
                 <td><fmt:formatNumber value="${list.d_price}"/></td>
                 <td>${fn:replace(list.d_img,' ', '')}</td>
                 <td>
                 	<img style="height:80px;border-radius: 60px;" alt="${fn:replace(list.d_img,' ', '')}" 
-                		src="<c:url value='/Image/sidedish/beverage/'/>${fn:replace(list.d_img,' ', '')}">
+                		src="<c:url value='/Image/sidedish/pickleNSouce/'/>${fn:replace(list.d_img,' ', '')}">
                 </td>
                 <c:set var="loopCount" value="${loop.count}"/>
               </tr>
               
               <!-- 수정 폼 -->
-              <form onsubmit="return isValidate(this);" action="<c:url value='/DrinkEdit.do'/>" method="post" enctype="multipart/form-data">
+              <form onsubmit="return isValidate(this);" action="<c:url value='/PickleSauceEdit.do'/>" method="post" enctype="multipart/form-data">
               <tr class="h_${list.dr_no}" style="display: none;" id="${list.dr_no}" title="'${list.d_name}'">
                 <%-- <td>${list.dr_no}</td> --%>
                 <td class="firstTd">${loop.count}</td>
                 <input type="hidden" value="${list.dr_no}" name="edit_no"/>
+                <input type="hidden" value="${list.d_kind}" name="edit_kind"/>
                 <input type="hidden" value="${fn:replace(list.d_img,' ', '')}" name="original_img"/>
-                <td><input type="text" placeholder="수정하실 음료명을 입력해주세요." value="${list.d_name == null ? '' : list.d_name}" name="d_name"/></td>
+              	<td>
+					<input type="radio" value="pickle" name="picklesauce" />피클
+					<input type="radio" value="sauce" name="picklesauce" />소스
+				</td>
+                <td><input type="text" placeholder="수정하실 상품명을 입력해주세요." value="${list.d_name == null ? '' : list.d_name}" name="d_name"/></td>
                 <td><input type="text" placeholder="가격을 입력해주세요." value="${list.d_price == null ? '' : list.d_price}" name="d_price"/></td>
                 <td><input type="file" name="d_img" style="width:98%;padding-left:30px" id="edit_img"></input>원본 파일명 : ${fn:replace(list.d_img,' ', '')}</td>
                 <td>
                 	<input type="submit" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value="수정" /> 
                 	<input type="button" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />
-                	<input type="button" value="삭제" class="btn btn-sm btn-info" OnClick="javascript:deleteDrink(${list.dr_no})" style="background-color: #ef041c" />
+                	<input type="button" value="삭제" class="btn btn-sm btn-info" OnClick="javascript:deleteDrink(${list.dr_no}, ${list.d_kind})" style="background-color: #ef041c" />
                 </td>
                 <c:set var="loopCount" value="${loop.count}"/>
               </tr>
@@ -440,10 +452,14 @@ var id;
             </c:forEach>
             
 	         <!-- 등록 폼 -->
-	         <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/InsertDrink.do'/>" method="post" enctype="multipart/form-data">
+	         <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/PickleSauceWrite.do'/>" method="post" enctype="multipart/form-data">
 		               <tr id="addDrink" style="display:none;">
 		               	<td>${loopCount+1}</td>
-		                <td><input type="text" id="focus" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="${d_name == null ? '' : d_name}"/></td>
+		       	       	<td>
+							<input type="radio" value="pickle" name="d_kind" checked/>피클
+							<input type="radio" value="sauce" name="d_kind" />소스
+						</td>
+		                <td><input type="text" id="focus" size="30" placeholder="등록하실 상품명을 입력해주세요." name="d_name" value="${d_name == null ? '' : d_name}"/></td>
 		                <td><input type="text" size="15" placeholder="가격을 입력해주세요." name="d_price"  value="${d_price == null ? '' : d_price}"/></td>
 		                <td> 
 		                	${d_img == null ? '' : d_img }

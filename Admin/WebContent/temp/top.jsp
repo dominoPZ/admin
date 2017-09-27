@@ -59,14 +59,13 @@ $(function(){
             </li>
             
             <li class="dropdown">
-              <a href="#" id="menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">피자메뉴 관리 <span class="caret"></span></a>
+              <a href="#" id="menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">상품메뉴 관리 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="<c:url value='/PizzaList.pz' />">피자 메뉴 추가</a></li>
                 <li><a href="<c:url value='/SideMenu.do'/>">사이드 메뉴 추가</a></li>
                 <li><a href="<c:url value='/ToppingMenu.do'/>">토핑 추가</a></li>
                 <li><a href="<c:url value='/DrinkList.do'/>">음료 메뉴 관리</a></li>
-                <li><a href="<c:url value='/SauceList.do'/>">소스 메뉴 관리</a></li>
-                <li><a href="<c:url value='/PickleList.do'/>">피클 메뉴 관리</a></li>
+                <li><a href="<c:url value='/PickleSauceList.do'/>">피클&소스 메뉴 관리</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Nav header</li>
                 <li><a href="#">피자 메뉴 정보 수정</a></li>
