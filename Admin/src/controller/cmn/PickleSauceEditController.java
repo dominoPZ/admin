@@ -55,7 +55,6 @@ public class PickleSauceEditController extends HttpServlet {
 			file.renameTo(new File(req.getServletContext().getRealPath("/Image/sidedish/pickleNSouce")+File.separator+name.replaceAll(" ", "")+"."+jpg));
 			File file2 = new File(req.getServletContext().getRealPath("/Image/sidedish/pickleNSouce")+File.separator+name.replaceAll(" ", "")+"."+jpg);
 			
-			
 		}
 		else sucorfail = -1;
 		req.setAttribute("SUC_FAIL", sucorfail);
