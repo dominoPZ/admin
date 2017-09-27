@@ -29,6 +29,8 @@ public class MgrUpdate extends HttpServlet {
 		String no = req.getParameter("no");
 		String po = req.getParameter("po");
 		
+		
+		
 		StoreDAO dao = new StoreDAO(req.getServletContext());
 		System.out.println("컨트롤러 진입");
 		int o = dao.proupdate(no,Integer.parseInt(po));

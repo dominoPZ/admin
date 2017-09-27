@@ -15,10 +15,10 @@ public class StoreUpdate extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setAttribute("page", "store");
 		StoreDTO dto = new StoreDTO();
 		StoreDAO dao = new StoreDAO(req.getServletContext());
 		String url = "";
+		req.setAttribute("page", "StoreUpdate");
 		if(req.getParameter("in")!=null&&req.getParameter("in").equals("in")){
 			dto = dao.printStore(req.getSession().getAttribute("Sno").toString());
 			url = "/WEB-INF/Mgr/Store_Update.jsp";
