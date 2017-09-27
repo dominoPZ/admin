@@ -15,6 +15,8 @@
    -->
 
     <title>음료 추가</title>
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 
     <!-- Bootstrap core CSS --> <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap.min.css' />">
@@ -23,7 +25,8 @@
 
 	<link rel="stylesheet" type="text/css" href="<c:url value='/cmn/main.css'/>">
 	<script src="<c:url value='/cmn/app.js'/>"></script>
-
+	<link rel="stylesheet" type="text/css" href="<c:url value='/cmn/check.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/cmn/check2.css'/>">
 
 <style>
 .ih-item.circle.effect10.colored .info {
@@ -40,14 +43,14 @@
     border-top: 1px solid rgba(255, 255, 255, 0.5);
 }
 .ih-item.circle.effect10 .info h3 {
-    color: #102b6b;
+    color: #ffffff ; /* #102b6b; */
     text-transform: uppercase;
     vertical-align: middle;
     /* position: relative; */
     letter-spacing: 2px;
     font-size: 22px;
     font-weight: bold;
-    text-shadow: 0 0 2px white, 0 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 2px white, 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 
 thead {
@@ -61,37 +64,122 @@ thead {
 	display : none;
 }
 
+.CircleEvent {
+ cursor: default;
+}
+
+
+
+
+/* Red */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/* 
+body {
+  background: #e0e0e0;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  font-size: 16px;
+  color: #555;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+} */
+
+.row {
+  background: #fff;
+  padding: 20px;
+  position: relative;
+  margin: 0 0 1px 0;
+}
+.row:hover {
+  cursor: pointer;
+}
+.row.selected {
+  background: #f3f3f3;
+}
+
+label {
+  cursor: pointer;
+}
+label:before {
+  display: inline-block;
+  content: "+";
+  margin: 0 10px 0 0;
+  width: 35px;
+  height: 35px;
+  border: 3px solid #f95e5e;
+  border-radius: 100%;
+  vertical-align: middle;
+  color: #f95e5e;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 700;
+  line-height: 0.9em;
+  transition: transform 0.2s ease-in-out;
+}
+
+input[type=checkbox]:checked + label:before {
+  background: #f95e5e;
+  color: #fff;
+  transform: rotate(135deg);
+  transform-origin: center center;
+}
+
+input[type=checkbox] {
+  visibility: hidden;
+}
+
+
+.jumbotron {
+    margin-left: 70px;
+    background-image: url(/Admin/Image/backend_beverage.png);
+    background-color: white;
+    width: 1000px;
+    height: 241px;
+}
+
+
+
+
+
 </style>
 
 
 <script>
-var add=false;
-
-
-var tagStr1 = '';
-var tagStr2 = '';
-var tagStr3 = '';
-var tagStr4 = ''; 		
-var tag1 = '';
-var tag2 = '';
-var tag3 = '';
-var tag4 = ''; 		
+var add=true;
+var edit=true;
+var editcount = 0;
+var flagedit = true;
 var id;
-var name;
-var price;
-var img;
 
-	//등록, 수정, 삭제 중인지 체크
+	//등록, 수정 중인지 체크
 	var check = function(checkVal){
-		if(checkVal){			
-			alert("등록을 끝낸 후 실행해주세요.");
-			return;
+		if(!checkVal){			
+			alert("음료 등록중입니다.\r\n음료 등록을 끝낸 후 실행해주세요.");
+			$("#checkbox2").get(0).checked = "";
+			return false;
+		}
+		else{
+			return true;
 		}
 	}
-
+	
     //음료 추가
 	 var addDrink = function(){
-    	add = true;
+    	if(!($(":checked").val() == 'on')) {
+    		addDrinkCancel();
+    		return;
+    	}
+    	if(!flagedit){
+			alert("음료 수정중입니다.\r\n음료 수정모드 버튼을 클릭하여 모드를 변경 후 실행해주세요.");
+			$("#checkbox").get(0).checked = "";
+			return;
+    	}
+    	edit=true;
+    	add = false;
 		 $("#addDrink").css("display","");
 		 $("#focus").focus();
 	 }
@@ -107,7 +195,7 @@ var img;
 		       formObject.d_price.focus();
 		       return false;
 		    }
-		     if(formObject.d_price.value < 0){
+		     if(!$.isNumeric(formObject.d_price.value)){
 			       alert("음료 가격은 숫자만 입력가능 합니다.");
 			       formObject.d_price.focus();
 			       return false;
@@ -118,69 +206,118 @@ var img;
 		         return false;
 		      }
 		      
-		     if(validate()){
 				$("#addDrink").css("display","none");
 				$("#editDrink").css("display","none");
-				add = false;
-		     }
+				add = true;
+				edit= true;
+				$("#checkbox").get(0).checked = "";
+				$("#checkbox2").get(0).checked = "";
 		 }
 		
-		//선택한 파일이 이미지 파일인지 체크
-		function validate() {
-	    	 var extensions = new Array("jpg","jpeg","gif","png","bmp");  //이곳에 업로드 가능한 확장자 기재
-	    	 var d_img = document.form.d_img.value;
-	    	 var image_length = document.form.d_img.value.length;
-	    	 var pos = d_img.lastIndexOf('.') + 1;
-	    	 var ext = d_img.substring(pos, image_length);
-	    	 var final_ext = ext.toLowerCase();
-	    	 for (i = 0; i < extensions.length; i++){
-	    	 	if(extensions[i] == final_ext){
-	    	 	return true;
-	    	 	}
-	    	 }
-	    	 	alert(extensions.join(', ') +"파일만 등록 가능합니다.");
-	    	 return false;
-	    	 }
-				
 		 var addDrinkCancel = function(){
-			 	if(confirm("작성중인 값은 저장 되지 않습니다.\r\n등록을 취소하시겠습니까?"))
+			 	if(confirm("작성중인 값은 저장 되지 않습니다.\r\n등록을 취소하시겠습니까?")){
 			 		$("#addDrink").css("display","none");
+			 		add=true;
+			 		$("#checkbox").get(0).checked = "";
+			 	}
 		 }
 		 
 		 var editDrinkCancel = function(){
 			if(confirm("작성중인 값은 저장 되지 않습니다.\r\n수정을 취소하시겠습니까?")){
 			 		$("."+id).hide();
 			 		$("#"+id).show();
+			 		edit = false;
 		 		
 			}
 		 }
 		 var deleteDrink = function(no){
-			if(confirm("선택하신 음료정보를 삭제하시겠습니까?\r\n음료의 정보는 영구적으로 삭제됩니다."))
+			if(confirm("선택하신 음료정보를 삭제하시겠습니까?\r\n음료의 정보는 영구적으로 삭제됩니다.")){
 			 	location.href="<c:url value='/DrinkEdit.do?delete=DEL&no="+no+"'/>";
+			 	edit = false;
+			}
 		 }
 		 
 		 //음료 수정
 		 var editDrink = function(){
-			 check(add);
-			 $("#message").html("<span style='font-size:18px;color: blue;margin-top: 40px;margin-bottom: 40px'>수정 모드입니다. 상단의 원모양 이미지를 클릭하시거나 아래 음료리스트의 행을 클릭하시면 수정모드로 변환합니다.</span>");
+			if(check(add)){
+			 edit = false;
+			 flagedit = false;
+				if($(":checked").length == 1){
+			 
+			 $("#message").html("<span style='font-size:18px;color: blue;margin-top: 40px;margin-bottom: 40px'>수정 모드입니다. 아래 원모양 이미지를 클릭하시거나 하단의 음료리스트의 행을 클릭하시면 수정폼으로 변경됩니다.</span>");
  			 	$("tr:gt(0)").each(function() {
 			 		$(this).css("cursor","pointer");
-					//원래 배경색 가져오기
-					var color = $(this).css("background-color");
-					$(this).hover(function() {//마우스 오버
-						$(this).css("background-color", "#ffd0be");
-					}, function() {//마우스 아웃
-						//원래 배경색으로 변경]
-						$(this).css("backgroundColor", color);
-					});
 				}); 
-
-		 		$(".tbodyClass .data").click(function() {
-						 $(this).hide();
-						id = this.id;
+ 			 	
+ 			 		
+ 				$(".addLi").click(function() {
+					if(edit == false){
+						$("#h_"+this.id).hide();
+						id = "h_"+this.id;
 				 		$("."+id).show();
-		 		});
+				 		$("."+id).find(":text:eq(0)").focus();
+				 		edit = true;
+					}
+					else if(edit == true && flagedit == false){
+						alert("수정은 여러행을 동시에 진행할 수 없습니다.");
+						return;
+					}
+					else if(editcount == 1){
+						return;
+					}
+
+ 				});
+ 				 
+			 		$(".tbodyClass .data").click(function() {
+							if(edit == false){
+								 $(this).hide();
+								id = this.id;
+						 		$("."+id).show();
+						 		$("."+id).find(":text:eq(0)").focus();
+						 		edit = true;
+							}
+							else if(edit == true && flagedit == false){
+								alert("수정은 여러행을 동시에 진행할 수 없습니다.");
+								return;
+							}
+							else if(editcount == 1){
+								return;
+							}
+
+			 		}); 
+			 }
+			
+			else{
+				$("#checkbox2").get(0).checked = "";
+				$("#message").html("");
+ 			 	$("tr:gt(0)").each(function() {
+			 		$(this).css("cursor","");
+				}); 
+ 			 	editDrinkCancel();
+ 			 	add=true;
+ 			 	edit=true;
+ 			 	editcount = 0;
+ 			 	flagedit = true;
+ 			 	return;
+				}
+			}
 		 }
+		 
+		// IE9+
+		 $('.row').on('click', function() {
+		   
+		    // Clicking on the parent row will toggle the child check box
+		    $('input[type=checkbox]', this).prop('checked', function(i, checked){
+		       return !checked
+		    })
+
+		   // Add selected class when box is checked
+		   if($('input[type=checkbox]', this).prop('checked'))
+		     $(this).addClass('selected');
+		   else
+		     $(this).removeClass('selected');
+		 }); 
+		 
 </script>
   </head>
 
@@ -193,21 +330,41 @@ var img;
 	
     <div class="container theme-showcase" role="main">
 		<!-- Main jumbotron for a primary marketing message or call to action -->
+		
+<%-- 		<div style="background-image: url('<c:url value="/Image/backend_beverage.png"/>');width:1000px:height:241px">
+			<img src="<c:url value='/Image/backend_beverage.png'/>" alt="">
+			<h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2>
+		</div>
+ --%>
+		 
 	      <div class="jumbotron">
-	        <h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2>
-	      </div>
-	      
+<!-- 	        <h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2> -->
+	      </div> 
+	       
+	       <div style="width: 100%;text-align:center;" id="message"></div>
+	       
 	      <div class="page-header">
 	        <span style="font-size: 20px">음료 목록</span>
-	        <input type=checkbox value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px">
-	        <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right">
+	        <!-- <input type=checkbox id="checkbox" value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
+<!-- 	        <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
+ 	        
+
+	<span style="float:right">
+	    <input type="checkbox" name="checkbox" id="checkbox2" OnClick="javascript:editDrink()"/>
+	    <label for="checkbox2">수정&삭제</label>
+	</span>
+	<span style="float:right">
+	    <input type="checkbox" name="checkbox" id="checkbox" OnClick="javascript:addDrink()"/>
+	    <label for="checkbox">음료 추가</label>
+	</span>
+	        
 	      </div>
 
        	  <div><!-- class="col-md-6" 간격조정 때문에 삭제 -->
-<div class="CircleEvent" style="float:right;margin-left:50px">
+<div class="CircleEvent" style="width:1200px;">
 <ul>
 	<c:forEach items="${drinkList}" var="list">
-	<li class="addLi">
+	<li class="addLi" id="${list.dr_no}">
 			<div class="row"  style="padding: 15px">
 				<div class="col-sm-6">
 					<!-- colored -->
@@ -231,8 +388,9 @@ var img;
 		</c:forEach>
 </ul>
 </div>       	  
-        
-	 <div style="width: 100%;text-align:center;" id="message"></div>
+   
+	
+	 
 	 
           <table class="table table-striped" style="margin-bottom:150px;text-align:center;vertical-align: middle;">
             <thead >
@@ -248,7 +406,7 @@ var img;
             <c:forEach items="${drinkList}" var="list" varStatus="loop">
             
             <!-- 데이터 -->
-              <tr class="data" id="h_${list.dr_no}" title="클릭하시면 '${list.d_name}'를 수정합니다.">
+              <tr class="data" id="h_${list.dr_no}" title="'${list.d_name}'">
                 <%-- <td>${list.dr_no}</td> --%>
                 <td class="firstTd">${loop.count}</td>
                 <td>${list.d_name}</td>
@@ -263,18 +421,18 @@ var img;
               
               <!-- 수정 폼 -->
               <form onsubmit="return isValidate(this);" action="<c:url value='/DrinkEdit.do'/>" method="post" enctype="multipart/form-data">
-              <tr class="h_${list.dr_no}" style="display: none;" id="${list.dr_no}" title="클릭하시면 '${list.d_name}'를 수정합니다.">
+              <tr class="h_${list.dr_no}" style="display: none;" id="${list.dr_no}" title="'${list.d_name}'">
                 <%-- <td>${list.dr_no}</td> --%>
                 <td class="firstTd">${loop.count}</td>
                 <input type="hidden" value="${list.dr_no}" name="edit_no"/>
                 <input type="hidden" value="${fn:replace(list.d_img,' ', '')}" name="original_img"/>
-                <td><input type="text" value="${list.d_name}" name="edit_name"/></td>
-                <td><input type="text" value="${list.d_price}" name="edit_price"/></td>
-                <td><input type="file" name="edit_img" style="width:98%;padding-left:30px" id="edit_img"></input>원본 파일명 : ${fn:replace(list.d_img,' ', '')}</td>
+                <td><input type="text" placeholder="수정하실 음료명을 입력해주세요." value="${list.d_name == null ? '' : list.d_name}" name="d_name"/></td>
+                <td><input type="text" placeholder="가격을 입력해주세요." value="${list.d_price == null ? '' : list.d_price}" name="d_price"/></td>
+                <td><input type="file" name="d_img" style="width:98%;padding-left:30px" id="edit_img"></input>원본 파일명 : ${fn:replace(list.d_img,' ', '')}</td>
                 <td>
                 	<input type="submit" id="editOk" style="margin-right:5px" name="submit" size="30" class="btn btn-sm btn-info" value="수정" /> 
                 	<input type="button" value="취소" class="btn btn-sm btn-info" OnClick="javascript:editDrinkCancel()" />
-                	<input type="button" value="삭제" class="btn btn-sm btn-info" OnClick="javascript:deleteDrink(${list.dr_no})" />
+                	<input type="button" value="삭제" class="btn btn-sm btn-info" OnClick="javascript:deleteDrink(${list.dr_no})" style="background-color: #ef041c" />
                 </td>
                 <c:set var="loopCount" value="${loop.count}"/>
               </tr>
@@ -283,18 +441,18 @@ var img;
             
 	         <!-- 등록 폼 -->
 	         <form name="form" onsubmit="return isValidate(this);" action="<c:url value='/InsertDrink.do'/>" method="post" enctype="multipart/form-data">
-		               <tr id="addDrink" style="display:none">
+		               <tr id="addDrink" style="display:none;">
 		               	<td>${loopCount+1}</td>
 		                <td><input type="text" id="focus" size="30" placeholder="등록하실 음료명을 입력해주세요." name="d_name" value="${d_name == null ? '' : d_name}"/></td>
 		                <td><input type="text" size="15" placeholder="가격을 입력해주세요." name="d_price"  value="${d_price == null ? '' : d_price}"/></td>
 		                <td> 
 		                	${d_img == null ? '' : d_img }
-	                        <input type="file" name="d_img" style="width:98%;padding-left:30px" id=t_img/>
+	                        <input type="file" name="d_img" style="width:98%;padding-left:30px" id=d_img/>
 						</td>
-						<td colspan="2">
+						<td>
 							<input type="submit" id="addOk" name="submit" size="30" class="btn btn-sm btn-info" value="등록" />
 							<input type=button value="취소" class="btn btn-sm btn-info" OnClick="javascript:addDrinkCancel()" />
-						<td>
+						</td>
 		              </tr>             	
 	              </form>
             </tbody>

@@ -85,7 +85,6 @@ public class DrinkDao {
 	//음료 수정용]
 	public int update(DrinkDto dto) {
 		int affected = 0;
-		System.out.println(dto.getD_name()+" / "+dto.getD_price()+" / "+dto.getD_img()+" / "+dto.getDr_no());
 		String sql = "UPDATE DRINK SET D_NAME=?, D_PRICE=?, D_IMG=? WHERE DR_NO=?";
 		try {
 			psmt = conn.prepareStatement(sql);

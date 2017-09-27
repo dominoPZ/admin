@@ -53,7 +53,13 @@ public class DrinkInsert extends HttpServlet {
 			 String jpg = file.getName().substring(file.getName().length()-3,file.getName().length());
 			 System.out.println(file.getName()+"@!"+jpg);
 			 file.renameTo( new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_name+"."+jpg));
+			 
+			 System.out.println("1:"+d_name);
+			 
+			 System.out.println("2:"+file.getName());
+			 
 			 File file2 = new File(req.getServletContext().getRealPath("/Image/sidedish/beverage")+File.separator+d_name+"."+jpg);
+			 
 			 
 			 String src = req.getSession().getAttribute("SRC").toString()+"\\sidedish\\beverage";
 			 
