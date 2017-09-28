@@ -142,6 +142,10 @@ $(function(){
 	$("#selectStore").change(function(){
 		$(":submit").trigger("click");
 	});
+	
+	$(".dropdown").click(function(){
+		$(this).addClass("open");
+	});
 });
 </script>
 

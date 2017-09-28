@@ -26,6 +26,7 @@ $(function(){
 	$("#home").css("backgroundColor","black");
 	$("#home").css("color","white");
 	</c:if>
+
 	
 });
 

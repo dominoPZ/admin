@@ -464,7 +464,13 @@ var id;
 
 
     <!-- 내용 끝 -->
-
+<script>
+$(function(){
+	$(".dropdown").click(function(){
+		$(this).addClass("open");
+	});
+});
+</script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
