@@ -278,10 +278,10 @@ var id;
 							}
 							else if(edit == true && flagedit == false){
 								alert("수정은 여러행을 동시에 진행할 수 없습니다.");
-								
+								return;
 							}
 							else if(editcount == 1){
-								
+								return;
 							}
 
 			 		}); 
@@ -298,6 +298,7 @@ var id;
  			 	edit=true;
  			 	editcount = 0;
  			 	flagedit = true;
+ 			 	return;
 				}
 			}
 		 }
@@ -368,7 +369,7 @@ var id;
 				<div class="col-sm-6">
 					<!-- colored -->
 					<div class="ih-item circle colored effect10 bottom_to_top">
-						<a href="#">
+						<a>
 							<div class="img">
 								<img alt="${list.d_img}" src="<c:url value='/Image/sidedish/beverage/'/>${fn:replace(list.d_img,' ', '')}">
 							</div>
