@@ -237,14 +237,22 @@ span.sb-icon:before {
 
 }
 
-.icon-cog:before { content: '\35'; } /* '5' */
-.icon-flight:before { content: '\37'; } /* '7' */
-.icon-eye:before { content: '\34'; } /* '4' */
-.icon-install:before { content: '\39'; } /* '9' */
-.icon-bag:before { content: '\36'; } /* '6' */
-.icon-globe:before { content: '\38'; } /* '8' */
-.icon-picture:before { content: '\32'; } /* '2' */
-.icon-video:before { content: '\30'; } /* '0' */
-.icon-download:before { content: '\41'; } /* 'A' */
-.icon-mobile:before { content: '\42'; } /* 'B' */
-.icon-camera:before { content: '\33'; } /* '3' */
+
+
+/* 
+.icon-cog:before { content: '\35'; } '5'
+.icon-flight:before { content: '\37'; } '7'
+.icon-eye:before { content: '\34'; } '4'
+.icon-install:before { content: '\39'; } '9'
+.icon-bag:before { content: '\36'; } '6'
+.icon-globe:before { content: '\38'; } '8'
+.icon-picture:before { content: '\32'; } '2'
+.icon-video:before { content: '\30'; } '0'
+.icon-download:before { content: '\41'; } 'A'
+.icon-mobile:before { content: '\42'; } 'B'
+.icon-camera:before { content: '\33'; } '3' 
+ */
+
+
+
+

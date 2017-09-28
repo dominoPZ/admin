@@ -19,14 +19,23 @@
 		<!--[if lte IE 8]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 <style type="text/css">
 body {font-family: 'Hanna', serif;}
+/* .footer {
+position:absolute;
+left:10;
+top:10;
+} */
 </style>
     </head>
     <body>
         <div class="container">
 			<header>
-				<h1><span>Domino Pizza</span> 관리자 페이지 입니다 :)</h1>
+	            <div class="headerLogo" style="margin-top:-20px;float:left;position:absolute">
+	                <img alt="biglogo" style="" src="<c:url value='/cmn/swatchbook/images/dominologo/logo2(small).png'/>"/>
+	            </div>
+				<h1 style="margin-top:10px"><span>Domino Pizza</span> 관리자 페이지 입니다 :)</h1>
 				<h2 style="font-family: 'Hanna', serif">원하시는 라벨을 클릭하여 관리페이지로 이동하세요 :)</h2>
-<!-- 	/* 버튼 */			
+				<!-- 	/* 버튼 */
+			
 				<nav class="codrops-demos">
 					<a href="index.html">Demo 1</a>
 					<a href="index2.html">Demo 2</a>
@@ -48,55 +57,56 @@ body {font-family: 'Hanna', serif;}
 			
 				<div id="sb-container" class="sb-container">
 					<div>
-						<span class="sb-icon icon-mobile"></span>
+						<!-- <span class="sb-icon icon-mobile"> -->
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/graph.png'/>"></span>
 						<h4><span>매출 확인</span></h4>											
 					</div>
 					<div>
-						<span class="sb-icon icon-mobile"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/coupon.png'/>"></span>
 						<h4><span>할인 쿠폰 관리</span></h4>											
 					</div>
 					<div>
-						<span class="sb-icon icon-cog"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/rating.png'/>"></span>
 						<h4><span>등급 관리</span></h4>
 					</div>
 					<div>
-						<span class="sb-icon icon-flight"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/store.png'/>"></span>
 						<h4><span>매장 정보 수정</span></h4>
 					</div>	
 					<div>
-						<span class="sb-icon icon-eye"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/store.png'/>"></span>
 						<h4><span>매장 추가</span></h4>
 					</div>	
 					<div>
-						<span class="sb-icon icon-install"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/menu_sauce.png'/>"></span>
 						<h4><span>피클&소스 메뉴 관리</span></h4>
 					</div>	
 					<div>
-						<span class="sb-icon icon-bag"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/menu_beverage.png'/>"></span>
 						<h4><span>음료 메뉴 관리</span></h4>
 					</div>	
 					<div>
-						<span class="sb-icon icon-globe"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/menu_topping.png'/>"></span>
 						<h4><span>토핑 추가</span></h4>
 					</div>	
 					<div>
-						<span class="sb-icon icon-picture"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/menu_sidedish.png'/>"></span>
 						<h4><span>사이드 메뉴 추가</span></h4>											
 					</div>	
 					<div>
-						<span class="sb-icon icon-video"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/menu_pizza.png'/>"></span>
 						<h4><span>피자 메뉴 추가</span></h4>											
 					</div>	
 					<div>
-						<span class="sb-icon icon-download"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/event.png'/>"></span>
 						<h4><span>공지사항</span></h4>											
 					</div>	
 					<div>
-						<span class="sb-icon icon-mobile"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/event.png'/>"></span>
 						<h4><span>이벤트</span></h4>											
 					</div>
 					<div>
-						<span class="sb-icon icon-camera"></span>
+						<span class="sb-icon"><img alt="icon" src="<c:url value='/cmn/swatchbook/images/index_icon/member.png'/>"></span>
 						<h4><span>회원 정보 관리</span></h4>											
 					</div>
 					<div>
@@ -107,9 +117,15 @@ body {font-family: 'Hanna', serif;}
 					
 				</div><!-- sb-container -->
 				
+        
 			</section>
+            <div class="footerLogo" style="margin-top:-150px;margin-left:1600px">
+                <img alt="biglogo" style="width:150px" src="<c:url value='/cmn/swatchbook/images/dominologo/logo1(big).png'/>"/>
+            </div>
 			
         </div>
+
+        
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
 		<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>        

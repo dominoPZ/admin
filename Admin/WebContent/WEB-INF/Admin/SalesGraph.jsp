@@ -56,7 +56,7 @@ $(function () {
 	        text: '피자 판매량 추이'
 	    },
 	    subtitle: {
-	        text: '판매량이 높은 순으로 영역을 차지 합니다.'
+	        text: '판매액이 높은 순으로 영역을 차지 합니다.'
 	    },
 	    plotOptions: {
 	        pie: {
@@ -77,10 +77,12 @@ $(function () {
 	    }]
 	});///////////////////////////////////////그래프
 	
-	
+
 	
 	$('select option[value=${st_no}]').attr("selected","selected");
 	
+	
+
 	
 });
 
@@ -90,58 +92,58 @@ $(function () {
 </script>
 
 
-	<div class="container theme-showcase" role="main">
-		<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="container theme-showcase" role="main">
+	<!-- Main jumbotron for a primary marketing message or call to action -->
 
-		<%-- 		<div style="background-image: url('<c:url value="/Image/backend_beverage.png"/>');width:1000px:height:241px">
-			<img src="<c:url value='/Image/backend_beverage.png'/>" alt="">
-			<h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2>
-		</div>
- --%>
+	<%-- 		<div style="background-image: url('<c:url value="/Image/backend_beverage.png"/>');width:1000px:height:241px">
+		<img src="<c:url value='/Image/backend_beverage.png'/>" alt="">
+		<h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2>
+	</div>
+--%>
 
-		<div class="jumbotron">
-			<!-- 	        <h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2> -->
-		</div>
+	<div class="jumbotron">
+		<!-- 	        <h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2> -->
+	</div>
 
-		<div style="width: 100%; text-align: center;" id="message"></div>
+	<div style="width: 100%; text-align: center;" id="message"></div>
 
-		<div class="page-header">
-			<span style="font-size: 20px">판매량</span>
-			<!-- <input type=checkbox id="checkbox" value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
-			<!-- 	        <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
-		</div>
+	<div class="page-header">
+		<span style="font-size: 20px">판매량</span>
+		<!-- <input type=checkbox id="checkbox" value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
+		<!-- <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
+	</div>
 
-		<!--    셀렉트 박스 : 매장 출력 (매장 별 판매량 보기)
-				기간별 판매량 : form date type, 검색		 -->
-				
 <!-- 컨텐츠 시작============================================================ -->
 
 
   <form action="<c:url value='/SalesGraph.do' />" method="get" id="frm">
   기간 선택 : <input type="date" name="date1" value="${date1 }" /> ~ <input type="date" value="${date2 }" name="date2" />
-		<input type="submit" class="btn btn-sm btn-info" value="확인"/>
-  	<select name="stores" style="float:right">
+		<input type="submit" style="margin-left:10px" class="btn btn-sm btn-info" value="확인"/>
+  	<select id="selectStore" name="stores" style="float:right">
 	  	<option value="">전체 매장</option>
   		<c:forEach items="${stores }" var="store" >
-		<option value="${store.st_no }">${store.st_name }</option>
+			<option value="${store.st_no }">${store.st_name }</option>
   		</c:forEach>
-<%-- 		
-		<c:forEach var="" items="">
-			<option value="${#}">${#}</option>
-		</c:forEach>
-		 --%>
 	</select>
   <label style="float:right">매장 선택 :&nbsp;</label>
   </form>
 
 		<!-- 파이 그래프 -->
-    <fieldset>
+    <fieldset style="margin-top:20px">
 		<div id="container" style="height: 600px; font-size: 20px"></div>
     </fieldset>
 
 <!-- 컨텐츠 끝============================================================ -->
 	</div>
 	</div>
+
+<script>
+$(function(){
+	$("#selectStore").change(function(){
+		$(":submit").trigger("click");
+	});
+});
+</script>
 
 
 
