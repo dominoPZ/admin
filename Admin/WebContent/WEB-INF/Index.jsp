@@ -19,9 +19,7 @@
 		<!--[if lte IE 8]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 <style type="text/css">
 body {font-family: 'Hanna', serif;}
-
 </style>
-
     </head>
     <body>
         <div class="container">
@@ -44,7 +42,6 @@ body {font-family: 'Hanna', serif;}
 					<span class="no-csstransitions">CSS transitions are not supported in your browser</span>
 					<span class="note-ie">Sorry, only modern browsers.</span>
 				</div>
-				
 			</header>
 			
 			<section class="main" style="height:800px">
