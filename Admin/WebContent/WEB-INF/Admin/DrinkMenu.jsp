@@ -278,10 +278,10 @@ var id;
 							}
 							else if(edit == true && flagedit == false){
 								alert("수정은 여러행을 동시에 진행할 수 없습니다.");
-								return;
+								
 							}
 							else if(editcount == 1){
-								return;
+								
 							}
 
 			 		}); 
@@ -298,7 +298,6 @@ var id;
  			 	edit=true;
  			 	editcount = 0;
  			 	flagedit = true;
- 			 	return;
 				}
 			}
 		 }
