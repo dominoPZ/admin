@@ -66,11 +66,12 @@ $(function(){
                 <li><a href="<c:url value='/ToppingMenu.do'/>">토핑 추가</a></li>
                 <li><a href="<c:url value='/DrinkList.do'/>">음료 메뉴 관리</a></li>
                 <li><a href="<c:url value='/PickleSauceList.do'/>">피클&소스 메뉴 관리</a></li>
+<!--                
                 <li class="divider"></li>
                 <li class="dropdown-header">Nav header</li>
                 <li><a href="#">피자 메뉴 정보 수정</a></li>
                 <li><a href="#">사이드 메뉴 정보 수정</a></li>
-                <li><a href="#">토핑 정보 수정</a></li>
+                <li><a href="#">토핑 정보 수정</a></li> -->
               </ul>
             </li>
             
