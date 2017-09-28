@@ -23,17 +23,26 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value='/cmn/check2.css'/>">
 	
 	
-<title>Insert title here</title>
 <script src="<c:url value='/cmn/pieGraph/highcharts.js'/>"></script>
 <script src="<c:url value='/cmn/pieGraph/highcharts-3d.js'/>"></script>
 <script src="<c:url value='/cmn/pieGraph/exporting.js'/>"></script>
 <%-- <script type="<c:url value='/cmn/pieGraph/jquerymin.js'/>"></script> --%>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <style type="text/css">
-${demo.css}
+
 </style>
+</head>
+<body role="document">
+
+	<div>
+		<!--  top  -->
+		<jsp:include page="/temp/top.jsp" />
+	</div>
+
+
 <script>
 $(function () {
+	
 	//그래프
 	Highcharts.chart('container', {
 	    chart: {
@@ -56,46 +65,30 @@ $(function () {
 	        }
 	    },
 	    series: [{
-	        name: '판매 량 ',
+	        name: '매출 액',
 	        data: [
-	            ['꽃게 온더 피자', 8],
-	            ['불고기 피자', 3],
-	            ['페퍼로니 피자', 1],
-	            ['피자1', 6],
-	            ['피자2', 8],
-	            ['피자3', 4],
-	            ['피자4', 4],
-	            ['피자5', 1],
-	            ['피자6', 1]
+	            <c:forEach items='${sales}' var='dto' varStatus='loop' >
+	            ['${dto.name}',${dto.price}]
+	            <c:if test='${!loop.last}'>
+	            ,
+	            </c:if>
+	            </c:forEach>
 	        ]
 	    }]
 	});///////////////////////////////////////그래프
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	$('select option[value=${st_no}]').attr("selected","selected");
 	
 	
 });
 
-</script>
-</head>
-<body role="document">
 
-	<div>
-		<!--  top  -->
-		<jsp:include page="/temp/top.jsp" />
-	</div>
+
+
+</script>
+
 
 	<div class="container theme-showcase" role="main">
 		<!-- Main jumbotron for a primary marketing message or call to action -->
@@ -124,11 +117,14 @@ $(function () {
 <!-- 컨텐츠 시작============================================================ -->
 
 
-  <form action="#" method="post" id="frm">
-  기간 선택 : <input type="date" name="date" /> ~ <input type="date" name="date" />
+  <form action="<c:url value='/SalesGraph.do' />" method="get" id="frm">
+  기간 선택 : <input type="date" name="date1" value="${date1 }" /> ~ <input type="date" value="${date2 }" name="date2" />
 		<input type="submit" class="btn btn-sm btn-info" value="확인"/>
-  	<select style="float:right">
-		<option value="">선택</option>
+  	<select name="stores" style="float:right">
+	  	<option value="">전체 매장</option>
+  		<c:forEach items="${stores }" var="store" >
+		<option value="${store.st_no }">${store.st_name }</option>
+  		</c:forEach>
 <%-- 		
 		<c:forEach var="" items="">
 			<option value="${#}">${#}</option>
