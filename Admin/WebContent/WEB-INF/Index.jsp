@@ -25,11 +25,7 @@ body {font-family: 'Hanna', serif;}
     </head>
     <body>
         <div class="container">
-
-	
-			
 			<header>
-			
 				<h1><span>Domino Pizza</span> 관리자 페이지 입니다 :)</h1>
 				<h2 style="font-family: 'Hanna', serif">원하시는 라벨을 클릭하여 관리페이지로 이동하세요 :)</h2>
 <!-- 	/* 버튼 */			
@@ -123,7 +119,6 @@ body {font-family: 'Hanna', serif;}
         <script type="text/javascript" src="<c:url value='/cmn/swatchbook/js/jquery.swatchbook.js'/>"></script> 
 		<script type="text/javascript">
 			$(function() {
-			
 				$( '#sb-container' ).swatchbook( {
 					// number of degrees that is between each item
 					angleInc : 15,
@@ -134,7 +129,6 @@ body {font-family: 'Hanna', serif;}
 					// by default there is no such element
 					closeIdx : 13 //총 컨텐츠 수
 				} );
-		
 					$("#sb-container div").click(function(){
 						if($(this).attr("class") == "ff-active")
 							$(this).click(function(){
