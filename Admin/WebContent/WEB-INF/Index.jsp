@@ -131,7 +131,7 @@ body {font-family: 'Hanna', serif;}
 							$(this).click(function(){
 								//alert("성공"+" / "+$(this).index()); //0~12
 								switch ($(this).index()) {
-								case 0 : alert("공사중"); return;// location.href="<c:url value=''/>"; break; // 매출 확인
+								case 0 : location.href="<c:url value='/SalesGraph.do'/>"; return;// 매출 확인
 								case 1 : location.href="<c:url value='/Saile.pz'/>"; return; // 할인 쿠폰 관리		 - 등급 및 쿠폰
 								case 2 : location.href="<c:url value='/Rating.pz'/>"; return; // 등급 관리		 - 등급 및 쿠폰
 								case 3 : location.href="<c:url value='/StoreSer.pz'/>"; return; // 매장 정보 수정		 - 매장 관리

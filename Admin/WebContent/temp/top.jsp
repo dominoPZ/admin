@@ -93,7 +93,7 @@ $(function(){
           --> 
               </ul>
             </li>
-          <li><a href="<c:url value='/SalesGraph.do' />" id="Sales">판매 내역</a></li>
+          <li><a href="<c:url value='/SalesGraph.do' />" id="Sales">매출 확인</a></li>
           </ul>
           
           
