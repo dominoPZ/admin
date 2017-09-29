@@ -154,7 +154,7 @@
 	 			
 	 			
 	 			$.each(rec.menu,function(index2,rec2){
-	 				tableString+='<tr><td style="border-top:solid;">메뉴</td><td style="border-top:solid;">'+rec2.pname+" "+rec2.size+" "+rec2.dname+'('+rec2.qty+')</td><td style="border-top:solid";></td><td style="border-top:solid";>가격:'+rec2.price+'</td></tr><tr><td>추가토핑</td><td>'+rec2.topping+'</td><td> </td></tr>';
+	 				tableString+='<tr><td style="border-top:solid;">메뉴</td><td style="border-top:solid;">'+rec2.pname+" "+rec2.size+" "+rec2.dname+'('+rec2.qty+')</td><td style="border-top:solid";></td><td style="border-top:solid";>가격:'+rec2.price+'</td></tr><tr><td>추가토핑</td><td>'+rec2.topping+'</td><td> </td><td></td></tr>';
 	 			});
 	 			
 	 			tableString+='</tbody>'

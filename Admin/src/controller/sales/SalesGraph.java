@@ -1,6 +1,7 @@
 package controller.sales;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -52,6 +53,7 @@ public class SalesGraph extends HttpServlet {
 		//매장목록용
 		List<Map> stores = new Vector<>();
 		
+		
 		//dao 실행 -- 반환 받는 인자 
 		// 판매된 피자 호출용 -- 피자명 - name , 수량 - count , 가격 - price
 		list = dao.pizzaGraph(whe);
@@ -64,6 +66,24 @@ public class SalesGraph extends HttpServlet {
 			Map map = dao.storeOne(st_no);
 			req.setAttribute("st_name", map.get("st_name"));
 			req.setAttribute("st_no", map.get("st_no"));
+		}
+		
+		///판매된 피자 있는지 여부 확인
+		if(list.size()>0) {
+			req.setAttribute("emp", "notempty");
+		}
+		
+		//가격별 인지 수량별 인지 체크여부
+		if(req.getParameter("radios")!=null) {
+			if(req.getParameter("radios").equals("price")) {
+				System.out.println(req.getParameter("radios"));
+				req.setAttribute("price", "price");
+				req.setAttribute("radios", "price");
+			}
+			else {
+				System.out.println(req.getParameter("radios"));
+				req.setAttribute("radios", "qty");
+			}
 		}
 		
 		dao.close();

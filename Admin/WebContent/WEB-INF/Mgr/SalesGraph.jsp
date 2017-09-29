@@ -53,8 +53,13 @@ $(function () {
 	        }
 	    },
 	    title: {
+	    	<c:if test="${!empty emp}" var="emps">
 	        text: '피자 판매량 추이'
-	    },
+	        </c:if>
+	    	<c:if test="${!emps}">
+	    	text: '<span style="font-size:1.3em; font-weight:bold"><h1>판매된 피자가 없습니다.</h1><span>'
+	    	</c:if>
+	    	},
 	    subtitle: {
 	        text: '판매액이 높은 순으로 영역을 차지 합니다.'
 	    },
@@ -65,10 +70,28 @@ $(function () {
 	        }
 	    },
 	    series: [{
+	    	// 매출액
+	    	<c:if test="${!empty price}">
 	        name: '매출 액',
+	        </c:if>
+	    	
+	    	//수량으로 볼 경우
+            <c:if test="${empty price}">
+            	name: '수량 ',
+	        </c:if>
+	    	
 	        data: [
 	            <c:forEach items='${sales}' var='dto' varStatus='loop' >
+	            /// 가격으로 볼 경우
+	            <c:if test="${!empty price}">
 	            ['${dto.name}',${dto.price}]
+	            </c:if>
+	            //수량으로 볼 경우
+	            <c:if test="${empty price}">
+		        ['${dto.name}',${dto.count}]
+		        </c:if>
+	            
+	            
 	            <c:if test='${!loop.last}'>
 	            ,
 	            </c:if>
@@ -106,9 +129,12 @@ $(function () {
 	</div>
 
 	<div style="width: 100%; text-align: center;" id="message"></div>
-
+  <form action="<c:url value='/SalesGraphMgr.do' />" method="get" id="frm">
+	
 	<div class="page-header">
-		<span style="font-size: 20px">판매량</span>
+      <span style="font-size: 20px">판매량</span>
+      <input class="radios" type="radio" name="radios" value="price" >가격
+      <input class="radios" type="radio" name="radios" value="qty" >수량
 		<!-- <input type=checkbox id="checkbox" value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
 		<!-- <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
 	</div>
@@ -116,7 +142,6 @@ $(function () {
 <!-- 컨텐츠 시작============================================================ -->
 
 
-  <form action="<c:url value='/SalesGraphMgr.do' />" method="get" id="frm">
   기간 선택 : <input type="date" name="date1" value="${date1 }" /> ~ <input type="date" value="${date2 }" name="date2" />
 		<input type="submit" style="margin-left:10px" class="btn btn-sm btn-info" value="확인"/>
 <%--   	<select id="selectStore" name="stores" style="float:right">
@@ -139,13 +164,13 @@ $(function () {
 
 <script>
 $(function(){
-	$("#selectStore").change(function(){
+	
+	
+	$(".radios").change(function(){
 		$(":submit").trigger("click");
 	});
 	
-	$(".dropdown").click(function(){
-		$(this).addClass("open");
-	});
+	
 });
 </script>
 

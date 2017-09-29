@@ -65,6 +65,24 @@ public class SalesGraphMgr extends HttpServlet {
 			req.setAttribute("st_no", map.get("st_no"));
 		}
 		
+		///판매된 피자 있는지 여부 확인
+		if(list.size()>0) {
+			req.setAttribute("emp", "notempty");
+		}
+		
+		//가격별 인지 수량별 인지 체크여부
+		if(req.getParameter("radios")!=null) {
+			if(req.getParameter("radios").equals("price")) {
+				System.out.println(req.getParameter("radios"));
+				req.setAttribute("price", "price");
+				req.setAttribute("radios", "price");
+			}
+			else {
+				System.out.println(req.getParameter("radios"));
+				req.setAttribute("radios", "qty");
+			}
+		}
+		
 		dao.close();
 		//리퀘스트 영역에 저장
 		req.setAttribute("sales", list);
