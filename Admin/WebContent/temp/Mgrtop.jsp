@@ -60,7 +60,7 @@ $(function(){
     
               </ul>
             </li> -->
-     
+     	   <li><a href="<c:url value='/SalesGraphMgr.do' />" id="Sales">매출 확인</a></li>
 
           </ul>
         </div><!--/.nav-collapse -->

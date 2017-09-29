@@ -30,90 +30,25 @@
     <!--  피자 메뉴리스트 출력용 -->
     	<script type="text/javascript" src="<c:url value='/Pizza/js/d2CommonUtil.js' />"></script>
     	
-
 <style>
-/* 
-.lst_prd_type ul li.prd_list_rgt {
-    margin-left: 0;
-}
-.lst_prd_type ul li {
-    float: left;
-    position: relative;
-    width: 235px;
-    margin: 35px 0 0 20px;
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.34);
-}
-dl, ul, ol, menu, li {
-    list-style: none;
-}
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
-    margin: 0;
-    padding: 0;
-}
-*, *:before, *:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-user agent stylesheet
-li {
-    display: list-item;
-    text-align: -webkit-match-parent;
-}
-common.css:9
-dl, ul, ol, menu, li {
-    list-style: none;
-}
-ul, menu, dir {
-    display: block;
-    list-style-type: disc;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 40px;
-}
+
 body {
-    background: #fff;
-    -webkit-text-size-adjust: none;
-}
-*, *:before, *:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-*, *:before, *:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-    border: 3px solid #fff;
-}
-::-webkit-scrollbar-thumb {
-    height: 50px;
-    width: 50px;
-    background: #cdcccb;
-    border-radius: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #eeece9;
-    border-radius: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
 }
 
-ul, menu, dir {
-    display: block;
-    list-style-type: disc;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 40px;
+.jumbotron {
+    margin-left: 70px;
+    background-image: url(/Admin/Image/피자베너.png);
+    background-color: white;
+    width: 1000px;
+    height: 241px;
 }
- */
- 
+
+
 
 </style>
 
@@ -143,7 +78,7 @@ ul, menu, dir {
 	      <div>
 	      <div style="width: 100%" >
 	      <div class="ser"   style="margin: auto; text-align:center;" >
-	      <span>어떻게 나오나요</span>
+	      <span></span>
 	      </div>
 	      <div class="btndiv"   style="margin: auto; text-align: right;" >
 	       <input  type=button value="메뉴 추가" class="btn btn-sm btn-info" OnClick="location.href='<c:url value="/Write.do"/>'">
@@ -151,7 +86,8 @@ ul, menu, dir {
 	      </div>
 
 	      <!--  실재 내용 표시  -->
-       	  	<div class="col-md-12" style="width: 1500px" >
+       	  	<div class="col-md-11" style="width: 1200px" >
+       	  	
        	  	<div class="tab_content active" style="width:100%" >
 
 
@@ -160,13 +96,13 @@ ul, menu, dir {
 						<ul>
 						
 						<c:forEach var="dtos" items="${dto }" varStatus="loop"  >
-						<c:if test="${(loop.count-1) % 5==0 }" var="pif" >
+					<%-- 	<c:if test="${(loop.count-1) % 4==0 }" var="pif" > --%>
 						<c:set value="prd_list_rgt" var="pclass" />
-						</c:if>
+						<%-- </c:if> --%>
 						<c:if test="${!pif }">
 						<c:set value=" " var="pclass" />
 						</c:if>
-						<li class="${pclass}">
+						&nbsp;<li class="${pclass}">
 							<a href="<c:url value='/PizzaEdit.pz' />?p_no=${dtos.p_no}">
 								<div class="prd_img">
 										<div class="prd_tag">

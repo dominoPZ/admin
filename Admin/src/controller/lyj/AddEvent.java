@@ -71,15 +71,21 @@ public class AddEvent extends HttpServlet {
 			dto.setE_timg(e_timg);
 			dto.setE_cimg(e_cimg);
 			sucorfail = dao.insertEvent(dto);
-			
-			String src = req.getSession().getAttribute("SRC").toString()+"\\EventImage";
+			System.out.println("??? 이벤트 입력페이지");
+			String src = req.getSession().getAttribute("SRC").toString()+"\\event";
+			System.out.println(src);
 			
 			File tfile = new File(req.getServletContext().getRealPath("/Image/EventImage")+File.separator+e_timg);
 			File cfile = new File(req.getServletContext().getRealPath("/Image/EventImage")+File.separator+e_cimg);
-
+			
+			
+			
 			
 			FileInputStream fis = new FileInputStream(req.getServletContext().getRealPath("/Image/EventImage")+File.separator+e_timg);      
 			FileOutputStream fos = new FileOutputStream(src+File.separator+e_timg);
+			
+			
+			
 			int data = 0;
 			byte[] buf = new byte[1024];
 			Files.fileIsLive(src+File.separator+e_timg);

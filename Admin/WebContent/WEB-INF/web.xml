@@ -90,6 +90,17 @@
   	<servlet-name>SalesGraph</servlet-name>
   	<url-pattern>/SalesGraph.do</url-pattern>
   </servlet-mapping> 
+ 
+        <!-- 서블릿 등록 -->
+  <servlet>
+  	<servlet-name>SalesGraphMgr</servlet-name>
+  	<servlet-class>controller.sales.SalesGraphMgr</servlet-class>
+  </servlet>
+  <!--요청 URL매핑 -->
+  <servlet-mapping>
+  	<servlet-name>SalesGraphMgr</servlet-name>
+  	<url-pattern>/SalesGraphMgr.do</url-pattern>
+  </servlet-mapping> 
   
   
   <!--    이어진 구간  -->

@@ -23,7 +23,7 @@ public class PizzaList extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-
+		req.setAttribute("page","menu");
 		int ty=0;
 		StoreDAO dao = new StoreDAO(req.getServletContext());
 		if(req.getParameter("ty")!=null) {

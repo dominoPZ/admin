@@ -44,6 +44,7 @@ public class WriteController extends HttpServlet {
 			req.setCharacterEncoding("UTF-8");
 			StoreDAO sdao=new StoreDAO(req.getServletContext());
 			String src2 = sdao.getsrc();
+			System.out.println(src2);
 			String src = src2+"\\pizzalist";
 			req.getSession().setAttribute("SRC", src2);
 			
