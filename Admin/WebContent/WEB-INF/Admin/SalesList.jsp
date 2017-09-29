@@ -17,13 +17,13 @@
 }
 
 .popupLayer {
-	position: absolute;
+	/* position: absolute; */
 	display: none;
 	width: 50px;
 	height: 50px;
 	padding: 10px;
 }
-
+ 
 .popupLayer div {
 	position: absolute;
 	top: 5px;
@@ -39,19 +39,34 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+	var win=null;
+	function printIt(printThis)  {
+		if(confirm("회원의 구매내역을 출력하시겠습니까?")){
+			  win = window.open();
+			  self.focus();
+			  win.document.open();
+			  win.document.write('<'+'html'+'><'+'head'+'><'+'style'+'>');
+			  win.document.write('body, td { font-family: Verdana; font-size: 8pt;}');
+			  win.document.write('<'+'/'+'style'+'><'+'/'+'head'+'><'+'body'+'>');
+			  win.document.write(printThis);
+			  win.document.write('<'+'/'+'body'+'><'+'/'+'html'+'>');
+			  win.document.close();
+			  win.print();
+			  win.close();
+		}
+	}
+
 	$(function() {
-		
 		//'돌아가기'버튼
 		$("#back").click(function() {
 			location.href = '<c:url value="/Member.do"/>';
 		});
-	
 		//피자 이미지 띄우기
 		/* 마우스 오버시 근처에 레이어가 나타난다. */
 		$('.pizzaName').hover(function(e) {
-			console.log("this1:"+$(this).attr("name"));
+/* 			console.log("this1:"+$(this).attr("name"));
 			console.log("this2:"+$(this).parents().find("img").attr("src"));
-			
+ */			
 			var sWidth = window.innerWidth;
 			var sHeight = window.innerHeight;
 			var oWidth = $('.popupLayer').width();
@@ -65,16 +80,12 @@
 			// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
 			if (divLeft < 0) divLeft = 0;
 			if (divTop < 0) divTop = 0;
-			
-			
 			$("."+$(this).attr("name")).find('.popupLayer').css({
 				"top" : divTop,
 				"left" : divLeft,
 				"position" : "absolute"
 			}).show();
 		}, function() {$(".prd_img_view").parent().hide();});
-		
-		
 	});
 </script>
 <meta charset="utf-8">
@@ -103,18 +114,27 @@
 			<div>
 				<h3>
 					<span style="color: blue">${id}</span>님의 구매내역 페이지 입니다.
-				</h3>
 			</div>
-		</div>
+				</h3>
+				<a href="javascript:printIt(document.getElementById('printme').innerHTML)" title="현재 페이지를 출력합니다." style="margin-left:1360px;margin-top:-15px;position:absolute">
+					<button class="btn btn-sm btn-info">출력</button> 
+				</a>
+		</div> 
 		<!--  실제 내용의 제목 표시 -->
 		<div>
 			<!--  실제 내용 표시  -->
 			<form id="frm" action="<c:url value='/Member.do' />">
 				<div class="page-header" align="right" style="margin-top: 0px; margin-bottom: 0px">
-					<h2>구매내역</h2>
+					<h2 style="margin-top:10px;">구매내역</h2>
+				<button id="back" title="이전페이지로 이동합니다." class="btn btn-sm btn-info" style="margin-bottom: 5px;margin-top: 20px;float:left">돌아가기</button>
 				</div>
-				<button id="back" title="이전페이지로 이동합니다." class="btn btn-sm btn-info" style="margin-bottom: 5px;margin-top: 5px">돌아가기</button>
-				<div class="col-md-14" style='width: 1470px'>
+				<div class="col-md-14" style='width: 1470px' id="printme">
+					<div style="float:right;position:static;margin-bottom: 15px;margin-top: 15px;margin-right: 15px">
+						'<span style="color: blue;">${id}</span>'회원의 구매내역
+					</div>
+					<div>
+						<br/>
+					</div>
 					<!-- style='width:1200px'속성 추가 -->
 					<table class="table table-striped">
 						<thead style="background: pink;font-weight: bold;font-size: 15px">

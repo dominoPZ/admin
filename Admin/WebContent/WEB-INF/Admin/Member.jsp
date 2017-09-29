@@ -290,19 +290,6 @@ $(function(){
 				cols: '2,3,4,5,6,7,8,9,10,11,12'
 			});
 		}	
-		$(function(){
-			var flag=1;
-			$(".dropdown").click(function(){
-				if(flag==1){
-					$(this).addClass("open");
-					flag = 0;
-				}
-				else{
-					$(this).removeClass("open");
-					flag = 1;
-				}
-			});
-		});
 	</script>
     
 	<!-- Placed at the end of the document so the pages load faster -->

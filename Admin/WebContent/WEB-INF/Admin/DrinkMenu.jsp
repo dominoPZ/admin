@@ -16,8 +16,10 @@
 
     <title>상품메뉴 관리</title>
 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
-	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 
+	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+    <script src="<c:url value='/BootStrap/js/bootstrap.min.js' />" ></script>
+    
     <!-- Bootstrap core CSS --> <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap.min.css' />">
     <!-- Bootstrap theme --> <!-- 부가적인 테마 -->
@@ -68,7 +70,10 @@ thead {
  cursor: default;
 }
 
-
+tbody {
+vertical-align: middle;
+  text-align: center;
+}
 
 
 /* Red */
@@ -460,9 +465,6 @@ var id;
         </div>
       </div>      
 	      </div>
-	
-
-
     <!-- 내용 끝 -->
 <script>
 $(function(){
@@ -477,15 +479,12 @@ $(function(){
 			flag = 1;
 		}
 	});
-
 });
 </script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="<c:url value='/BootStrap/js/bootstrap.min.js' />" ></script>
   </body>
 </html>
     
