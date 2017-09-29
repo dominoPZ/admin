@@ -44,7 +44,9 @@ $(function(){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a id="home" class="navbar-brand" href="<c:url value='/login.pz"' />">도미노피자</a>
+			<a id="home" class="navbar-brand" href="/Admin/login.pz" style="padding:7px;"> 
+          	<img alt="관리자 메인페이지로 이동" src="<c:url value='/cmn/swatchbook/images/dominologo/logo2(small).png'/>" style="height:35px">
+         	</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -54,11 +56,8 @@ $(function(){
               <ul class="dropdown-menu" role="menu">
                 <li><a href="<c:url value='/Eventlist.do'/>">이벤트</a></li>
                 <li><a href="<c:url value='/Noticelist.do'/>">공지사항</a></li>
-    
               </ul>
-              
             </li>
-            
             <li class="dropdown">
               <a href="#" id="menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">상품메뉴 관리 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

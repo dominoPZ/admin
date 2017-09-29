@@ -168,7 +168,7 @@ $(function(){
 		<!-- 파일 다운로드 버튼 -->
 			<div class="top-panel" align="right" style="margin-bottom: 10px;margin-top: -40px" title="회원의 리스트를 원하는 양식으로 다운로드합니다.">
 		      <div class="btn-group">
-		        <button type="button" id="export" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">다운로드<span class="caret"></span></button>
+		        <button type="button" id="export" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">다운로드<span class="caret"></span></button>
 		        <ul class="dropdown-menu" role="menu">
 		          <li><a onclick="exportTo('csv');" href="javascript://">CSV</a></li>
 		          <li><a onclick="exportTo('txt');" href="javascript://">TXT</a></li>

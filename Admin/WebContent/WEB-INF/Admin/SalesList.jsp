@@ -87,6 +87,10 @@
 			}).show();
 		}, function() {$(".prd_img_view").parent().hide();});
 	});
+	$(function(){
+		//$("#memberInfo").hide();
+		
+	});
 </script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -116,8 +120,8 @@
 					<span style="color: blue">${id}</span>님의 구매내역 페이지 입니다.
 			</div>
 				</h3>
-				<a href="javascript:printIt(document.getElementById('printme').innerHTML)" title="현재 페이지를 출력합니다." style="margin-left:1360px;margin-top:-15px;position:absolute">
-					<button class="btn btn-sm btn-info">출력</button> 
+				<a href="javascript:printIt(document.getElementById('printme').innerHTML)" title="현재 페이지를 출력합니다." style="margin-left:1360px;margin-top:-20px;position:absolute">
+					<button class="btn btn-primary">출력</button> 
 				</a>
 		</div> 
 		<!--  실제 내용의 제목 표시 -->
@@ -125,12 +129,12 @@
 			<!--  실제 내용 표시  -->
 			<form id="frm" action="<c:url value='/Member.do' />">
 				<div class="page-header" align="right" style="margin-top: 0px; margin-bottom: 0px">
+					<button id="back" title="이전페이지로 이동합니다." class="btn btn-sm btn-info" style="margin-bottom: 25px;float:left">돌아가기</button>
 					<h2 style="margin-top:10px;">구매내역</h2>
-				<button id="back" title="이전페이지로 이동합니다." class="btn btn-sm btn-info" style="margin-bottom: 5px;margin-top: 20px;float:left">돌아가기</button>
 				</div>
 				<div class="col-md-14" style='width: 1470px' id="printme">
-					<div style="float:right;position:static;margin-bottom: 15px;margin-top: 15px;margin-right: 15px">
-						'<span style="color: blue;">${id}</span>'회원의 구매내역
+					<div id="memberInfo" style="float:center;position:static;margin-top: 15px;margin-right: 15px;" >
+						<div style="">'<span style="color: blue;">${id}</span>'회원의 구매내역</div>
 					</div>
 					<div>
 						<br/>
@@ -210,9 +214,6 @@
 		<h4 align="right" style="margin-right: 10px">'${id}'회원의 구매내역 총 합계 금액 : <span style="font-weight: bold;"><fmt:formatNumber value="${total}" />원</em></span></h4> 
 	</div>
 	</div>
-	
-	
-	
 	<!-- 내용 끝 -->
 	<!-- Bootstrap core JavaScript
     ================================================== -->
