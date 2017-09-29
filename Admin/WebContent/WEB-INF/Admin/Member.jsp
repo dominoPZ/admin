@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/plain; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <style>
 .firstTbody {cursor: pointer;}
 .ui-dialog {
@@ -17,8 +22,6 @@
 	height: 100px !important;
 }
 </style>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function(){
 	//UI-회원리스트 배경처리용
@@ -95,9 +98,7 @@ $(function(){
 	});	
 });
 </script>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <!--
     <link rel="icon" href="../../favicon.ico">
@@ -105,11 +106,19 @@ $(function(){
 <title>회원 관리</title>
 <!-- Bootstrap core CSS -->
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="<c:url value='/BootStrap/css/bootstrap.min.css' />">
+<link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap.min.css' />">
 <!-- Bootstrap theme -->
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap-theme.min.css' />" />
+
+<!-- 파일로 내보내기 -->
+<!-- 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"></link> -->
+<%-- 	<link rel="stylesheet" type="text/css" href="<c:url value='/cmn/tableexport/css/htmleaf-demo.css'/>">
+	<link rel="stylesheet" href="<c:url value='/cmn/tableexport/css/style.css'/>"> --%>
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+
 </head>
 <body role="document">
 	<div>
@@ -139,7 +148,7 @@ $(function(){
 				<input type="radio" value="rating" name="order" />등급 순&nbsp;
 				
 			
-		<form id="searchFrm" action="<c:url value='/Member.do' />">
+		<form id="searchFrm" action="<c:url value='/Member.do' />" style="margin-top: 15px">
 			<table class="tg">
 				<tr>
 					<td><span style="font-weight: bold;font-size: 1.5em">검색&nbsp;&nbsp;</span></td>
@@ -155,8 +164,24 @@ $(function(){
 					</th>
 				</tr>
 			</table>
-
+			
+		<!-- 파일 다운로드 버튼 -->
+			<div class="top-panel" align="right" style="margin-bottom: 10px;margin-top: -40px" title="회원의 리스트를 원하는 양식으로 다운로드합니다.">
+		      <div class="btn-group">
+		        <button type="button" id="export" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">다운로드<span class="caret"></span></button>
+		        <ul class="dropdown-menu" role="menu">
+		          <li><a onclick="exportTo('csv');" href="javascript://">CSV</a></li>
+		          <li><a onclick="exportTo('txt');" href="javascript://">TXT</a></li>
+		          <li><a onclick="exportTo('xls');" href="javascript://">XLS</a></li>
+		          <li><a onclick="exportTo('sql');" href="javascript://">SQL</a></li>
+		        </ul>
+		      </div>
+		  	</div>
+		  	
 		</form>
+
+		
+		
 </div>
 		<!-- ------기능 테이블 끝------ -->	
 
@@ -175,10 +200,10 @@ $(function(){
 				<button id="levbtn" type="submit" class="btn btn-sm btn-info" style="margin-bottom: 5px;margin-top: 5px">탈퇴</button>
 
 
-				<div class="col-md-14" style='width: 1470px'>
+				<div class="col-md-14" style='width: 1470px' class="table-responsive">
 					<!-- style='width:1200px'속성 추가 -->
 
-					<table class="table table-striped">
+					<table id="firm_table" class="table table-striped">
 
 
 
@@ -238,6 +263,7 @@ $(function(){
 							</c:choose>
 						</tbody>
 					</table>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -248,8 +274,38 @@ $(function(){
 	<!-- 내용 끝 -->
 	<!-- Bootstrap core JavaScript
     ================================================== -->
+    <!-- 파일로 내보내기 -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+	<script src="<c:url value='/cmn/tableexport/js/jquery-1.11.0.min.js'/>"></script>
+	
+	<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+	<script type="text/javascript" src="<c:url value='/BootStrap/js/bootstrap.min.js'/>"></script>
+	
+	<script src="<c:url value='/cmn/tableexport/dist/tableExporter.js'/>"></script>
+      <script>
+		function exportTo(type) {
+			$('.table').tableExport({
+				filename: 'memberList_%YY%/%MM%/%DD%',
+				format: type,
+				cols: '2,3,4,5,6,7,8,9,10,11,12'
+			});
+		}	
+		$(function(){
+			var flag=1;
+			$(".dropdown").click(function(){
+				if(flag==1){
+					$(this).addClass("open");
+					flag = 0;
+				}
+				else{
+					$(this).removeClass("open");
+					flag = 1;
+				}
+			});
+		});
+	</script>
+    
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
-	<script src="<c:url value='/BootStrap/js/bootstrap.min.js' />"></script>
+<!-- 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 </body>
 </html>

@@ -30,7 +30,7 @@ top:10;
         <div class="container">
 			<header>
 	            <div class="headerLogo" style="margin-top:-20px;float:left;position:absolute">
-	                <img alt="biglogo" style="" src="<c:url value='/cmn/swatchbook/images/dominologo/logo2(small).png'/>"/>
+	                <img alt="smalllogo" style="" src="<c:url value='/cmn/swatchbook/images/dominologo/logo2(small).png'/>"/>
 	            </div>
 				<h1 style="margin-top:10px"><span>Domino Pizza</span> 관리자 페이지 입니다 :)</h1>
 				<h2 style="font-family: 'Hanna', serif">원하시는 라벨을 클릭하여 관리페이지로 이동하세요 :)</h2>
