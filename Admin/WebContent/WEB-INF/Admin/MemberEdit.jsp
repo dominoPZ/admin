@@ -23,7 +23,7 @@
 
 
 
-    <title>회원 정보 수정 페이지</title>
+    <title>회원 정보 수정</title>
 
     <!-- Bootstrap core CSS --> <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap.min.css' />">

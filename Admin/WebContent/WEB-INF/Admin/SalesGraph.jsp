@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>판매량 확인 페이지</title>
+    <title>판매량 확인</title>
 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
 	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 

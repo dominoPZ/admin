@@ -14,7 +14,7 @@
     
     
     
-    <title>사이드 메뉴 추가</title>    
+    <title>상품메뉴 관리</title>    
    <meta charset="utf-8" />
    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/Styles/divLayout.css"/>   
 

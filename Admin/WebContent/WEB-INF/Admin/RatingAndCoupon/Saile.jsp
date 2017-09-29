@@ -18,7 +18,7 @@
 	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
    
 
-    <title>할인 쿠폰 관리 페이지</title>
+    <title>할인 쿠폰 관리</title>
 
     <!-- Bootstrap core CSS --> <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap.min.css' />">

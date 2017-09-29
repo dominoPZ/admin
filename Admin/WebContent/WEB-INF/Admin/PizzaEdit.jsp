@@ -13,7 +13,7 @@
     <!-- Bootstrap theme --> <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="<c:url value='/BootStrap/css/bootstrap-theme.min.css' />" />
     
-    <title>메뉴 등록</title>    
+    <title>상품메뉴 관리</title>    
    <meta charset="utf-8" />
    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/Styles/divLayout.css"/>   
 <script>

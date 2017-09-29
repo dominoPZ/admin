@@ -14,7 +14,7 @@
     <link rel="icon" href="../../favicon.ico">
    -->
 
-    <title>피클&소스 메뉴 관리 페이지</title>
+    <title>피클&소스 메뉴 관리</title>
 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
 	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 

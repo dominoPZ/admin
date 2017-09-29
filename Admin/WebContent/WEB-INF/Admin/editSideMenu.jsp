@@ -14,7 +14,7 @@
     <link rel="icon" href="../../favicon.ico">
    -->
 
-<title>사이드 메뉴 수정</title>
+<title>상품메뉴 관리</title>
 
 <!-- Bootstrap core CSS -->
 <!-- 합쳐지고 최소화된 최신 CSS -->
