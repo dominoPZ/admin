@@ -44,7 +44,7 @@ $(function(){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-			<a id="home" class="navbar-brand" href="/Admin/login.pz" style="padding:7px;"> 
+			<a id="home" class="navbar-brand" href="/Admin/login.pz" style="padding:7px;padding-right:20px"> 
           	<img alt="관리자 메인페이지로 이동" src="<c:url value='/cmn/swatchbook/images/dominologo/logo2(small).png'/>" style="height:35px">
          	</a>
         </div>
