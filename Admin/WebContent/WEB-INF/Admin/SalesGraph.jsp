@@ -55,8 +55,12 @@ $(function () {
 	       title: {
 	          <c:if test="${!empty emp}" var="emps">
 	          <c:if test="${!empty price}">
-	          // 매출액
-	            text: '피자 별 매출액'
+	          <c:if test="${!empty time}" var="times">
+		    	text: '피자 판매량 추이[시간별]'
+		    	</c:if>
+	          <c:if test="${!times}">
+		        text: '피자 판매량 추이'
+		        </c:if>
 	           </c:if>
 	            <c:if test="${empty price}">
 	          //수량으로 볼 경우
@@ -77,12 +81,8 @@ $(function () {
 	          //수량으로 볼 경우
 	                text: '판매량이 높은 순으로 영역을 차지 합니다.'
 	           </c:if>
-	          
-	          
-	           
-	           
-	           
 	           </c:if>
+	           
 	       },
 	       plotOptions: {
 	           pie: {
@@ -120,9 +120,8 @@ $(function () {
 	           ]
 	       }]
 	   });///////////////////////////////////////그래프
-	   
-
 		$('select option[value=${st_no}]').attr("selected","selected");
+//	   	alert('${radios}');
 //		$('.radios').val('${radios}').prop("checked",true);
 //		$('input:radio[name="radios"][value="${radios}"]').prop('checked', true);
 
@@ -159,6 +158,7 @@ $(function () {
       <span style="font-size: 20px">판매량</span>
       <input class="radios" type="radio" name="radios" value="price" >가격
       <input class="radios" type="radio" name="radios" value="qty" >수량
+       <input class="radios" type="radio" name="radios" value="time" >시간
       <div style="text-align: center;" >
       <c:if test="${!empty st_name }" var="noname" >
       <span style="font-size: 1.5em"> 매장명 : ${st_name } </span>

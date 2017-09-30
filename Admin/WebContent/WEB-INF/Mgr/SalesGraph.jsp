@@ -54,11 +54,24 @@ $(function () {
 	    },
 	    title: {
 	    	<c:if test="${!empty emp}" var="emps">
-	        text: '피자 판매량 추이'
-	        </c:if>
-	    	<c:if test="${!emps}">
-	    	text: '<span style="font-size:1.3em; font-weight:bold"><h1>판매된 피자가 없습니다.</h1><span>'
-	    	</c:if>
+	          <c:if test="${!empty price}">
+	          <c:if test="${!empty time}" var="times">
+		    	text: '피자 판매량 추이[시간별]'
+		    	</c:if>
+	          <c:if test="${!times}">
+		        text: '피자 판매량 추이'
+		        </c:if>
+	           </c:if>
+	            <c:if test="${empty price}">
+	          //수량으로 볼 경우
+	                text: '피자 별 판매 수량'
+	           </c:if>
+	           </c:if>
+	          <c:if test="${!emps}">
+	          text: '<span style="font-size:1.3em; font-weight:bold"><h1>판매된 피자가 없습니다.</h1><span>'
+	          </c:if>
+	    	
+	    	
 	    	},
 	    subtitle: {
 	        text: '판매액이 높은 순으로 영역을 차지 합니다.'
@@ -88,9 +101,8 @@ $(function () {
 	            </c:if>
 	            //수량으로 볼 경우
 	            <c:if test="${empty price}">
-		        ['${dto.name}',${dto.count}]
+		        ['<h2>${dto.name}</h2>',${dto.count}]
 		        </c:if>
-	            
 	            
 	            <c:if test='${!loop.last}'>
 	            ,
@@ -135,6 +147,7 @@ $(function () {
       <span style="font-size: 20px">판매량</span>
       <input class="radios" type="radio" name="radios" value="price" >가격
       <input class="radios" type="radio" name="radios" value="qty" >수량
+      <input class="radios" type="radio" name="radios" value="time" >시간
 		<!-- <input type=checkbox id="checkbox" value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
 		<!-- <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
 	</div>
