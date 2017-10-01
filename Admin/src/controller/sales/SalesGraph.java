@@ -47,6 +47,13 @@ public class SalesGraph extends HttpServlet {
 		if(st_no!=null && st_no.length()>0) {
 			whe += " AND ST_NO = '"+st_no+"' ";
 		}
+		
+		// 시간별 검색
+		if(req.getParameter("radios").trim().equals("time")) {
+			
+			
+		}
+		
 		// 반환을 위한 리스트 생성
 		//피자용
 		List<Map> list = new Vector<>();
@@ -68,81 +75,13 @@ public class SalesGraph extends HttpServlet {
 			req.setAttribute("st_no", map.get("st_no"));
 		}
 		
-		
-		
-		// 시간별 매출 현황 볼 때
-//		String time=req.getParameter("time");
-		if(req.getParameter("radios")!=null&&req.getParameter("radios").trim().equals("time")) {
-			if(fstDate!=null && fstDate.length()>0) {
-				
-			}
-			else{
-				fstDate="2005-01-01";
-				sndDate="2050-12-30";
-			}
-				
-				
-			list = new Vector<>();
-			 for(int i =0 ; i<24 ; i+=3) {
-				 List<Map> list2 = new Vector<>();
-				 Map map = new HashMap<>();
-				 String stime="";
-				 String etime="";
-				 
-				 
-				 if(i<10)
-					 stime="0"+i;
-				 else
-					 stime=""+i;
-				 
-				 if(i+2<10)
-					 etime="0"+(i+2);
-				 else
-					 etime=""+(i+2);
-				 
-				 list2 = dao.timeSales(fstDate,sndDate,s+time,etime,whe);
-				 int idx=0;
-				 String names="["+stime+":00~"+etime+":00] ";
-				 int price=0;
-				 for(Map maps : list2) {
-					 if(idx==0) {
-						 names+=maps.get("name").toString();
-						 price+=Integer.parseInt(maps.get("price").toString());
-					 }
-					 else if(idx==list.size()-1) {
-						 price+=Integer.parseInt(maps.get("price").toString());
-						 names+="(외 "+idx+"개)";
-					 }
-					 else
-					 {
-						 names+="";
-						 price+=Integer.parseInt(maps.get("price").toString());						 
-					 } 
-					 idx++;
-				 }
-				 if(price!=0) {
-				 map.put("name", names);
-				 map.put("price", price);
-				 list.add(map);
-				 }
-			 }
-		}
-		
-		
-		
-		
 		///판매된 피자 있는지 여부 확인
 		if(list.size()>0) {
 			req.setAttribute("emp", "notempty");
 		}
 		
-		//가격별 인지 수량별 인지 시간별인지 체크여부
-			if(req.getParameter("radios")!=null&&req.getParameter("radios").trim().equals("time"))
-			{
-				req.setAttribute("price", "price");
-				req.setAttribute("time", "time");
-			}
-			else if(req.getParameter("radios")!=null) {
+		//가격별 인지 수량별 인지 체크여부
+		if(req.getParameter("radios")!=null) {
 			if(req.getParameter("radios").equals("price")) {
 				System.out.println(req.getParameter("radios"));
 				req.setAttribute("price", "price");

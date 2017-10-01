@@ -113,29 +113,31 @@ public class SalesDAO {
 		return map;
 	}
 
-	public List<Map> timeSales(String fstDate, String sndDate, String stime, String etime, String whe) {
+	
+	public List<Map> timeSales(String whe) {
 		List list = new Vector<>();
-		String sql =" SELECT MENU_NAME,MENU_PRICE FROM "+
-					" SALES S JOIN SALES_MENU SM ON S.SA_NO = SM.SA_NO "+
-					" WHERE 1=1 AND TO_DATE(to_char(SA_DATE,'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS ') "+
-					" BETWEEN TO_DATE('"+fstDate+" +"+stime+":00:00','YYYY-MM-DD HH24:MI:SS') "+
-					" AND TO_DATE('"+sndDate+" "+etime+":59:59','YYYY-MM-DD HH24:MI:SS') "+whe;
-				try {
-					psmt = conn.prepareStatement(sql);
-					rs = psmt.executeQuery();
-					while(rs.next()) {
-						Map map = new HashMap<>();
-						map.put("name", rs.getString(1));
-						map.put("price", rs.getString(2));
-						list.add(map);
-					}
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-
+		String sql = " SELECT MENU_NAME,MENU_PRICE,TO_CHAR(SA_DATE,('HH24:MI') "+
+		" FROM SALES S JOIN SALES_MENU SM ON SM.SA_NO = S.SA_NO "+
+		" WHERE MENU_KIND=1 ";
+		sql+=whe;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Map map = new HashMap<>();
+				map.put("name", rs.getString(1));
+				map.put("price", rs.getString(2));
+				map.put("time", rs.getString(3));
+				list.add(map);
+			}
 			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return list;
-	}
+		}
 	
 	
 	

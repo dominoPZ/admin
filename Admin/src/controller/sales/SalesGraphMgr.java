@@ -54,67 +54,43 @@ public class SalesGraphMgr extends HttpServlet {
 		
 		//dao 실행 -- 반환 받는 인자 
 		// 판매된 피자 호출용 -- 피자명 - name , 수량 - count , 가격 - price
+		/// 시간별 검색일 때
+		if(req.getParameter("radios")!=null&&req.getParameter("radios").trim().equals("time")) {
+			list=dao.timeSales(whe);
+			List<Map> list0=new Vector<>();
+			List<Map> list9=new Vector<>();
+			List<Map> list18=new Vector<>();
+			List<Map> list20=new Vector<>();
+			List<Map> list22=new Vector<>();
+			for(Map map : list) {
+				int times = Integer.parseInt(map.get("time").toString().split(":")[0]);
+				if(times>=2 && times<9) {
+					list0.add(map);
+				}
+				else if(times>=9 && times<18) {
+					list9.add(map);
+				}
+				else if(times>=18 && times<20) {
+					list18.add(map);
+				}
+				else if(times>=20 && times<22) {
+					list20.add(map);
+					
+				}
+				else if(times>=22) {
+					list22.add(map);
+				}
+			}
+			
+			
+		}
+		else///// 시간별 검색 외
 		list = dao.pizzaGraph(whe);
 		// 매장 목록 출력용 -- 매장명 - st_name , 매장번호 - st_no
 		stores = dao.sotresList("");
 
 		// 시간별 매출 현황 볼 때
 //		String time=req.getParameter("time");
-		if(req.getParameter("radios")!=null&&req.getParameter("radios").trim().equals("time")) {
-			if(fstDate!=null && fstDate.length()>0) {
-				
-			}
-			else{
-				fstDate="2005-01-01";
-				sndDate="2050-12-30";
-			}
-				
-				
-			list = new Vector<>();
-			 for(int i =0 ; i<24 ; i+=3) {
-				 List<Map> list2 = new Vector<>();
-				 Map map = new HashMap<>();
-				 String stime="";
-				 String etime="";
-				 
-				 
-				 if(i<10)
-					 stime="0"+i;
-				 else
-					 stime=""+i;
-				 
-				 if(i+3<10)
-					 etime="0"+(i+3);
-				 else
-					 etime=""+(i+3);
-				 
-				 list2 = dao.timeSales(fstDate,sndDate,stime,etime,whe);
-				 int idx=0;
-				 String names="["+stime+":00~"+etime+":00] ";
-				 int price=0;
-				 for(Map maps : list2) {
-					 if(idx==0) {
-						 names+=maps.get("name").toString();
-						 price+=Integer.parseInt(maps.get("price").toString());
-					 }
-					 else if(idx==list.size()-1) {
-						 price+=Integer.parseInt(maps.get("price").toString());
-						 names+="(외 "+idx+"개)";
-					 }
-					 else
-					 {
-						 names+="";
-						 price+=Integer.parseInt(maps.get("price").toString());						 
-					 } 
-					 idx++;
-				 }
-				 if(price!=0) {
-				 map.put("name", names);
-				 map.put("price", price);
-				 list.add(map);
-				 }
-			 }
-		}
 		
 		
 
