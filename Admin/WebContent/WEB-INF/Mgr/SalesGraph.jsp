@@ -144,18 +144,18 @@ $(function () {
   <form action="<c:url value='/SalesGraphMgr.do' />" method="get" id="frm">
 	
 	<div class="page-header">
-      <span style="font-size: 20px">판매량</span>
-      <input class="radios" type="radio" name="radios" value="price" >가격
-      <input class="radios" type="radio" name="radios" value="qty" >수량
-      <input class="radios" type="radio" name="radios" value="time" >시간
+
 		<!-- <input type=checkbox id="checkbox" value="음료 수정" class="btn btn-sm btn-info" OnClick="javascript:editDrink()" style="float:right;margin-left: 8px"> -->
 		<!-- <input type=button value="음료 추가" class="btn btn-sm btn-info" OnClick="javascript:addDrink()" style="float:right"> -->
 	</div>
 
 <!-- 컨텐츠 시작============================================================ -->
 
-
-  기간 선택 : <input type="date" name="date1" value="${date1 }" /> ~ <input type="date" value="${date2 }" name="date2" />
+      <span style="font-size: 20px">판 매 량 : </span>
+      <input class="radios" type="radio" name="radios" value="price" >가격
+      <input class="radios" type="radio" name="radios" value="qty" >수량
+      <input class="radios" type="radio" name="radios" value="time" >시간
+  <span style="font-size: 20px"> 기간 선택 : </span><input type="date" name="date1" value="${date1 }" /> ~ <input type="date" value="${date2 }" name="date2" />
 		<input type="submit" style="margin-left:10px" class="btn btn-sm btn-info" value="확인"/>
 <%--   	<select id="selectStore" name="stores" style="float:right">
 	  	<option value="">전체 매장</option>
@@ -177,11 +177,12 @@ $(function () {
 
 <script>
 $(function(){
+
 	
-	
+/* 	
 	$(".radios").change(function(){
 		$(":submit").trigger("click");
-	});
+	}); */
 	
 	
 });

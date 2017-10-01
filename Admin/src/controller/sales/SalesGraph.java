@@ -48,11 +48,11 @@ public class SalesGraph extends HttpServlet {
 			whe += " AND ST_NO = '"+st_no+"' ";
 		}
 		
-		// 시간별 검색
+	/*	// 시간별 검색
 		if(req.getParameter("radios").trim().equals("time")) {
 			
 			
-		}
+		}*/
 		
 		// 반환을 위한 리스트 생성
 		//피자용
@@ -62,7 +62,49 @@ public class SalesGraph extends HttpServlet {
 		
 		
 		//dao 실행 -- 반환 받는 인자 
-		// 판매된 피자 호출용 -- 피자명 - name , 수량 - count , 가격 - price
+		/// 시간별 검색일 때
+		if(req.getParameter("radios")!=null&&req.getParameter("radios").trim().equals("time")) {
+			list=dao.timeSales(whe);
+			List<Map> list0=new Vector<>();
+			List<Map> list9=new Vector<>();
+			List<Map> list18=new Vector<>();
+			List<Map> list20=new Vector<>();
+			List<Map> list22=new Vector<>();
+			for(Map map : list) {
+				int times = Integer.parseInt(map.get("time").toString().split(":")[0]);
+				System.out.println(times+"!");
+				if(times>=0 && times<9) {
+					list0.add(map);
+				}
+				else if(times>=9 && times<18) {
+					list9.add(map);
+				}
+				else if(times>=18 && times<20) {
+					list18.add(map);
+				}
+				else if(times>=20 && times<22) {
+					list20.add(map);
+					
+				}
+				else if(times>=22) {
+					list22.add(map);
+				}
+			}
+			int idx=0;
+			int prc=0;
+			list = new Vector<>();
+			if(list0!=null&&list0.size()!=0)
+			list.add(timelist(list0,"00","09"));
+			if(list9!=null&&list9.size()!=0)
+			list.add(timelist(list9,"09","18"));
+			if(list18!=null&&list18.size()!=0)
+			list.add(timelist(list18,"18","20"));
+			if(list20!=null&&list20.size()!=0)
+			list.add(timelist(list20,"20","22"));
+			if(list22!=null&&list22.size()!=0)
+			list.add(timelist(list22,"22","24"));
+		}
+		else///// 시간별 검색 외
 		list = dao.pizzaGraph(whe);
 		// 매장 목록 출력용 -- 매장명 - st_name , 매장번호 - st_no
 		stores = dao.sotresList("");
@@ -81,7 +123,12 @@ public class SalesGraph extends HttpServlet {
 		}
 		
 		//가격별 인지 수량별 인지 체크여부
-		if(req.getParameter("radios")!=null) {
+		if(req.getParameter("radios")!=null&&req.getParameter("radios").trim().equals("time"))
+		{
+			req.setAttribute("price", "price");
+			req.setAttribute("time", "time");
+		}
+		else if(req.getParameter("radios")!=null) {
 			if(req.getParameter("radios").equals("price")) {
 				System.out.println(req.getParameter("radios"));
 				req.setAttribute("price", "price");
@@ -105,4 +152,24 @@ public class SalesGraph extends HttpServlet {
 		
 	}
 
+	Map timelist(List<Map> list,String fr,String sd){
+		
+		int idx=0;
+		int prc=0;
+		List<Map> list2 = new Vector<>();
+		Map map = new HashMap<>();
+		for(Map maps : list) {
+			map.put("name", idx==0?"["+fr+":00~"+sd+":00]"+maps.get("name").toString():"["+fr+":00~"+sd+":00]"+maps.get("name")+"외 "+idx+"개");
+			map.put("price",
+					map.get("price")==null?maps.get("price").toString():
+						Integer.parseInt(map.get("price").toString())+
+						Integer.parseInt(maps.get("price").toString())
+					);
+			idx++;
+		}
+		if(list==null&&list.size()==0)return null;
+		return map;
+	}
+	
+	
 }

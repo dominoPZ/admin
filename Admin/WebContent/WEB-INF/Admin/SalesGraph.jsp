@@ -42,18 +42,18 @@
 
 <script>
 $(function () {
-	   
-	   //그래프
-	   Highcharts.chart('container', {
-	       chart: {
-	           type: 'pie',
-	           options3d: {
-	               enabled: true,
-	               alpha: 45 //기울기
-	           }
-	       },
-	       title: {
-	          <c:if test="${!empty emp}" var="emps">
+	
+	//그래프
+	Highcharts.chart('container', {
+	    chart: {
+	        type: 'pie',
+	        options3d: {
+	            enabled: true,
+	            alpha: 45 //기울기
+	        }
+	    },
+	    title: {
+	    	<c:if test="${!empty emp}" var="emps">
 	          <c:if test="${!empty price}">
 	          <c:if test="${!empty time}" var="times">
 		    	text: '피자 판매량 추이[시간별]'
@@ -70,56 +70,47 @@ $(function () {
 	          <c:if test="${!emps}">
 	          text: '<span style="font-size:1.3em; font-weight:bold"><h1>판매된 피자가 없습니다.</h1><span>'
 	          </c:if>
-	       },
-	       subtitle: {
-	          <c:if test="${!empty emp}" var="emps">
-	          <c:if test="${!empty price}">
-	          // 매출액
-	            text: '판매액이 높은 순으로 영역을 차지 합니다.'
-	           </c:if>
+	    	
+	    	
+	    	},
+	    subtitle: {
+	        text: '판매액이 높은 순으로 영역을 차지 합니다.'
+	    },
+	    plotOptions: {
+	        pie: {
+	            innerSize: 220,
+	            depth: 60
+	        }
+	    },
+	    series: [{
+	    	// 매출액
+	    	<c:if test="${!empty price}">
+	        name: '매출 액',
+	        </c:if>
+	    	
+	    	//수량으로 볼 경우
+            <c:if test="${empty price}">
+            	name: '수량 ',
+	        </c:if>
+	    	
+	        data: [
+	            <c:forEach items='${sales}' var='dto' varStatus='loop' >
+	            /// 가격으로 볼 경우
+	            <c:if test="${!empty price}">
+	            ['${dto.name}',${dto.price}]
+	            </c:if>
+	            //수량으로 볼 경우
 	            <c:if test="${empty price}">
-	          //수량으로 볼 경우
-	                text: '판매량이 높은 순으로 영역을 차지 합니다.'
-	           </c:if>
-	           </c:if>
-	           
-	       },
-	       plotOptions: {
-	           pie: {
-	               innerSize: 220,
-	               depth: 60
-	           }
-	       },
-	       series: [{
-	    	   
-	    	   <c:if test="${!empty price}">
-	           // 매출액
-	            name: '매출 액',
+		        ['<h2>${dto.name}</h2>',${dto.count}]
+		        </c:if>
+	            
+	            <c:if test='${!loop.last}'>
+	            ,
 	            </c:if>
-	             <c:if test="${empty price}">
-	           //수량으로 볼 경우
-	                name: '수량 ',
-	            </c:if>
-	           
-	           data: [
-
-	        	   
-	        	   
-	               <c:forEach items='${sales}' var='dto' varStatus='loop' >
-	               <c:if test="${!empty price}">
-	               ['${dto.name}',${dto.price}]
-	               </c:if>
-	               <c:if test="${empty price}">
-	               //수량으로 볼 경우
-	               ['${dto.name}',${dto.count}]
-	              </c:if>
-	               <c:if test='${!loop.last}'>
-	               ,
-	               </c:if>
-	               </c:forEach>
-	           ]
-	       }]
-	   });///////////////////////////////////////그래프
+	            </c:forEach>
+	        ]
+	    }]
+	});///////////////////////////////////////그래프
 		$('select option[value=${st_no}]').attr("selected","selected");
 //	   	alert('${radios}');
 //		$('.radios').val('${radios}').prop("checked",true);
@@ -155,10 +146,7 @@ $(function () {
 
   <form action="<c:url value='/SalesGraph.do' />" method="get" id="frm">
    <div class="page-header">
-      <span style="font-size: 20px">판매량</span>
-      <input class="radios" type="radio" name="radios" value="price" >가격
-      <input class="radios" type="radio" name="radios" value="qty" >수량
-       <input class="radios" type="radio" name="radios" value="time" >시간
+
       <div style="text-align: center;" >
       <c:if test="${!empty st_name }" var="noname" >
       <span style="font-size: 1.5em"> 매장명 : ${st_name } </span>
@@ -173,8 +161,11 @@ $(function () {
 
 <!-- 컨텐츠 시작============================================================ -->
 
-
-  기간 선택 : <input type="date" name="date1" value="${date1 }" /> ~ <input type="date" value="${date2 }" name="date2" />
+       <span style="font-size: 20px">판매량</span>
+      <input class="radios" type="radio" name="radios" value="price" >가격
+      <input class="radios" type="radio" name="radios" value="qty" >수량
+      <input class="radios" type="radio" name="radios" value="time" >시간<br/>
+ <span style="font-size: 20px"> 기간 선택 : </span><input type="date" name="date1" value="${date1 }" /> ~ <input type="date" value="${date2 }" name="date2" />
       <input type="submit" style="margin-left:10px" class="btn btn-sm btn-info" value="확인"/>
      <select id="selectStore" name="stores" style="float:right">
         <option value="">전체 매장</option>
@@ -206,9 +197,9 @@ $(function(){
       $(":submit").trigger("click");
    });
 */
-	$(".radios").change(function(){
+/* 	$(".radios").change(function(){
       $(":submit").trigger("click");
-   }); 
+   });  */
    
    $("#selectStore").change(function(){
       $(":submit").trigger("click");

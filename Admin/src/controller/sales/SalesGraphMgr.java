@@ -64,7 +64,8 @@ public class SalesGraphMgr extends HttpServlet {
 			List<Map> list22=new Vector<>();
 			for(Map map : list) {
 				int times = Integer.parseInt(map.get("time").toString().split(":")[0]);
-				if(times>=2 && times<9) {
+				System.out.println(times+"!");
+				if(times>=0 && times<9) {
 					list0.add(map);
 				}
 				else if(times>=9 && times<18) {
@@ -81,8 +82,19 @@ public class SalesGraphMgr extends HttpServlet {
 					list22.add(map);
 				}
 			}
-			
-			
+			int idx=0;
+			int prc=0;
+			list = new Vector<>();
+			if(list0!=null&&list0.size()!=0)
+			list.add(timelist(list0,"00","09"));
+			if(list9!=null&&list9.size()!=0)
+			list.add(timelist(list9,"09","18"));
+			if(list18!=null&&list18.size()!=0)
+			list.add(timelist(list18,"18","20"));
+			if(list20!=null&&list20.size()!=0)
+			list.add(timelist(list20,"20","22"));
+			if(list22!=null&&list22.size()!=0)
+			list.add(timelist(list22,"22","24"));
 		}
 		else///// 시간별 검색 외
 		list = dao.pizzaGraph(whe);
@@ -139,4 +151,24 @@ public class SalesGraphMgr extends HttpServlet {
 		
 	}
 
+	Map timelist(List<Map> list,String fr,String sd){
+		
+		int idx=0;
+		int prc=0;
+		List<Map> list2 = new Vector<>();
+		Map map = new HashMap<>();
+		for(Map maps : list) {
+			map.put("name", idx==0?"["+fr+":00~"+sd+":00]"+maps.get("name").toString():"["+fr+":00~"+sd+":00]"+maps.get("name")+"외 "+idx+"개");
+			map.put("price",
+					map.get("price")==null?maps.get("price").toString():
+						Integer.parseInt(map.get("price").toString())+
+						Integer.parseInt(maps.get("price").toString())
+					);
+			idx++;
+		}
+		if(list==null&&list.size()==0)return null;
+		return map;
+	}
+	
+	
 }

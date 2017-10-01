@@ -116,7 +116,7 @@ public class SalesDAO {
 	
 	public List<Map> timeSales(String whe) {
 		List list = new Vector<>();
-		String sql = " SELECT MENU_NAME,MENU_PRICE,TO_CHAR(SA_DATE,('HH24:MI') "+
+		String sql = " SELECT MENU_NAME,MENU_PRICE,TO_CHAR(SA_DATE,('HH24:MI')) "+
 		" FROM SALES S JOIN SALES_MENU SM ON SM.SA_NO = S.SA_NO "+
 		" WHERE MENU_KIND=1 ";
 		sql+=whe;
