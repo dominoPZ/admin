@@ -142,7 +142,9 @@ $(function () {
       <!--            <h2>음료 관리(등록/수정/삭제) 페이지 입니다.</h2> -->
    </div>
 
-   <div style="width: 100%; text-align: center;" id="message"></div>
+   <div style="width: 100%; text-align: center;" id="message">
+   
+   </div>
 
   <form action="<c:url value='/SalesGraph.do' />" method="get" id="frm">
    <div class="page-header">
@@ -160,8 +162,8 @@ $(function () {
    </div>
 
 <!-- 컨텐츠 시작============================================================ -->
-
-       <span style="font-size: 20px">판매량</span>
+	<div>
+      <span style="font-size: 20px">판매량</span>
       <input class="radios" type="radio" name="radios" value="price" >가격
       <input class="radios" type="radio" name="radios" value="qty" >수량
       <input class="radios" type="radio" name="radios" value="time" >시간<br/>
@@ -174,7 +176,6 @@ $(function () {
         </c:forEach>
    </select>
   <label style="float:right">매장 선택 :&nbsp;</label>
-  </form>
 
       <!-- 파이 그래프 -->
     <fieldset style="margin-top:20px">
@@ -183,6 +184,53 @@ $(function () {
 
 <!-- 컨텐츠 끝============================================================ -->
    </div>
+  </form>
+  <br/>
+	<%-- <fieldset>
+	<legend> </legend>
+	
+  	<div class="col-md-14" class="table-responsive">
+
+					<table id="firm_table" class="table table-striped">
+
+
+
+						<thead style="background:#ff8f64;font-weight: bold;font-size: 15px">
+							<tr>
+								<th>매장명</th>
+								<th>일자</th>
+								<th>메뉴명</th>
+								<th>가격</th>
+								<th>수량</th>
+								<th>뭘넣지</th>
+							</tr>
+						</thead>
+
+						<tbody class="firstTbody">
+								<c:if test="${empty list }">
+									<tr align="center">
+										<td colspan="15">판매된 내역이 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:if test="${!empty list }">
+									<c:forEach var="item" items="${list}">
+										<tr class="firstTbodyTr" id="${item.id}" title="클릭하시면 '${item.id}'회원의 구매내역 페이지로 이동합니다.">
+											<td class="checkcheck"><input type="checkbox" value="${item.id}" name="leave" /></td>
+											<td class="customerId">${item.id}</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</c:forEach>
+								</c:if>
+						</tbody>
+					</table>
+					</div>
+  	</fieldset>
+  	 --%>
+
    </div>
 	
 	
@@ -217,6 +265,7 @@ $(function(){
    });
 });
 </script>
+
 
 
 

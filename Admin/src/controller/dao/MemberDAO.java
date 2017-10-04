@@ -151,7 +151,7 @@ public class MemberDAO {
 			affected = psmt.executeUpdate();
 			if(affected == 1) {
 				psmt = conn.prepareStatement(sql2);
-				switch (dto.getName()) {
+				switch (dto.getR_name()) {
 				case "REGULAR": psmt.setString(1, "1");	psmt.setString(2, "REGULAR"); break;
 				case "PREMIUM": psmt.setString(1, "2");	psmt.setString(2, "PREMIUM"); break;
 				case "VIP": psmt.setString(1, "3");	psmt.setString(2, "VIP"); break;

@@ -264,8 +264,8 @@ $(function(){
 						</tbody>
 					</table>
 					</div>
-				</div>
 			</form>
+				</div>
 		</div>
 	</div>
 	</div>

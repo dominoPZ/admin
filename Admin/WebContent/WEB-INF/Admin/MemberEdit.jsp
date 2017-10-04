@@ -94,7 +94,7 @@
 	}
 	
 	function CheckTel(){
-		var tel = $("#tel").val();
+		var tel = $("#tel").val();/* 
 		if(tel.length == 0){
 			$("#CheckTel").get(0).innerHTML = "번호를 입력해 주세요.";
 			e=0;
@@ -107,11 +107,11 @@
 			$("#CheckTel").get(0).innerHTML = "";
 			
 			e=1;
-		}
+		} */
 	}
 	function clicks(){
-
-		if(a+c+d+e===4){
+		
+		if(1==1){
 			signup.submit();
 		}
 		else{
